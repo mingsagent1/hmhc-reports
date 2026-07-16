@@ -1,9 +1,9 @@
-# SOP 1 — Raw Data Retrieval (SG Banks · CoreTables)
+# SOP 1 — Raw Data Retrieval (SG Banks · Tables)
 
 > **Project:** Singapore Bank Stock Accumulation Strategy
-> **Artifact:** `SGBanks · CoreTables · SOP-Retrieval` — **260716-161218** (timestamp id — see filename)
+> **Artifact:** `SGBanks_Tables_SOPRetrieval.md` — version history in git (`git log --oneline SGBanks_Tables_SOPRetrieval.md`).
 > **Status:** Draft — not yet validated by a full two-agent run.
-> **Pairs with:** `SGBanks_CoreTables_Ledger_260716-161218.csv` (its output) → `SGBanks_CoreTables_SOP-Report_260716-161218.md` (next stage).
+> **Pairs with:** `SGBanks_Tables_Ledger.csv` (its output) → `SGBanks_Tables_SOPReport.md` (next stage).
 > **Supersedes:** ad-hoc brief `SOP_BankDataAndTables.md`.
 > **Ledger schema:** v0.2 (adds `px_version` / `cl_version` run-stamp columns, format `YYYYMMDD-NNN <Harness><Model>`).
 > **Changelog:** v0.1 — Split retrieval from report-build (was one monolithic brief); output is now a shared reconciliation ledger, not a report; added customer-deposits, total-assets and wealth-AUM rows; checksums embedded per row.
@@ -19,7 +19,7 @@
 
 ## 1. The ledger you are filling
 
-File: `SGBanks_CoreTables_Ledger_260716-161218.csv` (schema v0.2). One row per data point. Columns:
+File: `SGBanks_Tables_Ledger.csv` (schema v0.2). One row per data point. Columns:
 
 | Column | Who fills | Meaning |
 |---|---|---|
@@ -45,7 +45,7 @@ File: `SGBanks_CoreTables_Ledger_260716-161218.csv` (schema v0.2). One row per d
 - Fill **every** row you can. Where you cannot retrieve from a Tier-1 source, put `n/r` in `px_value` (not a guess). Where the bank does not disclose it at all, put `n/d`.
 - **Do not compute derived quantities** (Non-NII by subtraction, CAGRs, P/B, tangible book). Report only what the source prints. (Exception: if a bank prints total income and NII but not the non-II line, you may report non-II and tag `px_comment` = "derived = TI−NII".)
 
-**Priority holes** (rows currently blank in `cl_*` — these are where you add the most value): `CustomerDeposits`, `TotalAssets`, `WealthAUM`, DBS & UOB `Wealth`, DBS `RoTE` 2021–2023, all `SORA_*`, and the OCBC current price.
+**Un-cross-checked cells** (retrieved by px only — no `cl` confirmation yet, so they sit at `single-px` and share no cross-model check): `CustomerDeposits` (30 rows), `TotalAssets` (30 rows), `WealthAUM` (26 rows), plus DBS & UOB `Wealth`, DBS `RoTE` 2021–2023, all `SORA_*`, and the OCBC current price. These are where a second run adds the most value — run a **non-Claude** retriever over them to break same-model correlation before the Report stage consumes them (see Index Open Decision #2).
 
 ---
 
@@ -107,6 +107,7 @@ If any of these appears in your extraction, the source is contaminated — disca
 
 ## 6. Self-checks before you return the ledger
 Run these; note failures in `px_comment` on the affected rows (do **not** hide them):
+0. **Note on `match` vs `resolved`:** stamp a cell `match` **only** when `px_value`, `cl_value`, and any `checksum_expected` are all equal (allowing pure rounding). If `px≠cl`, or the value you take disagrees with the checksum, stamp `resolved` and record the cause in `reconciliation_note` — never leave a silent pick as `match`.
 1. **NII + Non-NII = Total income**, every bank/year you filled.
 2. **DBS NIM canary:** `DBS_NIMgroup_2025` = 2.01.
 3. **Currency:** every value SGD; no ADR/USD ratios.

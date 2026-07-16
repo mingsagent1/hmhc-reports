@@ -1,14 +1,14 @@
-# SOP 2 — Report Component Build (SG Banks · CoreTables: revenue-engine / valuation view)
+# SOP 2 — Report Component Build (SG Banks · Tables: revenue-engine / valuation view)
 
 > **Project:** Singapore Bank Stock Accumulation Strategy
-> **Artifact:** `SGBanks · CoreTables · SOP-Report` — **260716-161218** (timestamp id — see filename)
+> **Artifact:** `SGBanks_Tables_SOPReport.md` — version history in git (`git log --oneline SGBanks_Tables_SOPReport.md`).
 > **Status:** Draft.
-> **Consumes:** `SGBanks_CoreTables_Ledger_260716-161218.csv` → **Produces:** `SGBanks_CoreTables_Report_<newTS>.md`.
+> **Consumes:** `SGBanks_Tables_Ledger.csv` → **Produces:** `SGBanks_Tables_Report.md`.
 > **Changelog:** v0.1 — New table order (Income Engines first); deposits/assets/Other/Profit engine view; removed standalone Wealth & Net-Fee tables; added Other-income breakdown block; combined P/B + ROE; NIM table gains an NII column; no inline `calc` marker; citations as superscript footnotes.
 > · **rev 2026-07-16:** added **Table 1b — Attracted assets (deposits & CASA)** as the asset-attraction spine.
 > · **rev 2026-07-16b:** added **Table 1c — Wealth AUM (overlay)** and a **"why deposits + CASA is the benchmark"** methodology note (report surfaces only the most relevant lines).
 
-**Role of this SOP.** This is the *reconcile + build* stage. Input = the filled `SGBanks_CoreTables_Ledger_260716-161218.csv` (from SOP 1, with one or more agents' columns). Output = one clean markdown report component. Best run by Claude Cowork (it can reconcile in code and build the file).
+**Role of this SOP.** This is the *reconcile + build* stage. Input = the filled `SGBanks_Tables_Ledger.csv` (from SOP 1, with one or more agents' columns). Output = one clean markdown report component. Best run by Claude Cowork (it can reconcile in code and build the file).
 
 **Banks:** DBS (D05), OCBC (O39), UOB (U11). Period FY2016–FY2025 + latest 2026 interim. **SGD only.** All amounts **S$bn to 2dp**, ratios to 2dp.
 
@@ -18,12 +18,12 @@
 
 For every row, compare `px_value`, `cl_value`, and `checksum_expected`, then fill `reconciled_value` / `reconciliation_status` / `reconciliation_note`:
 
-- **`match`** — agents agree (and agree with checksum if present) → take the value.
-- **`single-source`** — only one agent filled it → take it; note which.
-- **`mismatch`** — agents disagree, or disagree with the checksum. **Do not average or silently pick.** Take the value that (a) reproduces the checksum and (b) ties out (NII+Non-NII=Total income), and record the loser + the likely cause (basis / restatement / price-date) in the note. If neither ties, mark the cell `n/r` for the report and log it.
-- **`n/r` / `n/d`** — carry through.
+- **`match`** — agents agree (and agree with checksum if present) → take the value. Use `match` **only** when `px_value`, `cl_value`, and any `checksum_expected` are all equal (pure rounding aside); if the value you take differs from the checksum, or `px≠cl`, it is a `resolved`, not a `match`.
+- **`single-px` / `single-cl`** — only one agent filled it → take it; the status names which (`single-px` = Perplexity-only, `single-cl` = Claude-only).
+- **`resolved`** — agents disagree, or the taken value disagrees with the checksum. **Do not average or silently pick.** Take the value that (a) reproduces the checksum and (b) ties out (NII+Non-NII=Total income), and record the loser + the likely cause (rounding / basis / restatement / price-date) in `reconciliation_note`. If neither ties, mark the cell `n/r` for the report and log it.
+- **`n/r` / `n/d` / `text/other`** — carry through (`text/other` = guidance/verbatim text rows).
 
-Prefer **restated** figures (B6) and record the original in the note. Every `mismatch` you resolve becomes a line in the Validation Report.
+Prefer **restated** figures (B6) and record the original in the note. Every `resolved` row becomes a line in the Validation Report.
 
 ---
 
