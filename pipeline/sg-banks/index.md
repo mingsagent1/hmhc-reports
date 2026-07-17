@@ -7,16 +7,28 @@ The project is built as **components** (self-contained analyses). Each component
 
 ---
 
-## Naming convention
+## Repo layout
+
+The repo separates **published, web-facing** output from **working pipeline** files. Each report series has its own slug folder.
 
 ```
-SGBanks_<Component>_<Type>.<ext>
+reports/sg-banks/
+  report.md       Published report (this series' output).
+  meta.json       Title, summary, status, dates, version, tags.
+  assets/         Charts and images for this report.
+
+pipeline/sg-banks/
+  index.md        This registry.
+  data/ledger.csv Reconciliation master (schema v0.2).
+  method/
+    retrieval.md  SOP 1 — retrieve raw data into the ledger.
+    build.md      SOP 2 — reconcile + build the report.
+  sources/        Raw source material, download scripts, guidance notes.
 ```
 
-- **`<Component>`** — the analysis unit. Current: `Tables` (income engines · attracted assets · NIM · valuation/returns · rate cycle). Future: `Capital`, `CreditQuality`, `Dividend`, `Peers`, …
-- **`<Type>`** — `SOPRetrieval` · `Ledger` · `SOPReport` · `Report`.
-- **No timestamps in filenames.** Git is the version-control system: use commits/tags to find or restore any prior state (`git log`, `git blame`, `git show <sha>:<file>`). Files are overwritten in place; git keeps the history.
-- **`SGBanks_Index.md`** (this file) is the living registry — the human-readable pointer to the current artifacts.
+- **`<Component>`** — the analysis unit. Current: `Tables` (income engines · attracted assets · NIM · valuation/returns · rate cycle). Future components (e.g. `Capital`, `CreditQuality`, `Dividend`, `Peers`) go under `pipeline/sg-banks/` alongside `Tables`, or as new `reports/<slug>/` series.
+- **File names are permanent and describe content, not format.** No timestamps in filenames — git is the version-control system: use commits/tags to find or restore any prior state (`git log`, `git blame`, `git show <sha>:<file>`). Files are overwritten in place; git keeps the history.
+- **`pipeline/sg-banks/index.md`** (this file) is the living registry — the human-readable pointer to the current artifacts.
 
 ## Versioning & history (git-native)
 
@@ -33,10 +45,10 @@ SGBanks_<Component>_<Type>.<ext>
 
 | Artifact | File | Status |
 |---|---|---|
-| Retrieval SOP | `SGBanks_Tables_SOPRetrieval.md` | Draft |
-| Ledger (schema v0.2) | `SGBanks_Tables_Ledger.csv` | Reconciled — px (Perplexity) + cl (Claude) + CASA pass; 536 rows |
-| Report-build SOP | `SGBanks_Tables_SOPReport.md` | Draft |
-| Report (output) | `SGBanks_Tables_Report.md` | Built — all Phase-1 gates pass (tie-out, canary, poison-pills, continuity) |
+| Retrieval SOP | `pipeline/sg-banks/method/retrieval.md` | Draft |
+| Ledger (schema v0.2) | `pipeline/sg-banks/data/ledger.csv` | Reconciled — px (Perplexity) + cl (Claude) + CASA pass; 536 rows |
+| Report-build SOP | `pipeline/sg-banks/method/build.md` | Draft |
+| Report (output) | `reports/sg-banks/report.md` | Built — all Phase-1 gates pass (tie-out, canary, poison-pills, continuity) |
 
 ---
 
@@ -61,6 +73,6 @@ SGBanks_<Component>_<Type>.<ext>
 
 ## Changelog
 - **2026-07-16 (casa-fill)** — Filled OCBC CASA 2016 / 2017 / 2018 (51.1% / 49.2% / 46.4%) from OCBC FY-results presentations via a **GPT-5.5 non-Claude retrieval pass** (Perplexity `research` subagent), then computer-verified each figure against the source PDF. Rows re-classified `n/r` → `single-px` and tagged `2026-07-16-run003 (GPT-5.5 non-Claude cross-check)` in `px_version`. Ledger status now (re-audited from CSV): **261 match · 120 single-px · 67 single-cl · 61 resolved · 16 n/d · 8 n/r · 3 text/other = 536 rows.** (Prior registry line "307 match" was carrying a stale pre-audit count and is corrected here.)
-- **2026-07-16 (report)** — Built `SGBanks_Tables_Report.md` from the reconciled ledger per SOPReport: Tables 1 (income engines + CAGRs), 1b (deposits & CASA), 1c (wealth AUM), 2 (NIM & NII), 3 (valuation/returns + P/TB block), 4 (NIM vs rate cycle), the Other-income breakdown, the deposits+CASA benchmark note, and Appendices A–C (validation, definitions, restatements). Phase-1 gates all pass: NII+NonII=TotalIncome exact for all 30 bank-years, DBS NIM canary 2.01, no poison pills, all >30% YoY moves explained.
-- **2026-07-16 (later)** — **Went git-native:** dropped timestamped filenames, the `v0.x` scheme, and the `claude/`+`archive/` retention process — git commits/tags now carry version history. Registry uses the plain `SGBanks_Tables_*` filenames as committed. **Reconciliation audit fix:** 46 rows mislabeled `match` (where `px≠cl` or `reconciled≠checksum`) re-classified to `resolved` with a cause note each (rounding / SFRS(I) 17 restatement B6 / Citi uplift B4 / UOB FY2025 provisioning artefact B5 / price-date). **Metric-name fix:** 2026-latest rate rows re-keyed `EFFR→EFFRavg`, `SORA→SORA_YE` for series consistency.
+- **2026-07-16 (report)** — Built `reports/sg-banks/report.md` from the reconciled ledger per `pipeline/sg-banks/method/build.md`: Tables 1 (income engines + CAGRs), 1b (deposits & CASA), 1c (wealth AUM), 2 (NIM & NII), 3 (valuation/returns + P/TB block), 4 (NIM vs rate cycle), the Other-income breakdown, the deposits+CASA benchmark note, and Appendices A–C (validation, definitions, restatements). Phase-1 gates all pass: NII+NonII=TotalIncome exact for all 30 bank-years, DBS NIM canary 2.01, no poison pills, all >30% YoY moves explained.
+- **2026-07-16 (later)** — **Went git-native:** dropped timestamped filenames, the `v0.x` scheme, and the `claude/`+`archive/` retention process — git commits/tags now carry version history. Registry uses the plain filenames as committed. **Reconciliation audit fix:** 46 rows mislabeled `match` (where `px≠cl` or `reconciled≠checksum`) re-classified to `resolved` with a cause note each (rounding / SFRS(I) 17 restatement B6 / Citi uplift B4 / UOB FY2025 provisioning artefact B5 / price-date). **Metric-name fix:** 2026-latest rate rows re-keyed `EFFR→EFFRavg`, `SORA→SORA_YE` for series consistency.
 - **2026-07-16 (earlier)** — Tables component built: split monolithic brief into SOPRetrieval + Ledger + SOPReport; Perplexity retrieval + Claude reconciliation. Ledger status after this run: **307 match · 117 single-px · 67 single-cl · 15 resolved · 16 n/d · 11 n/r · 3 text/other** (536 rows). Added version/provenance columns; added Attracted-assets (deposits & CASA) + Wealth-AUM overlay + "why deposits+CASA" rationale.

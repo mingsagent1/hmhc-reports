@@ -1,0 +1,11 @@
+{
+  "slug": "sg-banks",
+  "title": "Singapore Banks — Core Tables",
+  "subtitle": "DBS · OCBC · UOB — income engines, deposits, NIM, valuation (FY2016–2026)",
+  "summary": "A reconciled, source-graded view of Singapore's three major banks as a regional wealth hub.",
+  "status": "published",
+  "first_published": "2026-07-16",
+  "last_updated": "2026-07-16",
+  "current_version": "2026.07",
+  "tags": ["singapore", "banks", "DBS", "OCBC", "UOB", "wealth", "NIM", "deposits"]
+}

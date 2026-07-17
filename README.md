@@ -1,44 +1,45 @@
-# wealth_assetanalysis_banks
+# HMHC Reports
 
-Data pipeline and analysis for the **Singapore Bank Stock Accumulation Strategy** — a fundamentals-driven look at DBS (SGX: D05), OCBC (SGX: O39), and UOB (SGX: U11) over FY2016–FY2025 plus the latest 2026 interim, built around the Singapore wealth-hub / asset-attraction thesis.
+Source of record for the analyst reports published at **[reports.hmhc.ai](https://reports.hmhc.ai)**.
 
-## Start here
+Each report is a self-contained, source-graded business analysis produced with a disciplined, AI-assisted two-stage pipeline (retrieve → reconcile & build). Reports are **sticky** (a stable URL always shows the latest version) and **versioned** (full history in git commits, tags, and releases).
 
-**[`SGBanks_Index.md`](SGBanks_Index.md) is the living registry** — the single source of truth for what each artifact is, its current status, the ledger schema, standing analytical decisions, and open questions. Read it first.
+## Layout
 
-## How it works
+```
+reports/      Published, web-facing reports. The website reads only this.
+  <slug>/     One folder per report series; the folder name is the URL slug.
+    report.md     The current report (always the latest).
+    meta.json     Title, summary, status, dates, version, tags.
+    assets/       Charts and images for this report.
 
-The project is built as **components** (self-contained analyses; current component: `Tables`). Each component runs a **two-stage pipeline**:
+pipeline/     How each report is made. Not published.
+  <slug>/
+    index.md      Living registry: artifacts, decisions, open questions.
+    data/         Structured data. ledger.csv is the reconciliation master.
+    method/       Repeatable procedures: retrieval.md, build.md.
+    sources/      Raw source material, download scripts, guidance notes.
 
-1. **Retrieve** — one or more agents fill a shared raw-data ledger with atomic, sourced numbers (no calculations). Each agent fills its own columns; values are cross-checked against embedded checksums. Governed by the retrieval SOP.
-2. **Reconcile + build** — agents' values are compared against each other and the checksums, disagreements are resolved (never averaged) into a `reconciled_value`, and the clean report is built from those. Governed by the report SOP.
+reports.json  Master index of all series (the site's landing-page feed).
+```
 
-## Files
+## Reports
 
-| File | What it is |
-|---|---|
-| [`SGBanks_Index.md`](SGBanks_Index.md) | Living project registry — start here |
-| [`SGBanks_Tables_SOPRetrieval.md`](SGBanks_Tables_SOPRetrieval.md) | SOP 1 — raw-data retrieval rules (source hierarchy, definitional traps, poison pills, self-checks) |
-| [`SGBanks_Tables_Ledger.csv`](SGBanks_Tables_Ledger.csv) | The shared reconciliation ledger — 536 data points, one number per row, with per-agent provenance and reconciliation status |
-| [`SGBanks_Tables_SOPReport.md`](SGBanks_Tables_SOPReport.md) | SOP 2 — reconcile + report-build rules (table specs, formatting, validation, appendices) |
-| `LICENSE` | MIT |
+| Series | Slug | Status |
+|---|---|---|
+| Singapore Banks — Core Tables (DBS · OCBC · UOB) | `sg-banks` | Published |
 
-The report output (`SGBanks_Tables_Report.md`) is not yet built.
+## Adding a new report
+
+1. Create `reports/<slug>/` with `report.md`, `meta.json`, and an `assets/` folder.
+2. Create `pipeline/<slug>/` with `index.md`, `data/`, `method/`, and `sources/`.
+3. Add the series to `reports.json`.
+4. Commit, then tag the version: `git tag <slug>-v<YYYY.MM>`.
 
 ## Versioning
 
-**Git-native.** Version history lives in git commits and tags — there are no timestamped filenames and no `archive/` folder. To inspect or restore prior states:
+`report.md` is overwritten in place, so its URL never changes. History lives in git: `git log`, `git blame`, tags (`<slug>-v<YYYY.MM>`), and GitHub Releases for public, dated milestones.
 
-```bash
-git log --oneline SGBanks_Tables_Ledger.csv   # what changed, when
-git show <sha>:SGBanks_Tables_Ledger.csv        # view a past version
-git checkout <sha> -- SGBanks_Tables_Ledger.csv # restore a past version
-```
+## Conventions
 
-Provenance is also recorded *inside* the files (ledger `px_version` / `cl_version` run stamps, SOP changelogs) as a second, in-band record.
-
-## Scope guardrails (see the SOPs for the full list)
-
-- **SGD only** — never convert, never USD, never ADRs.
-- **Tier-1 sources** (company reports) for every fundamental; market data (prices, rates) only from Tier-2 vendors / MAS / FRED; Yahoo for price cross-check only.
-- **Never estimate, interpolate, or fill from memory** — `n/r` (not retrieved) and `n/d` (not disclosed) are correct answers; a plausible wrong number is a failure.
+Slugs and filenames are lowercase-hyphenated and permanent — never rename a published slug, it breaks links and bookmarks. Files are named for what they contain, not their format. Figures stay in the report's stated currency; sources are Tier-1 filings; no estimates or memory-fills.

@@ -1,0 +1,6 @@
+{
+  "site": "reports.hmhc.ai",
+  "reports": [
+    { "slug": "sg-banks", "path": "reports/sg-banks", "featured": true }
+  ]
+}

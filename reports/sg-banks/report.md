@@ -1,7 +1,7 @@
 # SGBanks · Tables · Report — Revenue-engine / valuation view
 
 > **Project:** Singapore Bank Stock Accumulation Strategy · **Component:** `Tables`
-> **Built from:** `SGBanks_Tables_Ledger.csv` (reconciled) per `SGBanks_Tables_SOPReport.md` (rev 2026-07-16c).
+> **Built from:** `pipeline/sg-banks/data/ledger.csv` (reconciled) per `pipeline/sg-banks/method/build.md` (rev 2026-07-16c).
 > **Banks:** DBS (SGX: D05) · OCBC (SGX: O39) · UOB (SGX: U11). **Period:** FY2016–FY2025 (31-Dec year-ends) + latest 2026 interim. **Currency: SGD only.**
 
 **Legend.** `n/r` = not retrieved from a Tier-1 source · `n/d` = bank does not disclose. Derived cells (Other, TotalRev, CAGR, Rev/Dep, Profit/Dep, Profit/Rev, P/B, P/TB, TBVPS) are unmarked and covered by each table's derived-line footnote. Citations and trap-notes appear as superscripts with a small-font footnote block under each table.
@@ -241,4 +241,4 @@ The remaining ~30 `resolved` rows are ±S$1–25m rounding between the reconcile
 
 ---
 
-<sub>Sources are Tier-1 company reports (annual-report ten-year/five-year financial summaries, full-year results media releases, SGX-filed financial statements) for all fundamentals; market data (year-end and current prices, shares) from Perplexity Finance with Yahoo cross-check; rates from MAS (3M compounded SORA) and FRED (`DFEDTARU`, `DFF`). OCBC 2016–2018 CASA cross-checked 2026-07-16 via a non-Claude retriever against OCBC FY-results presentation PDFs. Full per-cell provenance — including `px_version` / `cl_version` run stamps and per-row sources — is in `SGBanks_Tables_Ledger.csv`. This report contains data and factual footnotes only; no investment view.</sub>
+<sub>Sources are Tier-1 company reports (annual-report ten-year/five-year financial summaries, full-year results media releases, SGX-filed financial statements) for all fundamentals; market data (year-end and current prices, shares) from Perplexity Finance with Yahoo cross-check; rates from MAS (3M compounded SORA) and FRED (`DFEDTARU`, `DFF`). OCBC 2016–2018 CASA cross-checked 2026-07-16 via a non-Claude retriever against OCBC FY-results presentation PDFs. Full per-cell provenance — including `px_version` / `cl_version` run stamps and per-row sources — is in `pipeline/sg-banks/data/ledger.csv`. This report contains data and factual footnotes only; no investment view.</sub>

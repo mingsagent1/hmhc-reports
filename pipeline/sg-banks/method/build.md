@@ -1,15 +1,15 @@
 # SOP 2 — Report Component Build (SG Banks · Tables: revenue-engine / valuation view)
 
 > **Project:** Singapore Bank Stock Accumulation Strategy
-> **Artifact:** `SGBanks_Tables_SOPReport.md` — version history in git (`git log --oneline SGBanks_Tables_SOPReport.md`).
+> **Artifact:** `pipeline/sg-banks/method/build.md` — version history in git (`git log --oneline pipeline/sg-banks/method/build.md`).
 > **Status:** Draft.
-> **Consumes:** `SGBanks_Tables_Ledger.csv` → **Produces:** `SGBanks_Tables_Report.md`.
+> **Consumes:** `pipeline/sg-banks/data/ledger.csv` → **Produces:** `reports/sg-banks/report.md`.
 > **Changelog:** v0.1 — New table order (Income Engines first); deposits/assets/Other/Profit engine view; removed standalone Wealth & Net-Fee tables; added Other-income breakdown block; combined P/B + ROE; NIM table gains an NII column; no inline `calc` marker; citations as superscript footnotes.
 > · **rev 2026-07-16:** added **Table 1b — Attracted assets (deposits & CASA)** as the asset-attraction spine.
 > · **rev 2026-07-16b:** added **Table 1c — Wealth AUM (overlay)** and a **"why deposits + CASA is the benchmark"** methodology note.
 > · **rev 2026-07-16c:** **Table 1 split per bank** (three tables — one each for DBS/OCBC/UOB) with new columns (TotalRev, NIM, Rev/Dep, Profit/Dep, Profit/Rev), per-column formatting, and 2–3 dot-point "Other revenue" commentary under each bank's table (replaces the standalone Other-income breakdown block). **Table 1b + 1c merged into a single Table 2** carrying Deposits + CASA + Wealth AUM. **Downstream tables renumbered** (old Table 2 NIM/NII → **Table 3**; old Table 3 valuation → **Table 4**; old Table 4 NIM-vs-rates → **Table 5**). Table 3 (NIM/NII) column order changed to **NII first, then NIM**; NIM values carry a **`%`** suffix; FY2026 guidance moves out of the table into three standard-size bullet footnotes (one per bank).
 
-**Role of this SOP.** This is the *reconcile + build* stage. Input = the filled `SGBanks_Tables_Ledger.csv` (from SOP 1, with one or more agents' columns). Output = one clean markdown report component.
+**Role of this SOP.** This is the *reconcile + build* stage. Input = the filled `pipeline/sg-banks/data/ledger.csv` (from SOP 1, with one or more agents' columns). Output = one clean markdown report component.
 
 **Banks:** DBS (D05), OCBC (O39), UOB (U11). Period FY2016–FY2025 + latest 2026 interim. **SGD only.** Amounts and ratios per per-column formatting rules below.
 

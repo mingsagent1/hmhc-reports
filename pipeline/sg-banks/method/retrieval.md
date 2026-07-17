@@ -1,9 +1,9 @@
 # SOP 1 — Raw Data Retrieval (SG Banks · Tables)
 
 > **Project:** Singapore Bank Stock Accumulation Strategy
-> **Artifact:** `SGBanks_Tables_SOPRetrieval.md` — version history in git (`git log --oneline SGBanks_Tables_SOPRetrieval.md`).
+> **Artifact:** `pipeline/sg-banks/method/retrieval.md` — version history in git (`git log --oneline pipeline/sg-banks/method/retrieval.md`).
 > **Status:** Draft — not yet validated by a full two-agent run.
-> **Pairs with:** `SGBanks_Tables_Ledger.csv` (its output) → `SGBanks_Tables_SOPReport.md` (next stage).
+> **Pairs with:** `pipeline/sg-banks/data/ledger.csv` (its output) → `pipeline/sg-banks/method/build.md` (next stage).
 > **Supersedes:** ad-hoc brief `SOP_BankDataAndTables.md`.
 > **Ledger schema:** v0.2 (adds `px_version` / `cl_version` run-stamp columns, format `YYYYMMDD-NNN <Harness><Model>`).
 > **Changelog:** v0.1 — Split retrieval from report-build (was one monolithic brief); output is now a shared reconciliation ledger, not a report; added customer-deposits, total-assets and wealth-AUM rows; checksums embedded per row.
@@ -19,7 +19,7 @@
 
 ## 1. The ledger you are filling
 
-File: `SGBanks_Tables_Ledger.csv` (schema v0.2). One row per data point. Columns:
+File: `pipeline/sg-banks/data/ledger.csv` (schema v0.2). One row per data point. Columns:
 
 | Column | Who fills | Meaning |
 |---|---|---|
