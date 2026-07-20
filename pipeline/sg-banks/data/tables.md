@@ -2,11 +2,60 @@
 
 > **Project:** Singapore Bank Stock Accumulation Strategy · **Component:** `Tables`
 > **Artifact:** `pipeline/sg-banks/data/tables.md` — sole output of `pipeline/sg-banks/method/build-tables.md`. Consumed by the Assemble step (`pipeline/sg-banks/method/build.md`).
-> **Status:** **Current snapshot, materialized 2026-07-20 from the published `reports/sg-banks/report.md`** (built rev 2026-07-16c). Values are **not altered** — this artifact is the extracted table layer of the current report, made explicit so Assemble consumes a finished table block rather than recomputing arithmetic. Provenance: every number here traces to `reports/sg-banks/report.md` and, beneath it, to reconciled `pipeline/sg-banks/data/ledger.csv`.
-> **Note on materialization:** exact mechanical re-run of Build-Tables against the ledger was not performed for this snapshot; instead the current report's table blocks and their table-level footnotes were copied verbatim as the authoritative current state. A future clean Build-Tables run will overwrite this file from the ledger and should reproduce these values.
-> **Banks:** DBS (D05) · OCBC (O39) · UOB (U11). FY2016–FY2025 + latest 2026 interim. **SGD only.**
+> **Status:** **Refreshed 2026-07-20 for the 1Q2026 update.** The historical FY2016–FY2025 blocks (Tables 1–5) are **unchanged** from the prior build (rev 2026-07-16c). A new **Latest 1Q2026 snapshot** section is prepended, and the Table 4 **Current P/B** / **Current vs 10-yr avg** rows and the **P/TB (current)** column are updated to as-of-2026-07-20 intraday prices. Provenance: every number traces to reconciled `pipeline/sg-banks/data/ledger.csv` (1Q2026 rows stamped `20260720-001 CwClOpus4.8`) and, for history, to the prior `reports/sg-banks/report.md`.
+> **Note on materialization:** the historical blocks were copied verbatim from the prior report (no arithmetic re-run); the 1Q2026 snapshot and updated current-valuation cells are computed from the ledger 1Q2026 rows. A future clean Build-Tables run will overwrite this file from the ledger and should reproduce these values.
+> **Banks:** DBS (D05) · OCBC (O39) · UOB (U11). FY2016–FY2025 long-run base + **1Q2026 interim (quarters ended 31 Mar 2026)** + **current (2026-07-20 intraday) valuation.** **SGD only.**
 
-**Contents:** Tables 1 (per bank) · 2 · 3 · 4 (+ P/TB block) · 5, each with its derived-line and superscript footnotes; plus the table-level validation data (resolved-row list, `n/r`/`n/d` inventory) for Appendix A. **Narrative blocks** (per-bank "Other revenue" commentary, FY2026 guidance bullets, the "why deposits + CASA" paragraph, Appendix B definitions, Appendix C restatement prose) are **not** here — they are written by Assemble.
+**Contents:** **Latest 1Q2026 snapshot** (cross-bank, new) · Tables 1 (per bank) · 2 · 3 · 4 (+ P/TB block) · 5, each with its derived-line and superscript footnotes; plus the table-level validation data (resolved-row list, `n/r`/`n/d` inventory) for Appendix A. **Narrative blocks** (per-bank "Other revenue" commentary, FY2026 guidance bullets, the "why deposits + CASA" paragraph, Appendix B definitions, Appendix C restatement prose) are **not** here — they are written by Assemble.
+
+---
+
+## Latest 1Q2026 snapshot (quarters ended 31 Mar 2026)
+
+> **New this refresh.** Compact cross-bank view of the latest interim quarter. **Read with care — these lines are NOT fully cross-comparable:** reporting formats differ (DBS trading update · OCBC press release · UOB CFO/CEO slides via MarketScreener); UOB income-statement detail is **Tier-2 host** (bank slides via aggregator) while DBS/OCBC are Tier-1; all cells are single-retriever (`single-cl`, stamped `20260720-001 CwClOpus4.8`) and not yet dual-checked. Wealth-AUM definitions differ across banks (see Table 2 note). **SGD.**
+
+### 1Q2026 — income & returns
+
+| Metric (1Q26) | DBS | OCBC | UOB | Note |
+|---|---:|---:|---:|---|
+| Net interest income (S$m) | 3,494 | 2,222 | 2,324 | UOB Tier-2 host; OCBC NII derived-to-tie |
+| Non-interest income (S$m) | 2,454 | 1,606 | 1,098 | DBS & UOB derived (TI−NII); UOB slide components don't reconcile (see note) |
+| Total income (S$m) | 5,948 | 3,828 | 3,422 | records at DBS & OCBC |
+| Net fee income (S$m) | 1,482 | 675 | 637 | DBS +16% YoY · OCBC +24% YoY · UOB −8% YoY |
+| Net profit (S$m) | 2,930 | 1,974 | 1,437 | +1% / +5% / −4% YoY |
+| Group NIM (%) | 1.89 | 1.76 | 1.82 | all down YoY; OCBC steepest (−28bps) |
+| ROE (%) | 17.0 | 13.0 | 11.5 | reported (group) |
+| Cost/income (%) | 38.7 | 39.3 | 44.5 | |
+
+<sub>NII + Non-II = Total income ties exactly for all three (DBS 3,494+2,454=5,948 · OCBC 2,222+1,606=3,828 · UOB 2,324+1,098=3,422). DBS non-II is derived (fee 1,482 + other 972); OCBC NII is derived-to-tie (TI 3,828 − non-II 1,606; press release prints NII "S$2.22bn"). **UOB non-II caveat:** UOB's CFO-slide components (net fee 637 + trading & investment 405 + other 462 = 1,504) do not reconcile with total income − NII (1,098); the tie-out-consistent derived 1,098 is shown and the slide split is flagged as an unresolved retrieval gap. Net profit = attributable to shareholders (reported).</sub>
+
+### 1Q2026 — attraction, balance sheet & asset quality
+
+| Metric | DBS | OCBC | UOB | Note |
+|---|---:|---:|---:|---|
+| Customer deposits (S$m) | 629,868 | 444,000 | 427,000 | period-end 31 Mar 2026 |
+| CASA ratio (%) | 55.0 | 50.2 | 57.0 | as printed / mix basis differs |
+| Wealth AUM (S$m) | 492,000 | 342,000 | 198,000 | **definitions differ — do not compare levels** (DBS group WM AUM · OCBC group wealth incl. BoS+GE · UOB Group Retail AUM) |
+| Total assets (S$m) | 935,365 | 703,124 | 574,000 | leverage only, not attraction |
+| Gross loans (S$m) | 453,180 | 347,000 | 354,000 | |
+| CET1 ratio (%) | 16.9 | 17.0 | 15.3 | |
+| NPL ratio (%) | 1.0 | 0.9 | 1.5 | |
+| Credit cost (bps) | 14 | 23 | 26 | UOB elevated; OCBC incl. S$191m overlay |
+
+<sub>Deposits/CASA/AUM/assets/loans are period-end 31 Mar 2026. **Never sum deposits + AUM** (double-count). Wealth-AUM levels are **not** cross-comparable (definition mismatch). DBS/OCBC figures Tier-1; UOB NII/NIM/total income/fee/CASA/AUM/credit-cost are Tier-2 host (CFO slides via MarketScreener), UOB group headline (net profit/deposits/assets/loans/ROE/CET1/NPL/cost-income) Tier-1 (UOB Financial Highlights). OCBC credit cost includes S$191m management-overlay allowances for non-impaired assets.</sub>
+
+### 1Q2026 — current valuation (as-of 2026-07-20, intraday)
+
+| Metric | DBS | OCBC | UOB | Note |
+|---|---:|---:|---:|---|
+| Price (S$, intraday 2026-07-20) | 71.96 | 28.60 | 42.60 | **intraday, NOT a closing price** (Perplexity Finance, SGX open) |
+| FY2025 BVPS (S$) | 24.29 | 13.38 | 29.36 | denominator = FY2025 year-end book value |
+| Current P/B | 2.96 | 2.14 | 1.45 | vs 10-yr avg 1.51 / 1.16 / 1.17 |
+| Current vs 10-yr avg P/B | +96% | +84% | +24% | |
+| FY2025 TBVPS (S$) | 22.07 | 12.41 | 26.36 | |
+| Current P/TB | 3.26 | 2.30 | 1.62 | |
+
+<sub>Prices are **intraday 2026-07-20 (Perplexity Finance, SGX open) — not closing prices**; treat as a market-data snapshot only, tier-2. P/B = price ÷ FY2025 BVPS; P/TB = price ÷ FY2025 TBVPS (both FY2025 denominators, since 1Q26 per-share book was not retrieved). These update the Table 4 "Current P/B" / "Current vs 10-yr avg" rows and the "P/TB (current)" column below, which previously used the 2026-07-15 close.</sub>
 
 ---
 
@@ -125,8 +174,8 @@
 | 2025 | 56.36 | 24.29 | 2.32 | 16.2 | 17.8 | 19.76 | 13.38 | 1.48 | 12.6 | n/d | 35.06 | 29.36 | 1.19 | 9.6<sup>5</sup> | n/d |
 | **10-yr avg P/B** |  |  | 1.51 |  |  |  |  | 1.16 |  |  |  |  | 1.17 |  |  |
 | **5-yr avg P/B (21–25)** |  |  | 1.75 |  |  |  |  | 1.20 |  |  |  |  | 1.19 |  |  |
-| **Current P/B** |  |  | 3.00 |  |  |  |  | 2.12 |  |  |  |  | 1.53 |  |  |
-| **Current vs 10-yr avg** |  |  | +99% |  |  |  |  | +83% |  |  |  |  | +31% |  |  |
+| **Current P/B** |  |  | 2.96 |  |  |  |  | 2.14 |  |  |  |  | 1.45 |  |  |
+| **Current vs 10-yr avg** |  |  | +96% |  |  |  |  | +84% |  |  |  |  | +24% |  |  |
 | **10-yr avg ROE** |  |  |  | 13.4 |  |  |  |  | 11.2 |  |  |  |  | 10.9 |  |
 
 <sub>P/B = 31-Dec close ÷ BVPS (derived; both inputs shown). ROE reported (group). RoTE: DBS discloses FY2021+ where shown; OCBC and UOB do not print RoTE → `n/d`. <sup>5</sup> UOB FY2025 ROE = 9.6 reflects the ~S$2.0bn pre-emptive GP booked 3Q2025 (provisioning artefact); UOB core ROE ≈ 14.2% (FY2023) where separately disclosed. DBS 1-for-10 bonus issue (1Q2024): price and BVPS kept on the same basis within each year — P/B is bonus-invariant; do not mix adjusted price with unadjusted BVPS. Current P/B uses the latest dated close and FY2025 BVPS.</sub>
@@ -135,11 +184,11 @@
 
 | Bank | BVPS | Goodwill+Intang (S$m) | Shares (m) | TBVPS | P/TB (FY25 close) | P/TB (current) |
 |---|---:|---:|---:|---:|---:|---:|
-| DBS | 24.29 | 6314 | 2838 | 22.07 | 2.55 | 3.31 |
-| OCBC | 13.38 | 4360 | 4490 | 12.41 | 1.59 | 2.29 |
-| UOB | 29.36 | 4953 | 1652 | 26.36 | 1.33 | 1.71 |
+| DBS | 24.29 | 6314 | 2838 | 22.07 | 2.55 | 3.26 |
+| OCBC | 13.38 | 4360 | 4490 | 12.41 | 1.59 | 2.30 |
+| UOB | 29.36 | 4953 | 1652 | 26.36 | 1.33 | 1.62 |
 
-<sub>TBVPS = BVPS − (Goodwill + Intangibles) / Shares outstanding. P/TB derived from stated prices. Historical P/TB not shown — per-year goodwill was not retrieved.</sub>
+<sub>TBVPS = BVPS − (Goodwill + Intangibles) / Shares outstanding. P/TB (FY25 close) uses the 31-Dec-2025 close; **P/TB (current) uses the intraday 2026-07-20 price (71.96 / 28.60 / 42.60) — not a closing price.** P/TB derived from stated prices. Historical P/TB not shown — per-year goodwill was not retrieved.</sub>
 
 ---
 
@@ -157,9 +206,9 @@
 | 2023 | 2.15% | 2.28% | 2.09% | 3.74 | 3.54 | 5.50 | 5.02 |
 | 2024 | 2.13% | 2.20% | 2.03% | 3.14 | 3.58 | 4.50 | 5.14 |
 | 2025 | 2.01% | 1.91% | 1.89% | 1.26 | 2.06 | 3.75 | 4.21 |
-| 2026 latest | n/r | n/r | n/r | 1.05 | n/r | 3.75 | 3.62 |
+| 2026 latest (1Q26) | 1.89% | 1.76% | 1.82% | n/d | 1.07* | 3.75 | 3.62 |
 
-<sub>NIM from Table 3 (group), with `%` symbol per 2dp format. 3M compounded SORA (MAS) exists only from 6-Aug-2020 → pre-2020 = `n/r` (no SIBOR splice). Fed funds target upper = FRED `DFEDTARU` year-end; effective fed funds (FY avg) = FRED `DFF` annual mean. 2026-latest rates as of mid-July 2026; 2026 interim group NIM not yet retrieved into the ledger → `n/r`.</sub>
+<sub>NIM from Table 3 (group), with `%` symbol per 2dp format. **2026-latest NIM row is 1Q2026 group NIM** (quarter ended 31 Mar 2026) — DBS 1.89% · OCBC 1.76% · UOB 1.82%, all down YoY. 3M compounded SORA (MAS) exists only from 6-Aug-2020 → pre-2020 = `n/r` (no SIBOR splice). **3M SORA (31-Dec) for 2026 = `n/d`**: MAS statistics eServices portal was under scheduled maintenance on 2026-07-20; latest official single-day value not retrievable. **\*3M SORA (FY avg) for 2026 = 1.07 is the bank-characterised 1Q26 average** (DBS 1Q26 media transcript: "~1.07% vs 2.54% a year ago"), **not an official MAS FY figure** — re-fetch MAS before publishing a hard number. Fed funds target upper = FRED `DFEDTARU` (3.75, held at 17-Jun-2026 FOMC); effective fed funds (FY avg) = FRED `DFF`, 2026 YTD ≈ 3.62. 2026-latest rates as of mid-July 2026.</sub>
 
 ---
 
@@ -186,7 +235,14 @@
 The remaining ~30 `resolved` rows are ±S$1–25m rounding between the reconciled value and a rounded checksum, with agents agreeing — no data change, note only.
 
 **`n/r` / `n/d` inventory:**
-- Table 2 (Wealth AUM): OCBC 2016–2017 = `n/d`; UOB 2018–2019 = `n/d`. All disclosed AUM cells are `single-px` (Perplexity-only) — flagged low-confidence pending a second retriever.
+- Table 2 (Wealth AUM): OCBC 2016–2017 = `n/d`; UOB 2018–2019 = `n/d`. All disclosed historical AUM cells are `single-px` (Perplexity-only) — flagged low-confidence pending a second retriever.
 - Table 2 (CASA): OCBC 2016–2018 filled 2026-07-16 via a non-Claude retrieval pass (`single-px`); a second retriever pass would upgrade to `match`.
-- Table 5 (rates): 3M compounded SORA `n/r` for 2016–2019 (series began 6-Aug-2020; no SIBOR splice); 2026 interim group NIM `n/r` (not yet retrieved into the ledger).
+- Table 5 (rates): 3M compounded SORA `n/r` for 2016–2019 (series began 6-Aug-2020; no SIBOR splice). **2026-latest: 3M SORA (31-Dec) = `n/d`** (MAS eServices portal under maintenance 2026-07-20); the 1.07 in the FY-avg column is the bank-characterised 1Q26 average, not an official MAS figure. **2026 interim group NIM now filled** (1Q26: 1.89 / 1.76 / 1.82, `single-cl`).
 - Table 4: OCBC & UOB RoTE = `n/d` (not disclosed); DBS RoTE disclosed FY2021+.
+
+**1Q2026 snapshot provenance & tie-outs:**
+- All 1Q2026 cells are `single-cl` (one Claude pass from the evidence set, stamped `20260720-001 CwClOpus4.8`) — not yet dual-checked.
+- Tie-out (NII + Non-II = Total income) exact for all three 1Q26: DBS 3,494+2,454=5,948 · OCBC 2,222+1,606=3,828 · UOB 2,324+1,098=3,422.
+- **UOB 1Q26 non-II components unresolved:** CFO-slide split (637+405+462=1,504) ≠ TI−NII (1,098); derived 1,098 used.
+- UOB 1Q26 income-statement detail = **Tier-2 host** (CFO/CEO slides via MarketScreener); UOB group headline = Tier-1 (Financial Highlights). DBS/OCBC 1Q26 = Tier-1.
+- Current valuation prices are **intraday 2026-07-20 (Perplexity Finance) — not closing**; P/B and P/TB use FY2025 book/tangible-book denominators.
