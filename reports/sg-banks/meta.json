@@ -9,11 +9,11 @@
   "current_version": "2026.07.20",
   "tags": ["singapore", "banks", "DBS", "OCBC", "UOB", "wealth", "NIM", "deposits", "1Q2026"],
   "executive_summary": "execsummary.md",
-  "executive_summary_status": "pending — not regenerated in the 2026-07-20 refresh; awaiting a separate closed-book pass on the updated report.md",
+  "executive_summary_status": "current — regenerated 2026-07-20 via a closed-book GPT-5.5 pass on report.md (v2026.07.20); 10 ranked insights (3 positive / 4 negative / 3 mixed)",
   "pipeline": {
     "architecture_updated": "2026-07-20",
     "content_refreshed": "2026-07-20",
-    "refresh_note": "1Q2026 refresh: added the 1Q2026 interim block + current (2026-07-20 intraday) valuation. Frame, signals (first Scan run), tables and report updated; ledger extended with 49 Q1-2026 rows; FY2016–FY2025 history unchanged. Executive summary intentionally NOT regenerated this pass.",
+    "refresh_note": "1Q2026 refresh: added the 1Q2026 interim block + current (2026-07-20 intraday) valuation. Frame, signals (first Scan run), tables and report updated; ledger extended with 49 Q1-2026 rows; FY2016–FY2025 history unchanged. Executive summary regenerated in a follow-up closed-book GPT-5.5 pass (Retrieve/Scan/report/tables frozen from the refresh commit).",
     "reconciliation_note": "Reconciliation of the retrieved/scanned ledger is a human/Claude step between Retrieve/Scan and Tables; it has no separate output artifact (it fills reconciled_* columns in ledger.csv).",
     "modules": {
       "frame": {
