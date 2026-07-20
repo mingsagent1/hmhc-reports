@@ -8,5 +8,46 @@
   "last_updated": "2026-07-16",
   "current_version": "2026.07",
   "tags": ["singapore", "banks", "DBS", "OCBC", "UOB", "wealth", "NIM", "deposits"],
-  "executive_summary": "execsummary.md"
+  "executive_summary": "execsummary.md",
+  "pipeline": {
+    "architecture_updated": "2026-07-20",
+    "reconciliation_note": "Reconciliation of the retrieved/scanned ledger is a human/Claude step between Retrieve/Scan and Tables; it has no separate output artifact (it fills reconciled_* columns in ledger.csv).",
+    "modules": {
+      "frame": {
+        "method": "pipeline/sg-banks/method/frame.md",
+        "output": "pipeline/sg-banks/frame.md"
+      },
+      "retrieve": {
+        "method": "pipeline/sg-banks/method/retrieval.md",
+        "output": "pipeline/sg-banks/data/ledger.csv"
+      },
+      "scan": {
+        "method": "pipeline/sg-banks/method/scan.md",
+        "output": "pipeline/sg-banks/data/signals.md"
+      },
+      "tables": {
+        "method": "pipeline/sg-banks/method/build-tables.md",
+        "output": "pipeline/sg-banks/data/tables.md"
+      },
+      "assemble": {
+        "method": "pipeline/sg-banks/method/build.md",
+        "output": "reports/sg-banks/report.md"
+      },
+      "exec_summary": {
+        "method": "pipeline/sg-banks/method/execsummary.md",
+        "output": "reports/sg-banks/execsummary.md"
+      },
+      "style": {
+        "method": "pipeline/sg-banks/method/style.md",
+        "consumed_by": [
+          "pipeline/sg-banks/method/build-tables.md",
+          "pipeline/sg-banks/method/build.md"
+        ]
+      },
+      "publish": {
+        "method": "pipeline/sg-banks/method/publish.md",
+        "output": "reports/sg-banks/meta.json"
+      }
+    }
+  }
 }
