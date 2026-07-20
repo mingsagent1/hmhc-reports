@@ -8,49 +8,28 @@
   "last_updated": "2026-07-20",
   "current_version": "2026.07.20",
   "tags": ["singapore", "banks", "DBS", "OCBC", "UOB", "wealth", "NIM", "deposits", "1Q2026"],
-  "executive_summary": "execsummary.md",
-  "executive_summary_status": "current — regenerated 2026-07-20 via a closed-book GPT-5.5 pass on report.md (v2026.07.20); 10 ranked insights (3 positive / 4 negative / 3 mixed)",
+  "executive_summary_status": "in report.md (Executive Summary section, between execsummary markers); 10 ranked insights (3 positive / 4 negative / 3 mixed); regenerated 2026-07-20",
   "pipeline": {
     "architecture_updated": "2026-07-20",
     "content_refreshed": "2026-07-20",
-    "refresh_note": "1Q2026 refresh: added the 1Q2026 interim block + current (2026-07-20 intraday) valuation. Frame, signals (first Scan run), tables and report updated; ledger extended with 49 Q1-2026 rows; FY2016–FY2025 history unchanged. Executive summary regenerated in a follow-up closed-book GPT-5.5 pass (Retrieve/Scan/report/tables frozen from the refresh commit).",
-    "reconciliation_note": "Reconciliation of the retrieved/scanned ledger is a human/Claude step between Retrieve/Scan and Tables; it has no separate output artifact (it fills reconciled_* columns in ledger.csv).",
+    "refresh_note": "1Q2026 refresh + report restructure: 5-section layout (Interpretation · Key Questions · Executive Summary · Key Data · Appendix); signal commentary moved out of the body to feed the Executive Summary only. Ledger extended with 49 Q1-2026 rows; FY2016–FY2025 history unchanged.",
+    "reconciliation_note": "Reconciliation of the retrieved/scanned ledger is a human/Claude step between Retrieve/Scan and Tables; it fills reconciled_* columns in ledger.csv (no separate output artifact).",
+    "guides": {
+      "frame": { "path": "pipeline/sg-banks/guides/frame.md", "human_owned": true },
+      "style": { "path": "pipeline/sg-banks/guides/style.md", "human_owned": true,
+                 "consumed_by": ["pipeline/sg-banks/method/build-tables.md", "pipeline/sg-banks/method/build-report.md"] }
+    },
     "modules": {
-      "frame": {
-        "method": "pipeline/sg-banks/method/frame.md",
-        "output": "pipeline/sg-banks/frame.md"
-      },
-      "retrieve": {
-        "method": "pipeline/sg-banks/method/update-ledger.md",
-        "output": "pipeline/sg-banks/data/ledger.csv"
-      },
-      "scan": {
-        "method": "pipeline/sg-banks/method/scan.md",
-        "output": "pipeline/sg-banks/data/signals.md"
-      },
-      "tables": {
-        "method": "pipeline/sg-banks/method/build-tables.md",
-        "output": "pipeline/sg-banks/data/tables.md"
-      },
-      "assemble": {
-        "method": "pipeline/sg-banks/method/build-report.md",
-        "output": "reports/sg-banks/report.md"
-      },
-      "exec_summary": {
-        "method": "pipeline/sg-banks/method/execsummary.md",
-        "output": "reports/sg-banks/execsummary.md"
-      },
-      "style": {
-        "method": "pipeline/sg-banks/method/style.md",
-        "consumed_by": [
-          "pipeline/sg-banks/method/build-tables.md",
-          "pipeline/sg-banks/method/build-report.md"
-        ]
-      },
-      "publish": {
-        "method": "pipeline/sg-banks/method/publish.md",
-        "output": "reports/sg-banks/meta.json"
-      }
+      "retrieve":     { "method": "pipeline/sg-banks/method/update-ledger.md",     "output": "pipeline/sg-banks/data/ledger.csv",  "cost": "expensive" },
+      "scan":         { "method": "pipeline/sg-banks/method/scan-signals.md",      "output": "pipeline/sg-banks/data/signals.md", "cost": "expensive" },
+      "tables":       { "method": "pipeline/sg-banks/method/build-tables.md",      "output": "pipeline/sg-banks/data/tables.md" },
+      "assemble":     { "method": "pipeline/sg-banks/method/build-report.md",      "output": "reports/sg-banks/report.md" },
+      "exec_summary": { "method": "pipeline/sg-banks/method/write-execsummary.md", "output": "reports/sg-banks/report.md (Executive Summary section)" }
+    },
+    "control": {
+      "entrypoint": "pipeline/sg-banks/UPDATE.md",
+      "registry": "pipeline/sg-banks/index.md",
+      "publish": "handled by UPDATE.md (updates reports/sg-banks/meta.json)"
     }
   }
 }

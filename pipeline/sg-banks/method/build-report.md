@@ -62,6 +62,22 @@ Keep all three as prose / compact tables — this is where explanation lives, so
 - **Every narrative claim must trace to an input** — a table cell, a ledger-grounded figure already in `tables.md`, a dated signal in `signals.md`, or the framing in `frame.md`. No outside facts, no forecasts of your own, no memory-fills.
 - Read **within-bank trends**, never false cross-bank comparisons on non-comparable lines (wealth income, AUM definitions) — flag non-comparability per `frame.md`'s rubric.
 
+## Canonical report structure
+
+The published `reports/sg-banks/report.md` has a **fixed five-section order**, top to bottom. Every rebuild must reproduce it exactly:
+
+1. **Interpretation (short)** — the one-line thesis (Singapore as a regional wealth hub; DBS/OCBC/UOB the vehicles), the banks/period/currency line, and a compact "How this was built" flex line. No Legend/Formats here.
+2. **Key Questions & AI Recommendations** — the big questions from `pipeline/sg-banks/guides/frame.md` as dot points, each with a concise AI recommendation answered from the report's findings. **If `guides/frame.md` still holds placeholder `<your question>` lines, do not invent questions** — insert *"Key Questions pending — to be set in guides/frame.md by the author."* and leave recommendations blank.
+3. **Executive Summary** — sits in the top-third, **wrapped in the `<!-- execsummary:start -->` / `<!-- execsummary:end -->` markers** so the Exec-Summary module (`write-execsummary.md`) can regenerate it in place. Exactly 10 ranked insights, ≥3 positive and ≥3 negative.
+4. **Key Data (tables)** — the five tables (Table 1 ×3, Tables 2–5) plus the latest-quarter interim tables, numbers unchanged. **No signal commentary in the body:** no "Risks:" blocks, no "FY2026 management guidance" block, no forward/interpretive "Growth engine:" passages — that content lives only in `data/signals.md` and feeds the Executive Summary only. Factual composition breakdowns and the deposits/CASA methodology are relocated to Appendix B, never dropped; any hard datum (e.g. a CAGR) must survive in a table or an appendix.
+5. **Appendix** — **A — Validation report**, **B — Definitions** (also holding the relocated composition/benchmark methodology), **C — Restatement log**, and **D — Notation & Formats** (the Legend/Formats moved out of the top).
+
+**Rules that keep rebuilds consistent:**
+- Signal commentary never appears in the report body; signals feed **only** the Executive Summary (via `data/signals.md`).
+- Legend and number-format notation live in **Appendix D**, not at the top.
+- The Executive Summary is always wrapped in the `execsummary` markers and is the canonical copy (there is no separate `execsummary.md` artifact).
+- Never change a table's numbers during assembly; fix upstream (ledger → Build-Tables) if a cell looks wrong.
+
 ## Acceptance criteria (stop when all true)
 - `reports/sg-banks/report.md` contains the header/legend, all table blocks (lifted unchanged from `tables.md`), the per-bank commentary, the benchmark note, FY2026 guidance, and Appendices A–C.
 - No table cell value differs from `tables.md`; no number or fact appears that is not traceable to an input.

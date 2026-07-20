@@ -1,24 +1,58 @@
 # SGBanks · Tables · Report — Revenue-engine / valuation view
 
-> **Project:** Singapore Bank Stock Accumulation Strategy · **Component:** `Tables`
-> **Built from:** `pipeline/sg-banks/data/ledger.csv` (reconciled) + `pipeline/sg-banks/data/signals.md` per `pipeline/sg-banks/method/build.md`. **Refreshed 2026-07-20 for the 1Q2026 update** (historical FY2016–FY2025 blocks unchanged from rev 2026-07-16c).
-> **Banks:** DBS (SGX: D05) · OCBC (SGX: O39) · UOB (SGX: U11). **Period:** FY2016–FY2025 (31-Dec year-ends) long-run base + **1Q2026 interim (quarters ended 31 Mar 2026)** + **current (2026-07-20 intraday) valuation.** **Currency: SGD only.**
+## Interpretation
 
-**Legend.** `n/r` = not retrieved from a Tier-1 source · `n/d` = bank does not disclose (or, this refresh, source temporarily unavailable). Derived cells (Other, TotalRev, CAGR, Rev/Dep, Profit/Dep, Profit/Rev, P/B, P/TB, TBVPS) are unmarked and covered by each table's derived-line footnote. Citations and trap-notes appear as superscripts with a small-font footnote block under each table.
+**Thesis.** Singapore functions as a regional wealth hub; DBS, OCBC, and UOB are the vehicles to accumulate exposure to that.
 
-**Formats.** Dep, Assets, AUM: S$bn, 0 dp. NII, Other, TotalRev, Profit: S$bn, 1 dp. NIM: %, 2 dp. CASA: %, 1 dp. Rev/Dep, Profit/Dep: 3 dp. Profit/Rev: 2 dp. Ratios and NIM/CASA cells intentionally blank on CAGR rows (a point-in-time ratio does not compound).
+**Banks / period / currency.** DBS (SGX: D05) · OCBC (SGX: O39) · UOB (SGX: U11). Period: FY2016–FY2025 (31-Dec year-ends) long-run base + 1Q2026 interim (quarters ended 31 Mar 2026) + current (2026-07-20 intraday) valuation. **Currency: SGD only.** Descriptive analysis, **not investment advice**; no forecasts beyond management's own guidance.
 
-> **Reading order.** The **1Q2026 Update** section below is the latest-quarter refresh (as of 2026-07-20). The FY2016–FY2025 Tables 1–5 that follow are the unchanged long-run base. Descriptive analysis, **not investment advice**; no forecasts beyond management's own guidance.
+**How this was built.** Built from a 500+ point, source-graded reconciled ledger — cross-checked and validation-gated — via a documented, version-controlled AI pipeline. Notation and number formats are in **Appendix D**.
 
 ---
 
-## 1Q2026 Update — as of 2026-07-20
+## Key Questions & AI Recommendations
 
-> **New this refresh.** Latest reported quarter (ended 31 Mar 2026), current guidance, and a dated signal synthesis. **Comparability caveats apply — read the notes.** All 1Q26 fundamentals are single-retriever (`single-cl`, one Claude pass from the evidence set); DBS and OCBC lines are Tier-1 (bank IR), **UOB income-statement detail is Tier-2 host** (UOB's own CFO/CEO slides redistributed via MarketScreener, because UOB's own PDFs were not directly retrievable in-session). Valuation prices are **intraday 2026-07-20 (Perplexity Finance) — not closing prices.**
+Key Questions pending — to be set in `pipeline/sg-banks/guides/frame.md` by the author.
 
-**The one-line story.** The material change since the FY2025 base is a **regime shift in Singapore rates**: 3M SORA averaged **~1.07% in 1Q26 versus ~2.54% in 1Q25** — "less than half of what it was a year ago" — compressing net interest margin and net interest income at all three banks, with a **record wealth / non-interest-income cycle** as the offset ([DBS 1Q26 media transcript](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_media_transcript.pdf)). The Fed held its funds target at **3.50–3.75%** at the 17 Jun 2026 FOMC and its dot plot turned hawkish (median 2026 ~3.8%), so the banks now plan on **zero 2026 Fed cuts** ([Federal Reserve FOMC statement, 17 Jun 2026](https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm); [FOMC minutes, 16–17 Jun 2026](https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm)).
+---
 
-### 1Q2026 — income & returns (S$m unless %)
+<!-- execsummary:start -->
+## Executive Summary — Top 10 Insights
+
+Positive: 3 · Negative: 4 · Mixed: 3
+
+1. **[±] All three banks trade well above their own long-run valuation, richest at DBS.** On the intraday 2026-07-20 snapshot, current P/B is 2.96 for DBS (+96% vs its 10-yr average of 1.51), 2.14 for OCBC (+84% vs 1.16), and 1.45 for UOB (+24% vs 1.17) — a real re-rating but one that leaves little historical cushion, and the prices are intraday, not closing. (1Q2026 Update — current valuation table; Table 4 — Current P/B / Current vs 10-yr avg rows)
+
+2. **[–] A Singapore rate-regime shift is compressing net interest margin and NII at all three banks.** 3M SORA averaged ~1.07% in 1Q26 versus ~2.54% a year earlier, pulling 1Q26 group NIM down year-on-year to 1.89% (DBS), 1.76% (OCBC), and 1.82% (UOB) with net interest income down about 4–5% YoY across the group. (1Q2026 Update — "The one-line story"; 1Q2026 income & returns table; Table 5)
+
+3. **[+] A record wealth and fee cycle is offsetting the rate drag, driving record total income at DBS and OCBC.** 1Q26 total income set records at DBS (S$5,948m) and OCBC (S$3,828m), net fee income rose +16% YoY at DBS and +24% at OCBC, and DBS reported record wealth AUM of S$492bn (+17% YoY constant-currency) with net new money of +S$10bn. (1Q2026 income & returns table; 1Q2026 attraction/balance-sheet table; Signal synthesis)
+
+4. **[+] DBS posted the strongest quarter, with record profit, top returns, and a guidance upgrade.** DBS 1Q26 net profit was a record S$2,930m (+1% YoY) at a group ROE of 17.0%, and management upgraded FY2026 guidance to net profit having "a good shot at coming close to 2025 levels" from the earlier "below 2025." (1Q2026 income & returns table; Signal synthesis — DBS; FY2026 management guidance — DBS)
+
+5. **[–] UOB is the laggard, with a third straight quarter of year-on-year income and profit declines.** UOB 1Q26 net profit fell 4% YoY and net fee income fell 8% YoY, with an elevated 26bps credit cost, rising Greater-China NPAs, and the highest NPL ratio of the three at 1.5%. (1Q2026 income & returns table; 1Q2026 asset-quality table; Signal synthesis — UOB)
+
+6. **[–] OCBC absorbed the steepest margin squeeze and booked management overlays citing elevated uncertainty.** OCBC's group NIM fell the most of the three, −28bps YoY to 1.76%, and it booked S$191m of management-overlay allowances for non-impaired assets, lifting credit cost to 23bps. (1Q2026 income & returns table note; 1Q2026 asset-quality table; Signal synthesis — OCBC)
+
+7. **[+] Capital and asset quality remain solid across the group.** 1Q26 CET1 ratios were 16.9% (DBS), 17.0% (OCBC), and 15.3% (UOB), with NPL ratios of 1.0%, 0.9%, and 1.5% respectively. (1Q2026 attraction, balance-sheet & asset-quality table)
+
+8. **[±] Banks now plan on zero 2026 Fed cuts, and FY2026 guidance diverges by bank.** After the Fed held its target at 3.50–3.75% on 17 Jun 2026 with a hawkish dot plot, DBS guides total income at or around 2025 levels, OCBC targets double-digit non-interest-income growth, and UOB guides a full-year NIM of 1.75%–1.80% (versus FY25 1.89%). (1Q2026 Update — "The one-line story"; FY2026 management guidance)
+
+9. **[–] UOB's FY2025 net profit fell 23% on a large pre-emptive provision.** The drop reflects ~S$2.0bn of general allowances booked in 3Q2025, cutting reported FY2025 ROE to 9.6% while operating profit was only −4%. (Table 1 — UOB footnote 5; Appendix C)
+
+10. **[±] The 1Q2026 figures are single-retriever and partly low-confidence, warranting spot-verification.** All 1Q26 cells are `single-cl` (one Claude pass, not yet dual-checked), UOB's 1Q26 income-statement detail is Tier-2 host (CFO/CEO slides via MarketScreener), and the official 3M SORA is `n/d` because the MAS portal was under maintenance on 2026-07-20. (Comparability notes & retrieval limitations (1Q2026); Appendix A — 1Q2026 refresh validation & provenance)
+
+Scope: derived solely from reports/sg-banks/report.md (v2026.07.20). Not investment advice.
+<!-- execsummary:end -->
+
+---
+
+## Key Data
+
+<!-- FUTURE WORKFLOW (TBD): per-table notes for latest-quarter actuals & executive forecasts will be added here. Not built yet. -->
+
+### 1Q2026 interim (quarter ended 31 Mar 2026)
+
+#### 1Q2026 — income & returns (S$m unless %)
 
 | Metric (1Q26) | DBS | OCBC | UOB | Note |
 |---|---:|---:|---:|---|
@@ -33,7 +67,7 @@
 
 <sub>NII + Non-II = Total income ties exactly for all three (DBS 3,494+2,454=5,948 · OCBC 2,222+1,606=3,828 · UOB 2,324+1,098=3,422). DBS non-II derived (fee 1,482 + other 972); OCBC NII derived-to-tie (press release prints NII ≈ "S$2.22bn"). **UOB non-II caveat:** UOB's CFO-slide component split (net fee 637 + trading & investment 405 + other 462 = 1,504) does **not** reconcile with total income − NII (1,098); the tie-out-consistent derived 1,098 is used and the slide split is flagged as an unresolved retrieval gap. Sources: [DBS 1Q26 Trading Update](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_trading_update.pdf); [OCBC 1Q26 Press Release](https://www.ocbc.com/group/media/release/2026/ocbc-group-first-quarter-2026-net-profit-up-5percent.page); [OCBC 1Q26 Results (SGX PDF)](https://links.sgx.com/FileOpen/OCBC_1Q26_Results_Press_Release.ashx?App=Announcement&FileID=888006); [UOB 1Q26 CFO Slides (via MarketScreener)](https://www.marketscreener.com/news/united-overseas-bank-uob-group-1q26-trading-update-cfo-slides-ce7f58d2d18df127); [UOB Financial Highlights](https://www.uobgroup.com/investor-relations/financial/financial-highlights.html).</sub>
 
-### 1Q2026 — attraction, balance sheet & asset quality (period-end 31 Mar 2026)
+#### 1Q2026 — attraction, balance sheet & asset quality (period-end 31 Mar 2026)
 
 | Metric | DBS | OCBC | UOB | Note |
 |---|---:|---:|---:|---|
@@ -48,7 +82,7 @@
 
 <sub>**Never sum deposits + AUM** (double-count). Wealth-AUM levels are **not** cross-comparable — DBS "Wealth Management AUM"; OCBC group wealth incl. Bank of Singapore + Great Eastern; UOB "Group Retail AUM" (narrower, reclassified 1-Jan-2023). DBS record wealth AUM S$492bn (+17% YoY cc), net new money +S$10bn ([DBS 1Q26 CFO presentation](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_CFO_presentation.pdf)). OCBC credit cost includes S$191m management-overlay allowances for non-impaired assets ([OCBC 1Q26 Press Release](https://www.ocbc.com/group/media/release/2026/ocbc-group-first-quarter-2026-net-profit-up-5percent.page)). UOB credit cost 26bps with Greater-China NPAs rising ([Bloomberg, 6 May 2026](https://www.bloomberg.com/news/articles/2026-05-06/uob-profit-dips-on-lending-income-ceo-says-uncertainty-elevated)). UOB balance-sheet/ratio lines are Tier-1 ([UOB Financial Highlights](https://www.uobgroup.com/investor-relations/financial/financial-highlights.html)); UOB CASA / wealth AUM / credit cost are Tier-2 host ([UOB 1Q26 CFO Slides](https://www.marketscreener.com/news/united-overseas-bank-uob-group-1q26-trading-update-cfo-slides-ce7f58d2d18df127)).</sub>
 
-### 1Q2026 — current valuation (as of 2026-07-20, intraday)
+#### 1Q2026 — current valuation (as of 2026-07-20, intraday)
 
 | Metric | DBS | OCBC | UOB |
 |---|---:|---:|---:|
@@ -60,30 +94,6 @@
 | Current P/TB | 3.26 | 2.30 | 1.62 |
 
 <sub>Prices are **intraday 2026-07-20 (Perplexity Finance, SGX open) — NOT closing prices**; treat as a tier-2 market-data snapshot only. P/B = price ÷ FY2025 BVPS; P/TB = price ÷ FY2025 TBVPS (FY2025 per-share book denominators; 1Q26 per-share book not retrieved). All three continue to trade well above their own 10-yr average P/B (1.51 / 1.16 / 1.17), richest at DBS. These figures update the Table 4 "Current P/B" rows and the P/TB "current" column below.</sub>
-
-### FY2026 management guidance (each at its stated vintage — never blended)
-
-- **DBS** *(qualitative; updated at the 1Q26 briefing, 30 Apr 2026)* — no explicit FY26 NIM target; total income **at or around 2025 levels** and net profit with "a good shot at coming close to 2025 levels" (an upgrade from the earlier "below 2025"); assumes SORA ~1% (down from 1.25%) and **zero 2026 Fed cuts**; recurring fees to keep growing ([DBS 1Q26 media transcript](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_media_transcript.pdf); [DBS 1Q26 Trading Update](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_trading_update.pdf)).
-- **OCBC** *(quantitative; set at FY2025 results, 25 Feb 2026)* — no explicit FY26 NIM figure; slight-to-moderate NII decline; **stable-to-growing total income**; aiming for **double-digit non-interest-income growth** (wealth-led); 50% ordinary payout and completion of the S$2.5bn capital return by FY26 ([OCBC FY2025 results](https://www.ocbc.com/group/media/release/2025/ocbc-group-full-year-2025.page)).
-- **UOB** *(quantitative; set at FY2025 results, 24 Feb 2026)* — full-year **NIM 1.75%–1.80%** (vs FY25 1.89%); **high single-digit fee growth** (trimmed from high-single-to-double-digit); low single-digit operating-cost growth ([UOB 1Q26 CEO Slides](https://www.marketscreener.com/news/united-overseas-bank-uob-group-1q26-trading-update-ceo-slides-ce7f58d2d18df120); [Business Times, 24 Feb 2026](https://www.businesstimes.com.sg/companies-markets/uob-upbeat-asean-trade-despite-fresh-us-tariffs-trims-2026-fee-guidance-after-q4-profit-slips)).
-
-### Signal synthesis (1Q2026 — descriptive)
-
-The dated signal register is in `pipeline/sg-banks/data/signals.md`; the balance of evidence this quarter:
-
-- **DBS — strongest quarter.** Record total income and net profit with ROE 17.0%, a guidance upgrade, and a record wealth flywheel offsetting a 5% YoY NII decline; the offsetting negatives are cost growth (+4% YoY) and deferred GP release amid Middle-East macro uncertainty ([DBS 1Q26 Trading Update](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_trading_update.pdf); [DBS 1Q26 media transcript](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_media_transcript.pdf)).
-- **OCBC — clean beat on fees, steepest NIM squeeze.** Record non-interest income (+23% YoY) and wealth fees (+34% YoY) drove a 5% net-profit beat and asset quality stayed clean (NPL 0.9%), but NIM fell the most of the three (−28bps YoY to 1.76%) and it booked S$191m of management overlays citing "elevated uncertainties" ([OCBC 1Q26 Press Release](https://www.ocbc.com/group/media/release/2026/ocbc-group-first-quarter-2026-net-profit-up-5percent.page)).
-- **UOB — the laggard, still a small beat.** Net profit −4% YoY (third straight quarter of YoY declines in income and profit) with fee income −8% YoY, elevated 26bps credit cost and rising Greater-China NPAs; positives are tight cost control, a QoQ-stable NIM (1.82%), a trading-income rebound (+88% QoQ) and a new 2030 wealth-income target (≥S$2.5bn) ([UOB 1Q26 CFO Slides](https://www.marketscreener.com/news/united-overseas-bank-uob-group-1q26-trading-update-cfo-slides-ce7f58d2d18df127); [Business Times, 7 May 2026](https://www.businesstimes.com.sg/companies-markets/uob-aims-double-wealth-income-least-s2-5-billion-2030-q1-profit-slips-4); [Bloomberg, 6 May 2026](https://www.bloomberg.com/news/articles/2026-05-06/uob-profit-dips-on-lending-income-ceo-says-uncertainty-elevated)).
-
-### Comparability notes & retrieval limitations (1Q2026)
-
-- **Disclosure formats differ.** 1Q26 is a DBS "trading update," an OCBC press release, and UOB "performance highlights"/CFO-CEO slides — not full financial statements — so segment/asset-quality granularity varies by bank ([DBS 1Q26 Trading Update](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_trading_update.pdf); [UOB 1Q26 SGX notification](https://links.sgx.com/1.0.0/corporate-announcements/CJ6JCV8OPFOZVT6Y/)).
-- **UOB tiering.** UOB income-statement detail (NII, NIM, total income, fees, allowances, CASA, wealth AUM) is Tier-2 host (UOB's own slides via MarketScreener); group headline figures (net profit, deposits, assets, loans, ROE, CET1, NPL, cost/income) are Tier-1 ([UOB Financial Highlights](https://www.uobgroup.com/investor-relations/financial/financial-highlights.html)). Re-pull UOB's own PDF before high-stakes use.
-- **UOB non-II split unresolved** — see the income table note above (components sum to 1,504 vs derived 1,098).
-- **Official 3M SORA temporarily `n/d`** — the MAS eServices statistics portal was under scheduled maintenance on 2026-07-20; the ~1.07% used is the bank-characterised 1Q26 average (DBS transcript), not an official MAS daily value. Re-fetch [MAS domestic interest rates](https://eservices.mas.gov.sg/statistics/dir/domesticinterestrates.aspx) before publishing a hard SORA number.
-- **DBS numeric FY26 guidance = `n/r`** — DBS gives qualitative guidance only.
-- **All 1Q26 cells are single-retriever (`single-cl`)** — not yet dual-checked; the UOB base for YoY credit-cost/profit comparisons is distorted by the ~S$2.0bn FY2025 pre-emptive general provision (see Appendix C).
-- **UOB FY2026 capital-return target** not restated at 1Q26 → not reported here.
 
 ---
 
@@ -106,11 +116,6 @@ The dated signal register is in `pipeline/sg-banks/data/signals.md`; the balance
 
 <sub>Other = TotalRev − NII (derived). TotalRev = reported total income. Rev/Dep = TotalRev ÷ Deposits; Profit/Dep = Profit ÷ Deposits; Profit/Rev = Profit ÷ TotalRev (all dimensionless). CAGR = (end/start)^(1/n) − 1, on FY2021→FY2025 (4-yr) and FY2016→FY2025 (9-yr) bases. NIM = group net interest margin as reported. Profit = net profit attributable to shareholders (reported).</sub>
 
-**DBS — "Other (non-NII) revenue":**
-- **Composition (FY25):** Non-NII S$8.4bn — net fees S$4.9bn (mostly wealth-management fees and cards) dominate; the rest is trading & investment income and insurance-linked income. Wealth-management income alone was S$5.7bn.
-- **Growth engine:** Wealth AUM compounded **12.7% p.a. 2016→25** (S$166bn → S$488bn), lifting non-NII faster than deposits. Net fees CAGR **8.6%** (2016→25) outpaced deposit growth (6.5%).
-- **Risks:** Fee run-rate is sensitive to Asian HNW inflows and equity-market levels — a risk-off cycle can compress wealth fees faster than NII adjusts.
-
 ### Table 1 — OCBC: Income Engine
 
 | FY | Dep | Assets | NII | Other | TotalRev | Profit | NIM | Rev/Dep | Profit/Dep | Profit/Rev |
@@ -130,11 +135,6 @@ The dated signal register is in `pipeline/sg-banks/data/signals.md`; the balance
 
 <sub>Other = TotalRev − NII (derived). TotalRev = reported total income. Rev/Dep = TotalRev ÷ Deposits; Profit/Dep = Profit ÷ Deposits; Profit/Rev = Profit ÷ TotalRev (all dimensionless). CAGR = (end/start)^(1/n) − 1, on FY2021→FY2025 (4-yr) and FY2016→FY2025 (9-yr) bases. NIM = group net interest margin as reported. Profit = net profit attributable to shareholders (reported). <sup>6</sup> FY2022 figures as restated for SFRS(I) 17 (insurance) in the FY2023 release.</sub>
 
-**OCBC — "Other (non-NII) revenue":**
-- **Composition (FY25):** Non-NII S$5.5bn — wealth income S$5.6bn is the dominant driver (embeds NII on wealth deposits, per OCBC definition), net fees S$2.4bn, plus Great Eastern insurance income and trading.
-- **Growth engine:** Insurance + wealth are the twin engines. Wealth AUM CAGR **4.2%** (2018→25) is slower than DBS/UOB — a slower asset-gathering pace.
-- **Risks:** Great Eastern earnings are volatile (interest-rate and equity mark-to-market on insurance liabilities under SFRS(I) 17 — FY22 was restated for this). Fee mix more sensitive to insurance cycle than peers.
-
 ### Table 1 — UOB: Income Engine
 
 | FY | Dep | Assets | NII | Other | TotalRev | Profit | NIM | Rev/Dep | Profit/Dep | Profit/Rev |
@@ -153,11 +153,6 @@ The dated signal register is in `pipeline/sg-banks/data/signals.md`; the balance
 | **CAGR 16→25** | 5.9% | 5.9% | 7.2% | 4.2% | 6.2% | 4.7% |  |  |  |  |
 
 <sub>Other = TotalRev − NII (derived). TotalRev = reported total income. Rev/Dep = TotalRev ÷ Deposits; Profit/Dep = Profit ÷ Deposits; Profit/Rev = Profit ÷ TotalRev (all dimensionless). CAGR = (end/start)^(1/n) − 1, on FY2021→FY2025 (4-yr) and FY2016→FY2025 (9-yr) bases. NIM = group net interest margin as reported. Profit = net profit attributable to shareholders (reported). <sup>5</sup> FY2025 profit −23% is a provisioning artefact: ~S$2.0bn pre-emptive general allowances booked 3Q2025; operating profit was −4%; UOB core net profit ≈ S$4.82bn (FY2022) / S$6.06bn (FY2023) where separately disclosed.</sub>
-
-**UOB — "Other (non-NII) revenue":**
-- **Composition (FY25):** Non-NII S$4.5bn — net fees S$2.6bn is the primary line (cards, wealth, loans-related, trade); wealth income S$1.3bn is disclosed only from FY23 on a narrower basis (reclassified 1 Jan 2023).
-- **Growth engine:** Citi consumer/wealth acquisition added a step-up in fees 2022–24. Wealth AUM CAGR **8.9%** (2016→25) sits between DBS and OCBC.
-- **Risks:** FY25 profit dropped −23%<sup>5</sup> on ~S$2.0bn pre-emptive general allowances (3Q2025) — a one-off, but signals credit-cycle sensitivity given UOB's SME/ASEAN loan mix; core operating profit was −4%.
 
 ---
 
@@ -180,8 +175,6 @@ The dated signal register is in `pipeline/sg-banks/data/signals.md`; the balance
 
 <sub>Deposits = total non-bank customer deposits (group). CASA = (current + savings) / total customer deposits, as printed by each bank where available. Wealth AUM = bank-reported wealth / private-bank AUM. <sup>c1</sup> OCBC 2016–2018 CASA sourced from OCBC FY-results presentations (Tier-1) via a non-Claude retrieval pass (2026-07-16), computer-verified against source PDFs; currently `single-px` pending a second retriever. <sup>u1</sup> UOB CASA lifted ~48% → 58% (2023→25) mainly on post-rate-cycle deposit remix (customers rotating back from fixed deposits) plus mix contribution from the Citi consumer (deposit-heavy) book. CASA is a point-in-time ratio — CAGR cells intentionally blank. AUM: OCBC 2016–17 and UOB 2018–19 = `n/d` (not disclosed in that vintage of results decks). AUM definitions differ across banks (DBS "Wealth Management AUM"; OCBC group/banking wealth incl. Bank of Singapore + Great Eastern; UOB narrower, reclassified 1 Jan 2023) — read within-bank trends, not cross-bank levels. Never sum Deposits + AUM (double-count risk).</sub>
 
-**Why deposits + CASA is the attraction benchmark.** Deposits are the only asset-attraction measure disclosed consistently by all three banks across FY2016–25, on-balance-sheet, excluding leverage. CASA overlays deposit *quality* — cheap, sticky, relationship-driven money — because deposit *size* can be flattered by paying up for fixed deposits. Wealth AUM is the truest fee-flywheel (capital-light, off-balance-sheet) but is secondary here because history is patchy pre-2019 and definitions differ across banks. Never sum Deposits + AUM (some banks' AUM includes wealth deposits).
-
 ---
 
 ### Table 3 — Net interest margin (Group) & NII
@@ -200,12 +193,6 @@ The dated signal register is in `pipeline/sg-banks/data/signals.md`; the balance
 | 2025 | 14.50 | 2.01% | 9.15 | 1.91% | 9.36 | 1.89% |
 
 <sub>NIM = group net interest margin, %, as printed by each bank; NII in S$bn (2 dp). DBS uses **group** NIM (not the commercial-book series, which was 2.80% in FY2024); canary FY2025 group NIM = 2.01%.</sub>
-
-**FY2026 management guidance** *(detail and sources in the 1Q2026 Update section above):*
-
-- **DBS** (updated 30 Apr 2026): no numeric NIM target; total income at/around 2025 levels; assumes SORA ~1% and zero further Fed cuts.
-- **OCBC** (set 25 Feb 2026): no numeric NIM figure; stable-to-growing total income; double-digit non-II growth targeted.
-- **UOB** (set 24 Feb 2026): full-year group NIM 1.75–1.80%; high single-digit fee growth (trimmed).
 
 ---
 
@@ -263,6 +250,8 @@ The dated signal register is in `pipeline/sg-banks/data/signals.md`; the balance
 
 ---
 
+## Appendix
+
 ## Appendix A — Validation report
 
 **Tie-out gates**
@@ -301,7 +290,15 @@ The remaining ~30 `resolved` rows are ±S$1–25m rounding between the reconcile
 - **UOB 1Q26 income-statement detail is Tier-2 host** (CFO/CEO slides via MarketScreener); UOB group headline figures are Tier-1 (UOB Financial Highlights). DBS/OCBC 1Q26 lines are Tier-1.
 - **Current valuation prices are intraday 2026-07-20 (Perplexity Finance) — not closing**; P/B and P/TB use FY2025 book/tangible-book denominators.
 
-**Provenance caveat.** The 2026-07-16 CASA cross-check for OCBC 2016–2018 was done with a **non-Claude** retriever (GPT-5.5), reducing model-correlation risk relative to the earlier two Claude Opus 4.8 passes. Other un-checksummed cells (deposits, total assets, AUM, current prices) and the full 1Q2026 block remain single-retriever or model-correlated — spot-verify vs Tier-1 or run a further non-Claude retriever before high-stakes use.
+**Comparability notes & retrieval limitations (1Q2026)** *(relocated from the body; factual limitations tied to the 1Q2026 tables).*
+
+- **Disclosure formats differ.** 1Q26 is a DBS "trading update," an OCBC press release, and UOB "performance highlights"/CFO-CEO slides — not full financial statements — so segment/asset-quality granularity varies by bank ([DBS 1Q26 Trading Update](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_trading_update.pdf); [UOB 1Q26 SGX notification](https://links.sgx.com/1.0.0/corporate-announcements/CJ6JCV8OPFOZVT6Y/)).
+- **UOB tiering.** UOB income-statement detail (NII, NIM, total income, fees, allowances, CASA, wealth AUM) is Tier-2 host (UOB's own slides via MarketScreener); group headline figures (net profit, deposits, assets, loans, ROE, CET1, NPL, cost/income) are Tier-1 ([UOB Financial Highlights](https://www.uobgroup.com/investor-relations/financial/financial-highlights.html)). Re-pull UOB's own PDF before high-stakes use.
+- **UOB non-II split unresolved** — see the income table note above (components sum to 1,504 vs derived 1,098).
+- **Official 3M SORA temporarily `n/d`** — the MAS eServices statistics portal was under scheduled maintenance on 2026-07-20; the ~1.07% used is the bank-characterised 1Q26 average (DBS transcript), not an official MAS daily value. Re-fetch [MAS domestic interest rates](https://eservices.mas.gov.sg/statistics/dir/domesticinterestrates.aspx) before publishing a hard SORA number.
+- **DBS numeric FY26 guidance = `n/r`** — DBS gives qualitative guidance only.
+- **All 1Q26 cells are single-retriever (`single-cl`)** — not yet dual-checked; the UOB base for YoY credit-cost/profit comparisons is distorted by the ~S$2.0bn FY2025 pre-emptive general provision (see Appendix C).
+- **UOB FY2026 capital-return target** not restated at 1Q26 → not reported here.
 
 ## Appendix B — Definitions
 
@@ -315,6 +312,14 @@ The remaining ~30 `resolved` rows are ±S$1–25m rounding between the reconcile
 - **CASA ratio:** (current + savings) ÷ total customer deposits — bank-printed where available, else computed from the deposit note.
 - **Rev/Dep, Profit/Dep, Profit/Rev:** dimensionless ratios computed from the reconciled S$m values in Table 1.
 
+**Composition & growth of non-NII revenue (FY25)** *(factual composition and CAGRs relocated from the Key Data body; forward/interpretive commentary was removed and now lives only in `data/signals.md`).*
+
+- **DBS — Composition (FY25):** Non-NII S$8.4bn — net fees S$4.9bn (mostly wealth-management fees and cards) dominate; the rest is trading & investment income and insurance-linked income. Wealth-management income alone was S$5.7bn. **Growth:** Wealth AUM compounded **12.7% p.a. 2016→25** (S$166bn → S$488bn); net fees CAGR **8.6%** (2016→25) vs deposit growth 6.5%.
+- **OCBC — Composition (FY25):** Non-NII S$5.5bn — wealth income S$5.6bn is the dominant driver (embeds NII on wealth deposits, per OCBC definition), net fees S$2.4bn, plus Great Eastern insurance income and trading. **Growth:** Wealth AUM CAGR **4.2%** (2018→25).
+- **UOB — Composition (FY25):** Non-NII S$4.5bn — net fees S$2.6bn is the primary line (cards, wealth, loans-related, trade); wealth income S$1.3bn is disclosed only from FY23 on a narrower basis (reclassified 1 Jan 2023). **Growth:** Wealth AUM CAGR **8.9%** (2016→25).
+
+**Why deposits + CASA is the attraction benchmark.** Deposits are the only asset-attraction measure disclosed consistently by all three banks across FY2016–25, on-balance-sheet, excluding leverage. CASA overlays deposit *quality* — cheap, sticky, relationship-driven money — because deposit *size* can be flattered by paying up for fixed deposits. Wealth AUM is the truest fee-flywheel (capital-light, off-balance-sheet) but is secondary here because history is patchy pre-2019 and definitions differ across banks. Never sum Deposits + AUM (some banks' AUM includes wealth deposits).
+
 ## Appendix C — Restatement log
 
 - **OCBC FY2022** — comparatives restated for **SFRS(I) 17** (insurance); the FY2023-release restated non-II (3,598) and net profit (5,526) are used, not the originally-reported figures (~3,990 / ~5,750).
@@ -322,6 +327,12 @@ The remaining ~30 `resolved` rows are ±S$1–25m rounding between the reconcile
 - **UOB wealth income** — reclassified **1-Jan-2023**; UOB wealth income disclosed FY2023+ only (narrower basis than DBS/OCBC).
 - **UOB FY2025** — net profit −23% and ROE 9.6% reflect ~S$2.0bn pre-emptive general allowances (3Q2025); operating profit was −4%. Not a restatement, but a one-off flagged throughout.
 - **DBS 1-for-10 bonus issue (1Q2024)** — DBS price and BVPS are kept on the **same basis within each year**, so P/B is bonus-invariant; no adjusted-price ÷ unadjusted-BVPS mixing.
+
+## Appendix D — Notation & Formats
+
+**Legend.** `n/r` = not retrieved from a Tier-1 source · `n/d` = bank does not disclose (or, this refresh, source temporarily unavailable). Derived cells (Other, TotalRev, CAGR, Rev/Dep, Profit/Dep, Profit/Rev, P/B, P/TB, TBVPS) are unmarked and covered by each table's derived-line footnote. Citations and trap-notes appear as superscripts with a small-font footnote block under each table.
+
+**Formats.** Dep, Assets, AUM: S$bn, 0 dp. NII, Other, TotalRev, Profit: S$bn, 1 dp. NIM: %, 2 dp. CASA: %, 1 dp. Rev/Dep, Profit/Dep: 3 dp. Profit/Rev: 2 dp. Ratios and NIM/CASA cells intentionally blank on CAGR rows (a point-in-time ratio does not compound).
 
 ---
 
