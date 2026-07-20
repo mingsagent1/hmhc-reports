@@ -21,7 +21,7 @@
         "output": "pipeline/sg-banks/frame.md"
       },
       "retrieve": {
-        "method": "pipeline/sg-banks/method/retrieval.md",
+        "method": "pipeline/sg-banks/method/update-ledger.md",
         "output": "pipeline/sg-banks/data/ledger.csv"
       },
       "scan": {
@@ -33,7 +33,7 @@
         "output": "pipeline/sg-banks/data/tables.md"
       },
       "assemble": {
-        "method": "pipeline/sg-banks/method/build.md",
+        "method": "pipeline/sg-banks/method/build-report.md",
         "output": "reports/sg-banks/report.md"
       },
       "exec_summary": {
@@ -44,7 +44,7 @@
         "method": "pipeline/sg-banks/method/style.md",
         "consumed_by": [
           "pipeline/sg-banks/method/build-tables.md",
-          "pipeline/sg-banks/method/build.md"
+          "pipeline/sg-banks/method/build-report.md"
         ]
       },
       "publish": {
