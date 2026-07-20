@@ -70,6 +70,7 @@ Always finish with **Publish** (Step 5).
 ## Step 5 — Publish (version, meta, commit, tag)
 - **Bump:** data/scan/tables changed ⇒ **minor**; only ExecSummary/Style/presentation ⇒ **patch**; a Frame change that alters the report ⇒ minor.
 - Update `reports/sg-banks/meta.json` (`last_updated`, `current_version`, `pipeline.ref` = new tag). Commit; `git tag sg-banks-v<version>`; push.
+- **Commit trailers:** every commit carries the `Generated-by:` / `Co-Authored-By:` attribution trailers per `AGENTS.md` § Commit attribution (harness+model code matching the ledger stamps).
 
 ## Step 6 — Report back
 State: the assessment, which guides/modules changed, whether any expensive module was run (and that it was explicitly confirmed), gates passed, new version + tag.
