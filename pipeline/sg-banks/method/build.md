@@ -1,154 +1,72 @@
-# SOP 2 — Report Component Build (SG Banks · Tables: revenue-engine / valuation view)
+# Assemble — Module SOP: Report assembly (SG Banks · Tables)
 
 > **Project:** Singapore Bank Stock Accumulation Strategy
 > **Artifact:** `pipeline/sg-banks/method/build.md` — version history in git (`git log --oneline pipeline/sg-banks/method/build.md`).
 > **Status:** Draft.
-> **Consumes:** `pipeline/sg-banks/data/ledger.csv` → **Produces:** `reports/sg-banks/report.md`.
-> **Changelog:** v0.1 — New table order (Income Engines first); deposits/assets/Other/Profit engine view; removed standalone Wealth & Net-Fee tables; added Other-income breakdown block; combined P/B + ROE; NIM table gains an NII column; no inline `calc` marker; citations as superscript footnotes.
-> · **rev 2026-07-16:** added **Table 1b — Attracted assets (deposits & CASA)** as the asset-attraction spine.
-> · **rev 2026-07-16b:** added **Table 1c — Wealth AUM (overlay)** and a **"why deposits + CASA is the benchmark"** methodology note.
-> · **rev 2026-07-16c:** **Table 1 split per bank** (three tables — one each for DBS/OCBC/UOB) with new columns (TotalRev, NIM, Rev/Dep, Profit/Dep, Profit/Rev), per-column formatting, and 2–3 dot-point "Other revenue" commentary under each bank's table (replaces the standalone Other-income breakdown block). **Table 1b + 1c merged into a single Table 2** carrying Deposits + CASA + Wealth AUM. **Downstream tables renumbered** (old Table 2 NIM/NII → **Table 3**; old Table 3 valuation → **Table 4**; old Table 4 NIM-vs-rates → **Table 5**). Table 3 (NIM/NII) column order changed to **NII first, then NIM**; NIM values carry a **`%`** suffix; FY2026 guidance moves out of the table into three standard-size bullet footnotes (one per bank).
+> **History:** Until 2026-07-20 this file was the monolithic "reconcile + build" SOP. In the modular-pipeline refactor its **reconciliation** guidance moved to the upstream human/Claude step (documented in `build-tables.md`) and all **table specifications, formulas, tie-outs, canaries, and number formats** moved to `pipeline/sg-banks/method/build-tables.md`. This file is now **Assemble-only**: it turns finished inputs into the published report. **Table arithmetic is NOT specified here — it lives only in `build-tables.md`.**
 
-**Role of this SOP.** This is the *reconcile + build* stage. Input = the filled `pipeline/sg-banks/data/ledger.csv` (from SOP 1, with one or more agents' columns). Output = one clean markdown report component.
+## Module contract
 
-**Banks:** DBS (D05), OCBC (O39), UOB (U11). Period FY2016–FY2025 + latest 2026 interim. **SGD only.** Amounts and ratios per per-column formatting rules below.
+| | |
+|---|---|
+| **Inputs** | `pipeline/sg-banks/frame.md` (thesis, questions, rubric) · `pipeline/sg-banks/data/tables.md` (finished table blocks + footnotes + validation data) · `pipeline/sg-banks/data/signals.md` (dated/sourced qualitative signals) · `pipeline/sg-banks/method/style.md` (marking/format/tone spec). |
+| **Sole output** | `reports/sg-banks/report.md` — the published report: legend/header, the table blocks (lifted from `tables.md`), per-bank narrative, methodology note, FY2026 guidance, and Appendices A–C. |
+| **Idempotence** | A rerun overwrites `reports/sg-banks/report.md` in place from the current inputs. Git retains history. Assemble does **not** recompute table arithmetic or re-retrieve data. |
+| **Recommended model** | Any capable writing/synthesis model. No search grounding — Assemble may only use its four inputs; it must not fetch outside facts. |
+| **Position** | `… → Build-Tables → Assemble → Exec Summary → Publish`. Assemble consumes `tables.md`, `signals.md`, `frame.md`, `style.md`; the Exec Summary and Publish modules run after. |
 
----
-
-## Phase 1 — Reconcile the ledger (do this first, in code)
-
-For every row, compare `px_value`, `cl_value`, and `checksum_expected`, then fill `reconciled_value` / `reconciliation_status` / `reconciliation_note`:
-
-- **`match`** — agents agree (and agree with checksum if present) → take the value. Use `match` **only** when `px_value`, `cl_value`, and any `checksum_expected` are all equal (pure rounding aside); if the value you take differs from the checksum, or `px≠cl`, it is a `resolved`, not a `match`.
-- **`single-px` / `single-cl`** — only one agent filled it → take it; the status names which (`single-px` = Perplexity-only, `single-cl` = Claude-only).
-- **`resolved`** — agents disagree, or the taken value disagrees with the checksum. **Do not average or silently pick.** Take the value that (a) reproduces the checksum and (b) ties out (NII+Non-NII=Total income), and record the loser + the likely cause (rounding / basis / restatement / price-date) in `reconciliation_note`. If neither ties, mark the cell `n/r` for the report and log it.
-- **`n/r` / `n/d` / `text/other`** — carry through (`text/other` = guidance/verbatim text rows).
-
-Prefer **restated** figures (B6) and record the original in the note. Every `resolved` row becomes a line in the Validation Report.
+**Banks:** DBS (D05), OCBC (O39), UOB (U11). Period FY2016–FY2025 + latest 2026 interim. **SGD only.**
 
 ---
 
-## Phase 2 — Build the report
+## Role of this SOP
 
-### Global formatting rules (apply to every table)
-1. **No inline `calc` marker.** Derived cells appear as plain numbers. Under each table add ONE small-font line naming the derived columns and the formula, e.g. `Other = Total income − NII; CAGR = (end/start)^(1/n) − 1`.
-2. **Citations & trap-notes = superscript numbers only.** Put the note text in a small-font footnote block under the table using `<sub>…</sub>`. **No sentence-long text inside any table cell.**
-3. **Cell contents are only:** a number, `n/r`, or `n/d`. Nothing else.
-4. **No instructional text in the output** — no "amounts only", no "retrieval notes", no restating the SOP. The reader sees data + footnotes + the validation/appendix sections only.
-5. Right-align numeric columns. Keep tables as narrow as the data allows.
+Assemble is the **composition** stage. Everything numeric is already decided: `tables.md` carries the finished tables and their footnotes; `signals.md` carries the qualitative colour; `frame.md` says what the report is arguing; `style.md` says how to mark and word it. Assemble's job is to weave these into one clean, readable report — **without introducing a single number or fact that is not already in its inputs.**
 
-### Per-column number formats (Tables 1, 2, 3)
+## Handling the current state (Scan not yet run)
 
-| Column | Format | Notes |
-|---|---|---|
-| Dep | S$bn, no decimals | e.g. `610` |
-| Assets | S$bn, no decimals | e.g. `897` |
-| NII | S$bn, 1 decimal | e.g. `14.5` |
-| Other | S$bn, 1 decimal | derived: `TotalIncome − NII` |
-| TotalRev | S$bn, 1 decimal | = `TotalIncome` (reported) |
-| Profit | S$bn, 1 decimal | net profit attributable |
-| NIM | %, 2 decimals, with `%` symbol | e.g. `2.01%` |
-| Rev/Dep | 3 decimals | derived: TotalRev ÷ Dep (unitless) |
-| Profit/Dep | 3 decimals | derived: Profit ÷ Dep (unitless) |
-| Profit/Rev | 2 decimals | derived: Profit ÷ TotalRev (unitless) |
-| CASA | %, 1 decimal, with `%` symbol | bank-printed where given |
-| Wealth AUM | S$bn, no decimals | overlay only; definitions differ |
-| CAGR rows | %, 1 decimal | non-meaningful cells (ratios, NIM, CASA) left **blank** |
+`pipeline/sg-banks/data/signals.md` is currently a **scaffold — Scan has not been run**, so it contains no signals. Assemble must:
 
-### Marking (report-level)
-`n/r` = not retrieved from Tier-1; `n/d` = bank does not disclose. Derived values are unmarked (covered by the per-table derived-line). Give the tiny legend once at the top.
+- **Not invent signals.** Do not add management-commentary or market-context narrative that a signal would have supplied but which is not present in `signals.md` or already in `tables.md`.
+- **Assemble from what is available.** Build the report from `tables.md` + `frame.md` + `style.md`. The per-bank "Other (non-NII) revenue" commentary and the FY2026 guidance bullets in the current report are grounded in ledger/report content (composition figures, disclosed guidance) — these are retained because they trace to the tables/ledger, not to an unrun scan.
+- **Mark omissions.** Where a section would be enriched by scan signals, note that the qualitative scan layer is not yet integrated rather than filling the gap. (See `frame.md` open framing questions.)
 
----
+When Scan is later run, a rerun of Assemble folds its dated, sourced signals into the narrative.
 
-### Table 1 — Income Engine, per bank (THREE tables: one each for DBS, OCBC, UOB)  ⟵ FIRST tables
+## Formatting, marking, and tone
 
-**Why split.** The prior single-table layout ran to 16 columns wide and was hard to scan. Splitting per bank lets each bank's engine and ratios be read at a glance and lets us add a small "Other revenue" commentary block right beneath its own numbers.
+**All marking and formatting conventions come from `pipeline/sg-banks/method/style.md`** (`n/r` vs `n/d`, number formats, superscript citations and trap-notes, derived-cell marking, table formatting, currency/scope, neutral descriptive tone, no investment advice). Assemble applies that spec. It does **not** restate per-column number formats or re-derive any cell — those belong to `build-tables.md`.
 
-For **each of DBS, OCBC, UOB**, build a standalone table with the same schema:
+The report's top legend and formats block is copied from `style.md`'s report-level conventions; keep it to one short legend + one short formats line.
 
-`FY | Dep | Assets | NII | Other | TotalRev | Profit | NIM | Rev/Dep | Profit/Dep | Profit/Rev`
+## What Assemble writes
 
-- **Other** = TotalIncome − NII (derived; footnote the formula).
-- **TotalRev** = TotalIncome (reported).
-- **Profit** = net profit attributable to shareholders (reported). For UOB, footnote the **core** figure alongside (B4).
-- **Rev/Dep, Profit/Dep, Profit/Rev** are derived (compute from S$m-denominated reconciled values so ratios are dimensionless; per-column formats above).
-- **NIM** = group NIM (canary DBS FY2025 = 2.01 per B1). Include `%` symbol per format.
-- Final rows per table: **4-yr CAGR (FY2021→FY2025)** and **9-yr CAGR (FY2016→FY2025)** on Dep, Assets, NII, Other, TotalRev, Profit (derived; formula in footnote). **Ratio and NIM cells left blank on CAGR rows** — a point-in-time ratio does not compound.
-- Superscript footnotes: `<sup>5</sup>` UOB FY2025 provisioning artefact; `<sup>6</sup>` OCBC FY2022 restatement (SFRS(I) 17).
+1. **Header + legend + formats block.** Project/component line, banks/period/currency, the one-line `n/r`/`n/d` legend, and the one-line formats summary (per `style.md`).
+2. **Table blocks.** Lift Tables 1 (per bank), 2, 3, 4 (+ P/TB block), and 5 — with their derived-line and superscript footnotes — verbatim from `pipeline/sg-banks/data/tables.md`. **Do not recompute or reformat cells.** If a cell looks wrong, fix it upstream (ledger → Build-Tables), not here.
+3. **Per-bank "Other (non-NII) revenue" commentary** under each Table 1 — 2–3 standard-size dot points per bank covering: (1) **composition** (what non-NII is made of, latest-FY figure, biggest slices), (2) **growth engine** (structural driver + CAGR/growth number where available), (3) **risks** (one line on cyclicality / mark-to-market / bank-specific vulnerability, only where material). Factual only — sourced from the tables/ledger figures and, once Scan runs, from dated signals. **No investment view.**
+4. **"Why deposits + CASA is the attraction benchmark" methodology note** under Table 2 — ≈1 short paragraph carrying only the 2–4 most decision-relevant lines (see the rationale in `frame.md` / prior revisions): deposits = the only consistently-disclosed on-balance-sheet attraction measure; CASA = the quality overlay; wealth AUM = the truest but secondary flywheel; never sum deposits + AUM.
+5. **FY2026 management guidance** under Table 3 — three standard-size bullets, one per bank, prefixed by bank name (verbatim management commentary; keep UOB's numeric target inline). These are disclosed-guidance narrative; once Scan runs, refresh them from dated Tier-1 signals.
+6. **Appendices A–C** (see below).
 
-**Under each bank's Table 1, add a "Other (non-NII) revenue" commentary block** — 2–3 dot points in **standard-size text** (not `<sub>`) covering:
-1. **Composition** — what the bank's non-NII is actually made of, latest FY figure, and the biggest slice(s).
-2. **Growth engine** — the structural driver (e.g. wealth AUM CAGR, insurance profit, Citi consumer uplift) with the CAGR / growth number if we have it.
-3. **Risks** — one line on cyclicality, mark-to-market sensitivity, or a bank-specific vulnerability (only where material).
+## Phase — Appendices (after the tables)
 
-Bullets are factual only — no investment view. This block replaces the prior standalone "Below Table 1 — Other (non-NII) income breakdown" section.
+1. **Validation report (Appendix A):** lift the tie-out gates, the resolved-checksum line-list, and the `n/r`/`n/d` inventory from the "Table-level validation data" section of `tables.md`; add the **narrative continuity** notes (every >30% YoY move explained by restatement / acquisition / one-off / rate cycle) and the **provenance caveat** (model-correlation status of un-checksummed cells). The prose framing of validation lives here; the raw gate results come from `tables.md`.
+2. **Definitions appendix (Appendix B):** each bank's stated definition of NIM, wealth-management income, net-fee basis, ROE/RoTE, and the deposits/assets/AUM definitions used.
+3. **Restatement log (Appendix C):** every restated year used, what changed, which standard, how treated (incl. DBS bonus issue and its effect on the per-share series).
 
-### Table 2 — Attracted assets: deposits, CASA & wealth AUM (single combined table)
+Keep all three as prose / compact tables — this is where explanation lives, so it stays **out** of the data tables.
 
-The primary **asset-attraction** view (deposits) with the **CASA quality overlay** and the **wealth-AUM flywheel** — merged into one table.
-
-Layout: `FY | DBS Dep | DBS CASA | DBS AUM | OCBC Dep | OCBC CASA | OCBC AUM | UOB Dep | UOB CASA | UOB AUM`.
-
-- **Dep** = total customer deposits (S$bn, no decimals).
-- **CASA** = bank-printed CASA ratio (%, 1 decimal, `%` symbol). Where the bank did not print it and it could not be computed from the deposit note, use `n/r`.
-- **Wealth AUM** = the bank's disclosed wealth / private-bank AUM (S$bn, no decimals). Mark `n/d` where the bank did not disclose (OCBC pre-2018, UOB 2018–19).
-- Final rows: **CAGR 21→25** and **CAGR 16→25** on Dep and AUM only. **CASA cells blank** on CAGR rows (CASA is a point-in-time ratio, not compounded).
-- Footnotes: (a) OCBC 2016–2018 CASA is single-source (Tier-1 OCBC results decks, filled 2026-07-16 via non-Claude retriever) — `single-px` pending second pass. (b) UOB CASA lift 2023→25 reflects post-rate-cycle deposit remix + Citi consumer-book mix contribution. (c) Each bank's AUM definition differs (DBS "Wealth Management AUM"; OCBC group/banking wealth incl. Bank of Singapore + Great Eastern; UOB narrower, reclassified 1 Jan 2023) — read within-bank trend, **not** cross-bank level. (d) Deposits + AUM must never be summed (double-count risk).
-
-### Why deposits + CASA is the attraction benchmark (methodology note — surface only the most relevant lines)
-
-*The final report should carry a short "why this benchmark" note (≈1 paragraph, the 2–4 most decision-relevant points below), not this whole rationale.*
-
-- **Goal.** Measure the franchise's structural ability to **attract assets** — the fundamental driver behind the Singapore wealth-hub thesis — in a way that is comparable **across banks** and **over a full cycle**.
-- **Primary = customer deposits.** The only asset-attraction measure disclosed by all three banks every year FY2016–2025, on a standardized line, dual-verified (Perplexity + Tier-1 deposit notes), and on-balance-sheet — excludes leverage.
-- **Total assets rejected** as the attraction base: it is inflated by wholesale-funded **leverage**, so it measures balance-sheet *size*, not assets *attracted*. It belongs only in the leverage column (Total assets ÷ deposits) which Table 1 carries via Rev/Dep and Profit/Dep.
-- **Deposits + AUM sum rejected**: double-count risk (some banks' AUM includes wealth deposits). Pair each pool with its own income instead (NII/deposits, fees/AUM); never sum.
-- **CASA = the quality overlay.** Deposit *size* can be flattered by *buying* deposits with high fixed-deposit rates. CASA isolates the cheap, sticky, relationship-driven money — the genuine "attraction". CASA is rate-cycle sensitive (COVID surge 2020–21, reversal 2022–23) — compare within-year and over a cycle, not point-to-point.
-- **Wealth AUM = the truest flywheel but a secondary overlay**: off-balance-sheet, fee-generating, capital-light — but patchy pre-2019 and inconsistently defined.
-- **Sharpest single signal:** **CASA balance** (deposits × CASA%) growth — the low-cost, sticky money, with rate-bought deposits stripped out.
-
-### Table 3 — Net interest margin (Group) & NII
-
-Column order: **NII first, then NIM**, per bank.
-
-`FY | DBS NII | DBS NIM | OCBC NII | OCBC NIM | UOB NII | UOB NIM`
-
-- DBS = **group** NIM (B1; canary FY2025 = 2.01%). NII in S$bn (2 decimals here for the NIM table — one more decimal than the S$bn columns in Table 1, because this table is where NII precision matters). NIM as % with **`%` symbol** and 2 decimals (e.g. `2.01%`).
-- **No FY2026 guidance row inside the table.** Instead, place the guidance as **three standard-size bullet footnotes below the table, one per bank on its own line**, prefixed by the bank name (verbatim management commentary; keep numeric target for UOB inline).
-- Superscript footnote: DBS group-vs-commercial-book distinction (B1).
-
-### Table 4 — Valuation & Returns (P/B + ROE combined)  ⟵ was Table 3
-
-Per bank: **Price · BVPS · P/B · ROE · RoTE**. Layout `FY | DBS Price | DBS BVPS | DBS P/B | DBS ROE | DBS RoTE | OCBC … | UOB …`.
-- **P/B** = 31-Dec close ÷ BVPS (derived; both inputs shown so it's auditable). Never use a vendor P/B.
-- ROE reported; for **UOB add a core-ROE footnote** (B4) and the FY2025 provisioning footnote (B5). **OCBC/UOB RoTE = `n/d`.**
-- **B7 (DBS bonus issue):** keep DBS price and BVPS on the **same basis within each year** so P/B is bonus-invariant; footnote the treatment.
-- Summary rows: **10-yr avg P/B**, **5-yr avg P/B (FY2021–25)**, **current P/B** (latest close ÷ FY2025 BVPS — use the *dated* current price from the ledger), **premium/discount of current vs 10-yr avg**, and **10-yr avg ROE** per bank.
-- Then a compact **P/TB block (FY2025)**: BVPS, goodwill+intangibles used, shares, TBVPS (= BVPS − (gw+intang)/shares), P/TB at FY2025 close and at current close. State the goodwill/intangibles figure. Historical P/TB = `n/r` unless per-year goodwill was retrieved.
-
-### Table 5 — NIM vs the rate cycle  ⟵ was Table 4
-
-`FY | DBS NIM | OCBC NIM | UOB NIM | 3M comp. SORA (31-Dec) | 3M comp. SORA (FY avg) | Fed funds target upper (31-Dec) | Effective fed funds (FY avg)`
-- NIM from Table 3. Rates from the ledger (MAS/FRED). Compounded SORA pre-Aug-2020 = `n/r` (footnote: no splice). Final row = **latest 2026** (Q1 NIM + latest rates, dated).
-- NIM values with `%` symbol per Table 3 format; rates displayed with 2 decimals for consistency.
-
----
-
-## Phase 3 — Appendices (after the tables)
-
-1. **Validation report:** tie-out gates (NII+Non-NII=Total income; DBS NIM canary; currency; continuity >30% moves explained; poison-pill hits); every checksum mismatch resolved in Phase 1 (your value, checksum value, both sources, cause); `n/r` count per table with the reason each could not be retrieved.
-2. **Definitions appendix:** each bank's stated definition of NIM, wealth-management income, net-fee basis, ROE/RoTE, and the deposits/assets/AUM definitions used.
-3. **Restatement log:** every restated year used, what changed, which standard, how treated (incl. DBS bonus issue and its effect on the per-share series).
-
-Keep all three as prose/compact tables — this is where explanation lives, so it stays **out** of the data tables.
-
----
+## Narrative & citation rules
+- **Neutral, descriptive tone; no investment view** (per `style.md`).
+- **Citations and trap-notes are superscripts** into small-font footnote blocks; no sentence-long text inside table cells (the tables arrive pre-formatted from `tables.md` — preserve that).
+- **Every narrative claim must trace to an input** — a table cell, a ledger-grounded figure already in `tables.md`, a dated signal in `signals.md`, or the framing in `frame.md`. No outside facts, no forecasts of your own, no memory-fills.
+- Read **within-bank trends**, never false cross-bank comparisons on non-comparable lines (wealth income, AUM definitions) — flag non-comparability per `frame.md`'s rubric.
 
 ## Acceptance criteria (stop when all true)
-- Every tie-out gate passes (or each failure is reported, not hidden).
-- Every `checksum_expected` is reproduced **or** its mismatch is explained and traced to a definitional cause.
-- No poison-pill value present unflagged.
-- Data tables contain only numbers / `n/r` / `n/d` + superscripts; all prose is in footnotes or appendices (except the per-bank "Other revenue" commentary blocks under Table 1, which are standard-size dot points per the v0.1c revision).
-- `n/r` count is honest (a suspiciously complete table is the failure mode).
+- `reports/sg-banks/report.md` contains the header/legend, all table blocks (lifted unchanged from `tables.md`), the per-bank commentary, the benchmark note, FY2026 guidance, and Appendices A–C.
+- No table cell value differs from `tables.md`; no number or fact appears that is not traceable to an input.
+- Scan-not-run state is handled honestly — no invented signals; omissions marked.
+- Data tables contain only numbers / `n/r` / `n/d` + superscripts; all prose is in footnotes, the per-bank commentary blocks, the guidance bullets, or the appendices.
+- Neutral tone throughout; no investment view.
 
-**Deliver as a single markdown file.** No commentary, no investment view.
+**Deliver as a single markdown file.** No commentary outside the report, no investment view.

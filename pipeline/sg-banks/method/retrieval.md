@@ -1,15 +1,26 @@
-# SOP 1 — Raw Data Retrieval (SG Banks · Tables)
+# Retrieve — Module SOP: Raw Data Retrieval (SG Banks)
 
 > **Project:** Singapore Bank Stock Accumulation Strategy
 > **Artifact:** `pipeline/sg-banks/method/retrieval.md` — version history in git (`git log --oneline pipeline/sg-banks/method/retrieval.md`).
 > **Status:** Draft — not yet validated by a full two-agent run.
-> **Pairs with:** `pipeline/sg-banks/data/ledger.csv` (its output) → `pipeline/sg-banks/method/build.md` (next stage).
-> **Supersedes:** ad-hoc brief `SOP_BankDataAndTables.md`.
 > **Ledger schema:** v0.2 (adds `px_version` / `cl_version` run-stamp columns, format `YYYYMMDD-NNN <Harness><Model>`).
 > **Changelog:** v0.1 — Split retrieval from report-build (was one monolithic brief); output is now a shared reconciliation ledger, not a report; added customer-deposits, total-assets and wealth-AUM rows; checksums embedded per row.
 > · **rev 2026-07-16:** added deposit-mix / CASA to retrieval scope (`CurrentAccts`, `SavingsDep`, `CASAratio`).
+> · **rev 2026-07-20:** normalized the module contract (inputs / sole output / idempotence / recommended model) as part of the modular-pipeline refactor. Retrieval instructions below are unchanged in substance.
 
-**Role of this SOP.** This is the *retrieval* stage. Your only job is to fill a shared raw-data ledger (CSV) with atomic, sourced numbers. You do **not** build tables, compute CAGRs/P/B, or write a report — that happens in SOP 2. One row = one number.
+## Module contract
+
+| | |
+|---|---|
+| **Inputs** | The pre-set ledger skeleton `pipeline/sg-banks/data/ledger.csv` (row keys, units, embedded checksums) and the Tier-1 / Tier-2 source hierarchy in §2. Framing context from `pipeline/sg-banks/frame.md` may inform which rows matter most, but Retrieve fills every row it can regardless. |
+| **Sole output** | `pipeline/sg-banks/data/ledger.csv` — this module fills the retriever's own value/source/comment/version columns. It writes **no** report and **no** derived quantities. |
+| **Idempotence** | A rerun overwrites the retriever's columns in place (bump the `NNN` in the run stamp for same-day re-runs). Git retains history; there are no timestamped ledger copies. |
+| **Recommended model** | A **search-grounded, non-Claude** model for maximum cross-model independence — **GPT-5.6** (or the nearest available non-Claude search-grounded model) run via a search harness (e.g. Perplexity). Running a non-Claude retriever is what breaks the same-model blind spot on un-checksummed cells (see §1 "Un-cross-checked cells" and the Index open decisions). |
+| **Position** | `Frame → (Retrieve ‖ Scan) → [human/Claude Reconcile] → Tables → …`. Retrieve runs in parallel with Scan. Reconciliation of the filled ledger is the existing human/Claude step **between** Retrieve/Scan and Tables (see `build.md`); it is not a separate automated artifact. |
+
+**Supersedes:** ad-hoc brief `SOP_BankDataAndTables.md`.
+
+**Role of this SOP.** This is the *retrieval* stage. Your only job is to fill a shared raw-data ledger (CSV) with atomic, sourced numbers. You do **not** build tables, compute CAGRs/P/B, or write a report — that happens downstream (Reconcile → Build-Tables → Assemble). One row = one number.
 
 **Who runs this.** Any retrieval agent (Perplexity Computer, Claude Cowork, etc.). Each agent fills *its own three columns*. The ledger already contains a prior Claude pass in the `cl_*` columns; a Perplexity run fills the `px_*` columns; add more triplets for more agents.
 
@@ -36,7 +47,7 @@ File: `pipeline/sg-banks/data/ledger.csv` (schema v0.2). One row per data point.
 - `<Model>` — the model actually doing the extraction: `ClOpus4.8` = Claude Opus 4.8, `GPT…`, `Gemini…`. If a run mixes models, record the **predominant** one and note "mixed" in the comment.
 - Examples: `20260716-001 PxClOpus4.8` (Perplexity harness, Claude Opus 4.8) · `20260716-001 CwClOpus4.8` (Cowork, Claude Opus 4.8).
 - **Why it matters:** when two agents *agree* on a cell that has no checksum, that agreement is only strong evidence if the stamps show **different models**. Same-model agreement (both `…ClOpus4.8`) can share a blind spot — lean on the checksum / Tier-1 citation there instead. For maximum independence, run the external retriever on a **non-Claude model** where the harness allows it.
-| `reconciled_value` / `reconciliation_status` / `reconciliation_note` | SOP 2 | Leave blank. The report stage fills these. |
+| `reconciled_value` / `reconciliation_status` / `reconciliation_note` | Reconcile step | Leave blank. The downstream human/Claude reconciliation step fills these (see `build-tables.md`). |
 
 **Rules for your columns**
 - `px_value`: the raw number only, in the row's `unit`. No "%", no "S$", no commas inside the CSV field beyond what's quoted. For `text` rows (guidance) write the verbatim phrase.
