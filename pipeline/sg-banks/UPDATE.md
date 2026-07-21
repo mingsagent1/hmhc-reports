@@ -65,7 +65,7 @@ Always finish with **Publish** (Step 5).
 
 ## Step 4 — Gates before publishing (all must pass)
 - **Assemble:** arithmetic tie-outs pass; every **Frame** question is addressed in the report.
-- **ExecSummary:** every Frame key question answered (or explicitly marked "pending new research module" where the data does not exist — currently Q2 and Q4), each answer cited; thesis score 0–100 with rationale; closed-book (its self-checks).
+- **ExecSummary:** every Frame key question answered (or explicitly marked "pending new research module" where the data does not exist — currently Q2, Q4 and Q6), each answer cited; thesis score 0–100 with rationale; closed-book (its self-checks).
 - Every refreshed module's output exists and is committed.
 
 ## Step 5 — Publish (version, meta, commit, tag)
