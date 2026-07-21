@@ -9,7 +9,7 @@
 
 | | |
 |---|---|
-| **Inputs** | Reconciled `pipeline/sg-banks/data/ledger.csv` (the human/Claude reconciliation step must be complete — every consumed row carries a `reconciled_value` / `reconciliation_status`) **and** `pipeline/sg-banks/method/style.md` (the marking/number-format spec). |
+| **Inputs** | Reconciled `pipeline/sg-banks/data/ledger.csv` (the Reconcile module — `method/reconcile-ledger.md` — must be complete: every consumed row carries a `reconciled_value` / `reconciliation_status`) **and** `pipeline/sg-banks/guides/style.md` (the marking/number-format spec). |
 | **Sole output** | `pipeline/sg-banks/data/tables.md` — the generated table blocks (Tables 1–5, the P/TB block, per-table derived-line and superscript footnotes, and the table-level validation gates). It writes **no** narrative body and **no** report. |
 | **Idempotence** | A rerun regenerates `data/tables.md` in place from the current reconciled ledger. Git retains history. Rerunning must not change report or ledger values — it is a **deterministic transform** of the ledger, not a re-retrieval. |
 | **Recommended model** | Any capable model executing the arithmetic **in code** (deterministic). No search grounding; no memory-fills. The transform must be reproducible: same ledger in → same tables out. |
@@ -21,22 +21,13 @@
 
 ## Reconciliation is an input, not a step here
 
-Reconciling the ledger (comparing `px_value` / `cl_value` / `checksum_expected` and filling `reconciled_value` / `reconciliation_status` / `reconciliation_note`) is the **existing human/Claude step that runs between Retrieve/Scan and this module.** It is documented for reference below so this SOP is self-contained, but Build-Tables assumes it is already done and does not re-open source retrieval.
-
-**Reconciliation rules (reference — performed upstream):** For every row compare `px_value`, `cl_value`, and `checksum_expected`, then fill `reconciled_value` / `reconciliation_status` / `reconciliation_note`:
-
-- **`match`** — agents agree (and agree with checksum if present) → take the value. Use `match` **only** when `px_value`, `cl_value`, and any `checksum_expected` are all equal (pure rounding aside); if the value differs from the checksum, or `px≠cl`, it is `resolved`, not `match`.
-- **`single-px` / `single-cl`** — only one agent filled it → take it; the status names which.
-- **`resolved`** — agents disagree, or the taken value disagrees with the checksum. **Do not average or silently pick.** Take the value that (a) reproduces the checksum and (b) ties out (NII+Non-NII=Total income), and record the loser + likely cause (rounding / basis / restatement / price-date) in `reconciliation_note`. If neither ties, mark the cell `n/r` for the report and log it.
-- **`n/r` / `n/d` / `text/other`** — carry through (`text/other` = guidance/verbatim text rows).
-
-Prefer **restated** figures (B6) and record the original in the note. Every `resolved` row becomes a line in the Validation Report (below).
+Reconciling the ledger is the **Reconcile module** (`method/reconcile-ledger.md`), which runs between Retrieve/Scan and this module and fills the `reconciled_*` columns in place. Build-Tables assumes it is complete and does not re-open source retrieval; every consumed row must carry a `reconciliation_status`, and each `resolved` row becomes a line in the Validation Report (below).
 
 ---
 
 ## Formatting and marking
 
-**Marking conventions (`n/r` vs `n/d`, derived-cell marking, superscript citations, currency/scope) are specified in `pipeline/sg-banks/method/style.md`.** This SOP applies that spec; it does not restate it. The number-format table below is reproduced here because it is table-specific and load-bearing for the arithmetic.
+**Marking conventions (`n/r` vs `n/d`, derived-cell marking, superscript citations, currency/scope) are specified in `pipeline/sg-banks/guides/style.md`.** This SOP applies that spec; it does not restate it. The number-format table below is reproduced here because it is table-specific and load-bearing for the arithmetic.
 
 ### Global formatting rules (apply to every table)
 1. **No inline `calc` marker.** Derived cells appear as plain numbers. Under each table add ONE small-font line naming the derived columns and the formula, e.g. `Other = Total income − NII; CAGR = (end/start)^(1/n) − 1`.

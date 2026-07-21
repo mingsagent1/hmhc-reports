@@ -1,45 +1,49 @@
-# sg-banks — Write-ExecSummary SOP (Top-10 insights)
+# sg-banks — Write-ExecSummary SOP (answers to the Key Questions + thesis score)
 
-**Module:** ExecSummary · **Inputs:** `reports/sg-banks/report.md` (excluding its own Executive Summary section) **+** `pipeline/sg-banks/data/signals.md` (if it exists) · **Output:** the **Executive Summary** section of `reports/sg-banks/report.md` (between markers) · **Depends on:** Assemble, Scan (optional), Frame
+**Module:** ExecSummary · **Inputs:** `guides/frame.md` (thesis + key questions) **+** `reports/sg-banks/report.md` (excluding its own Executive Summary section) **+** `pipeline/sg-banks/data/signals.md` (if present) · **Output:** the **Executive Summary** section of `reports/sg-banks/report.md` (between markers) · **Depends on:** Assemble, Frame
 **Run on:** **GPT-5.6** — **grounded, NO web search.** Independent of the Claude-built body.
+**Changelog:** 2026-07-21 — reformatted from "top-10 insights" to "answers to the Frame's key questions + thesis score" per the author's decision. · 2026-07-20 — first closed-book run (top-10 format).
 
 ## Grounding rule (hard wall)
-Use **only two sources**:
-1. the **report body** — Interpretation, Key Data tables, footnotes, and Appendices — **excluding the existing Executive Summary section** (never summarize your own prior summary), and
-2. **`data/signals.md`** if present (the recency-biased earnings/media signals from the Scan module).
+Use **only three sources**:
+1. **`guides/frame.md`** — the thesis and key questions being answered (structure only; never a source of facts),
+2. the **report body** — Interpretation, Key Data tables, footnotes, and Appendices — **excluding the existing Executive Summary section** (never summarize your own prior summary), and
+3. **`data/signals.md`** if present (the recency-biased earnings/media signals from the Scan module).
 
-No web search, no outside knowledge, no number/name/date that isn't in one of those two files.
+No web search, no outside knowledge, no number/name/date that isn't in sources 2–3.
 
 ## Task
-Produce the **Top 10 insights**, ranked by materiality.
-- **≥3 clearly positive** and **≥3 clearly negative**; the rest may be mixed/neutral. Exactly 10.
-- **Every insight cited to a real location:** a report table/section/appendix (e.g. "Table 2 (NIM)", "Appendix B") **and/or** a signal id from signals.md (e.g. "SCN-DBS-003"). Insights that rest on signals should prefer the most recent **Primary-band** signals and may tag "(latest: Q_'26)".
-- No forecasts beyond what the sources state. Neutral tone. Not investment advice.
+
+1. **Answer each key question in `guides/frame.md`, in order** (currently 7). Each answer: 2–4 sentences, grounded in the report/signals, **cited to a real location** — a report table/section/appendix (e.g. "Table 2", "Appendix C") and/or a signal id (e.g. "SCN-DBS-003"). Open each answer with a polarity marker: `+` (supports the thesis), `–` (against), `±` (mixed).
+2. **Honesty rule — pending questions.** Where the report and signals cannot support an answer (currently **Q2** — cross-hub wealth flows — and **Q4** — larger-bank / other-hub precedent; check `index.md` open questions for the current list), write exactly: *"Pending new research module — not answerable from current data."* Do not synthesize an answer from outside knowledge, and cite nothing.
+3. **Thesis score.** Score the Frame's thesis **0–100** on current evidence (100 = the evidence fully supports it). Give the score, a 2–3 sentence rationale naming the strongest supporting and opposing evidence (cited), and one sentence on the **decision rule** (current capital-attraction momentum vs the kill signal). *Note: a multi-model "AI council" scoring mechanism may later replace the single-model score (design pending, Perplexity-led); until then one closed-book model scores.*
+
+No forecasts beyond what the sources state. Neutral tone. Not investment advice.
 
 ## Output — write into `report.md` between markers
-Replace everything between these markers (add them around the Executive Summary section if absent):
+Replace everything between these markers:
 ```
 <!-- execsummary:start -->
-## Executive Summary — Top 10 Insights
+## Executive Summary — Answers to the Key Questions
 
-Positive: X · Negative: Y · Mixed: Z
-
-1. **[+] <one-sentence insight>** <one sentence of specifics>. (source)
-2. **[–] <one-sentence insight>** <one sentence of specifics>. (source)
+1. **[±] <short label of Q1>** — <answer>. (source)
+2. **[–] <short label of Q2>** — Pending new research module — not answerable from current data.
 …
-10. **[±] <one-sentence insight>** <one sentence of specifics>. (source)
+7. **[+] <short label of Q7>** — <answer>. (source)
 
-Scope: grounded in report.md + data/signals.md (v<version>). Not investment advice.
+**Thesis score: NN/100.** <rationale with cited strongest evidence for and against>. Decision rule: <capital-attraction momentum status>.
+
+Scope: questions from guides/frame.md; grounded in report.md + data/signals.md (v<version>). Not investment advice.
 <!-- execsummary:end -->
 ```
-Markers: `+` positive, `–` negative, `±` mixed. Tally must hold (X≥3, Y≥3, X+Y+Z=10). Order by materiality, not polarity. This module **only** (re)writes this section — it never edits tables or appendices, so it is independently rerunnable on the lite path.
+Question numbering and order must match `guides/frame.md` exactly. This module **only** (re)writes this section — it never edits tables or appendices, so it is independently rerunnable on the lite path.
 
 ## Self-check before saving (all must pass)
-1. Exactly 10 insights.
-2. ≥3 marked `+` and ≥3 marked `–`.
-3. Every insight cites a report location and/or a signal id **that actually exists** in the sources.
-4. No fact/number appears that isn't in `report.md` or `data/signals.md`.
+1. Every Frame key question is answered **or** carries the exact pending-research line — none skipped, none invented.
+2. Every non-pending answer cites a report location and/or signal id **that actually exists** in the sources.
+3. No fact/number appears that isn't in `report.md` or `data/signals.md`.
+4. The thesis score is present, 0–100, with a cited rationale and the decision-rule sentence.
 5. You did **not** use the prior Executive Summary as a source.
-6. The tally line matches the markers used.
+6. Numbering/order matches `guides/frame.md`.
 
 If any check fails, fix and re-verify before writing.

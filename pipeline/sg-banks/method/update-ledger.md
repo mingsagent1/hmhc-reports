@@ -1,7 +1,7 @@
 # Retrieve — Module SOP: Raw Data Retrieval (SG Banks)
 
 > **Project:** Singapore Bank Stock Accumulation Strategy
-> **Artifact:** `pipeline/sg-banks/method/retrieval.md` — version history in git (`git log --oneline pipeline/sg-banks/method/retrieval.md`).
+> **Artifact:** `pipeline/sg-banks/method/update-ledger.md` — version history in git (`git log --oneline pipeline/sg-banks/method/update-ledger.md`).
 > **Status:** Draft — not yet validated by a full two-agent run.
 > **Ledger schema:** v0.2 (adds `px_version` / `cl_version` run-stamp columns, format `YYYYMMDD-NNN <Harness><Model>`).
 > **Changelog:** v0.1 — Split retrieval from report-build (was one monolithic brief); output is now a shared reconciliation ledger, not a report; added customer-deposits, total-assets and wealth-AUM rows; checksums embedded per row.

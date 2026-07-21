@@ -22,14 +22,15 @@ Two modules are **EXPENSIVE** (live web retrieval, token/time-intensive): **`upd
 
 | Module | Method file | Output artifact | Cost | Depends on |
 |---|---|---|---|---|
-| Retrieve | `method/update-ledger.md` | `data/ledger.csv` | **EXPENSIVE — opt-in** | Frame |
+| Retrieve | `method/update-ledger.md` | `data/ledger.csv` (retriever columns) | **EXPENSIVE — opt-in** | Frame |
 | Scan | `method/scan-signals.md` | `data/signals.md` | **EXPENSIVE — opt-in** | Frame |
-| Tables | `method/build-tables.md` | tables in `report.md` | cheap | Retrieve |
+| Reconcile | `method/reconcile-ledger.md` | `reconciled_*` columns of `data/ledger.csv` | cheap | Retrieve |
+| Tables | `method/build-tables.md` | `data/tables.md` | cheap | Reconcile |
 | Assemble | `method/build-report.md` | `reports/sg-banks/report.md` | cheap | Tables, Frame, Scan, Style |
-| ExecSummary | `method/write-execsummary.md` | `reports/sg-banks/execsummary.md` | cheap | Assemble, Frame |
+| ExecSummary | `method/write-execsummary.md` | Executive Summary section of `report.md` (in place, between markers) | cheap | Assemble, Frame |
 | Publish | (this controller) | `reports/sg-banks/meta.json` | cheap | ExecSummary |
 
-Model per module: Retrieve/Scan → GPT-5.6/Orchestrator (search); Tables/Assemble → Claude 4.8; ExecSummary → GPT-5.6 (closed-book).
+Model per module: Retrieve/Scan → GPT-5.6/Orchestrator (search); Reconcile → human + Claude; Tables/Assemble → Claude 4.8; ExecSummary → GPT-5.6 (closed-book).
 
 ---
 
@@ -57,17 +58,18 @@ Run it **only** on an explicit "yes". On "no" or anything ambiguous, **skip that
 ## Step 3 — Run the selected path
 
 - **Guide revised (Frame/Style):** human edit — AI may propose wording, human approves; write to `guides/frame.md` / `guides/style.md`; then rerun downstream (Frame ⇒ Assemble ⇒ ExecSummary; Style ⇒ Assemble/ExecSummary presentation).
-- **Modules named (and confirmed where expensive):** run in dependency order (Retrieve ‖ Scan → Tables → Assemble), honoring current Frame & Style. Refreshing any module forces rerun of everything downstream of it.
-- **"none":** run the **LITE path** only — rerun **ExecSummary** (`method/write-execsummary.md`, closed-book over current `report.md`) and apply **Style** (`guides/style.md`). Never touches `data/`. **The lite path is the default and never invokes an expensive module.**
+- **Modules named (and confirmed where expensive):** run in dependency order (Retrieve ‖ Scan → Reconcile → Tables → Assemble), honoring current Frame & Style. Refreshing any module forces rerun of everything downstream of it.
+- **"none":** run the **LITE path** only — rerun **ExecSummary** (`method/write-execsummary.md`, closed-book; rewrites the Executive Summary section of `report.md` in place) and apply **Style** (`guides/style.md`). Never touches `data/`. **The lite path is the default and never invokes an expensive module.**
 
 Always finish with **Publish** (Step 5).
 
 ## Step 4 — Gates before publishing (all must pass)
 - **Assemble:** arithmetic tie-outs pass; every **Frame** question is addressed in the report.
-- **ExecSummary:** exactly 10 insights, ≥3 positive, ≥3 negative, each cited, closed-book (its self-checks).
+- **ExecSummary:** every Frame key question answered (or explicitly marked "pending new research module" where the data does not exist — currently Q2 and Q4), each answer cited; thesis score 0–100 with rationale; closed-book (its self-checks).
 - Every refreshed module's output exists and is committed.
 
 ## Step 5 — Publish (version, meta, commit, tag)
+- **Version scheme:** `YYYY.MM.DD` of the publish date; a same-day re-release appends `-r2`, `-r3`, … (e.g. `2026.07.20-r2`). The tag `sg-banks-v<version>` is created on `main` **after the PR merges** (tag automation via GitHub Actions is planned; until then create it manually from the merge commit).
 - **Bump:** data/scan/tables changed ⇒ **minor**; only ExecSummary/Style/presentation ⇒ **patch**; a Frame change that alters the report ⇒ minor.
 - Update `reports/sg-banks/meta.json` (`last_updated`, `current_version`, `pipeline.ref` = new tag). Commit; `git tag sg-banks-v<version>`; push.
 - **Commit trailers:** every commit carries the `Generated-by:` / `Co-Authored-By:` attribution trailers per `AGENTS.md` § Commit attribution (harness+model code matching the ledger stamps).

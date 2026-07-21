@@ -12,8 +12,9 @@ This report is produced by a documented, AI-run workflow, fully version-controll
   - [`UPDATE.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/UPDATE.md) — intelligent instruction routing of user prompts
   - `update-ledger.md` → [`data/ledger.csv`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/ledger.csv) — multiple agents retrieve & compare data
   - `scan-signals.md` → [`data/signals.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/signals.md) — dated, sourced qualitative signals
+  - `reconcile-ledger.md` → reconciled ledger columns — cross-checking the retrieved data
   - `build-tables.md` → `data/tables.md` — deterministic table generation
-  - `write-execsummary.md` → Executive Summary — closed-book top-10 insights
+  - `write-execsummary.md` → Executive Summary — closed-book answers to the key questions + thesis score
   - `build-report.md` → [**`report.md`**](https://github.com/mingsagent1/hmhc-reports/commits/main/reports/sg-banks/report.md) — assembling this publicized report
 
 The instruction files are themselves living documents: the AI reviews and refines them run over run — a continuous self-improvement cycle, with every revision version-controlled and traceable in the repository's history.
@@ -24,15 +25,7 @@ The instruction files are themselves living documents: the AI reviews and refine
 
 **Thesis.** Singapore functions as a regional wealth hub; DBS, OCBC, and UOB are the vehicles to accumulate exposure to that.
 
-**Banks / period / currency.** DBS (SGX: D05) · OCBC (SGX: O39) · UOB (SGX: U11). Period: FY2016–FY2025 (31-Dec year-ends) long-run base + 1Q2026 interim (quarters ended 31 Mar 2026) + current (2026-07-20 intraday) valuation. **Currency: SGD only.** Descriptive analysis, **not investment advice**; no forecasts beyond management's own guidance.
-
-**How this was built.** Built from a 500+ point, source-graded reconciled ledger — cross-checked and validation-gated — via a documented, version-controlled AI pipeline. Notation and number formats are in **Appendix D**.
-
----
-
-## Key Questions & AI Recommendations
-
-Key Questions pending — to be set in `pipeline/sg-banks/guides/frame.md` by the author.
+**Banks / period / currency.** DBS (SGX: D05) · OCBC (SGX: O39) · UOB (SGX: U11). Period: FY2016–FY2025 (31-Dec year-ends) long-run base + 1Q2026 interim (quarters ended 31 Mar 2026) + current (2026-07-20 intraday) valuation. **Currency: SGD only.** Descriptive analysis, **not investment advice**; no forecasts beyond management's own guidance. Notation and number formats are in **Appendix D**.
 
 ---
 
@@ -269,8 +262,6 @@ Scope: derived solely from reports/sg-banks/report.md (v2026.07.20). Not investm
 <sub>NIM from Table 3 (group), with `%` symbol per 2dp format. **2026-latest NIM row is 1Q2026 group NIM** (quarter ended 31 Mar 2026), all down YoY. 3M compounded SORA (MAS) exists only from 6-Aug-2020 → pre-2020 = `n/r` (no SIBOR splice). **3M SORA (31-Dec) 2026 = `n/d`**: MAS eServices statistics portal under scheduled maintenance on 2026-07-20; latest official single-day value not retrievable. **\*3M SORA (FY avg) 2026 = 1.07 is the bank-characterised 1Q26 average** ([DBS 1Q26 media transcript](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_media_transcript.pdf)), **not an official MAS FY figure**. Fed funds target upper = FRED `DFEDTARU` (3.75, held at the [17-Jun-2026 FOMC](https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm)); effective fed funds (FY avg) = FRED `DFF`, 2026 YTD ≈ 3.62. 2026-latest rates as of mid-July 2026.</sub>
 
 ---
-
-## Appendix
 
 ## Appendix A — Validation report
 
