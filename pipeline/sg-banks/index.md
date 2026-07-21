@@ -12,7 +12,7 @@ The project is built as a **modular pipeline**: each module has one instruction 
 
 ```
                  ┌─────────────┐
-                 │    Frame     │  method/frame.md → frame.md
+                 │    Frame     │  guides/frame.md (human-owned)
                  └──────┬───────┘
             ┌───────────┴───────────┐
             ▼                       ▼
@@ -69,13 +69,14 @@ reports/sg-banks/
 
 pipeline/sg-banks/
   index.md        This registry.
-  frame.md        Framing artifact (Frame output): thesis, questions, rubric.
+  guides/
+    frame.md      Human-owned Frame: thesis, key questions, decision rule.
+    style.md      Human-owned Style: formatting & marking rules.
   data/
     ledger.csv    Reconciliation master (schema v0.2) — Retrieve output.
     signals.md    Qualitative signals (Scan output) — currently a scaffold.
     tables.md     Generated table blocks (Build-Tables output).
   method/
-    frame.md        SOP — Frame.
     retrieval.md    SOP — Retrieve.
     scan.md         SOP — Scan.
     build-tables.md SOP — Build-Tables (deterministic table generation).
@@ -102,7 +103,7 @@ pipeline/sg-banks/
 
 | Module | Method file | Inputs | Sole output | Status / model |
 |---|---|---|---|---|
-| **Frame** | `method/frame.md` | registry + project brief | `frame.md` | **Refreshed** 2026-07-20 for 1Q2026 (rate-regime/fee-offset/credit lenses added) · reasoning model (no search) |
+| **Frame** | *(human-owned guide — no module)* | human authorship | `guides/frame.md` | **Human-authored final installed 2026-07-21** — capital-attraction thesis, 8 key questions (A–D), decision rule |
 | **Retrieve** | `method/retrieval.md` | ledger skeleton + Tier-1/2 sources | `data/ledger.csv` | **Extended** 2026-07-20 — 582 rows incl. 49 Q1-2026 (single-cl); history unchanged |
 | **Scan** | `method/scan.md` | `frame.md` + live Tier-1/2 sources | `data/signals.md` | **Run 2026-07-20** — 1Q2026 dated signal register (Tier-1/2 separated); transcribed from evidence set (Claude Opus 4.8, not live-searched) |
 | **Reconcile** | *(human/Claude step; see `build-tables.md`)* | filled `ledger.csv` | *(fills `reconciled_*` in ledger — no separate artifact)* | **Done** for current ledger (incl. Q1-2026 tie-outs) |
@@ -113,7 +114,7 @@ pipeline/sg-banks/
 | **Publish** | `method/publish.md` | published artifacts + method paths + version | `reports/sg-banks/meta.json` | **Updated** 2026-07-20 — version `2026.07.20`, refresh note + exec-summary-pending flag |
 
 ### Artifact statuses
-- `frame.md` — **refreshed 2026-07-20** for the 1Q2026 update (added the rate-regime test, fee/wealth offset, credit/provision risk, valuation and latest-guidance lenses; two new key questions). Living doc.
+- `guides/frame.md` — **human-authored final installed 2026-07-21** (capital-attraction thesis, 8 key questions, decision rule). The retired AI framing artifact `pipeline/sg-banks/frame.md` was **removed 2026-07-21** (its 1Q2026 lenses live on in git history).
 - `data/ledger.csv` — **extended 2026-07-20**; 582 data rows (261 match · 119 single-px · 116 single-cl · 58 resolved · 17 n/d · 8 n/r · 3 text/other). 49 rows are Q1-2026 (46 new metrics + 3 pre-existing NIMgroup). FY2016–FY2025 values unchanged; 1Q2026 rows are `single-cl` (stamp `20260720-001 CwClOpus4.8`).
 - `data/signals.md` — **Scan run 2026-07-20**; populated with a dated 1Q2026 Tier-1/Tier-2 signal register (≥3 positive / ≥3 negative per bank), grounded in the evidence set and folded into Assemble.
 - `data/tables.md` — **refreshed 2026-07-20**: prepended a *Latest 1Q2026 snapshot* section; updated Table 4 Current-P/B rows, the P/TB current column, and the Table 5 2026-latest row (1Q26 NIM + rates); historical blocks verbatim.
@@ -140,6 +141,7 @@ pipeline/sg-banks/
 - **OCBC 2016–2018 CASA** — filled 2026-07-16 from OCBC FY-results presentations (Tier-1, GPT-5.5 non-Claude pass, computer-verified): 51.1 / 49.2 / 46.4. Currently `single-px` pending a second retriever pass. **OCBC AUM 2016–2017** — still `n/d` (not disclosed in that vintage of results decks).
 
 ## Changelog
+- **2026-07-21 (duplicate frame removed)** — Deleted the retired AI framing artifact **`pipeline/sg-banks/frame.md`** (leftover from the pre-guides architecture; its producer `method/frame.md` no longer exists). The **single Frame is now `guides/frame.md`** (human-owned). Repointed the remaining references: `method/build-report.md` inputs (now `guides/frame.md` + `guides/style.md`) and `method/update-ledger.md` framing context; updated this registry's graph/layout/module-row/artifact-status entries. The 1Q2026 framing lenses remain recoverable from git history.
 - **2026-07-21 (frame guide installed)** — Replaced the placeholder `guides/frame.md` with the **final human-authored Frame** (verbatim): capital-attraction thesis over a 10–15 year horizon, **8 key questions** in four groups (A capital attraction · B monetization · C valuation/priced-in · D inter-bank premium), and a decision rule (capital-attraction momentum as the kill signal). **Report NOT rebuilt** — its "Key Questions & AI Recommendations" section intentionally still reads "pending" until a controller-routed `build-report` run. Q2 and Q6 flagged as requiring **new research modules** (see Open questions). No data, version, or report changes.
 - **2026-07-21 (provenance header)** — Added a **"How this report was made"** section at the top of `reports/sg-banks/report.md` (above Interpretation): non-technical summary of the documented AI-run workflow (instruction-files-as-SOPs, data as CSV/markdown), a simplified workflow tree (`guides/` human-owned · `method/` and outputs opening with hyperlinked `AGENTS.md` + `UPDATE.md` · bolded `report.md` last, linked to its commit history), inline GitHub link-outs on the tree lines (no separate "More:" line), and a closing line on the instruction files as a continuous, git-traceable AI self-improvement cycle. Canonical report structure in `method/build-report.md` updated 5 → 6 sections (the new section is static/workflow-descriptive, reproduced verbatim on rebuilds). `meta.json` → version `2026.07.21` (presentation ⇒ patch). **No data, tables, signals, or executive-summary content changed.**
 - **2026-07-20 (exec-summary refresh)** — Regenerated `reports/sg-banks/execsummary.md` via a **closed-book GPT-5.5 pass** on the refreshed `report.md` (v2026.07.20), per `method/execsummary.md`. 10 ranked insights, tally **3 positive · 4 negative · 3 mixed**, every item traced to a real report location and scope line naming `v2026.07.20`. Cleared the exec-summary pending flag/status in this registry and `meta.json`. **No Retrieve/Scan content, statuses, or data changed — `ledger.csv`, `signals.md`, `report.md`, and `tables.md` remain frozen from the 1Q2026 refresh commit.**

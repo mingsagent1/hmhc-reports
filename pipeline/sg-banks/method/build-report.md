@@ -9,7 +9,7 @@
 
 | | |
 |---|---|
-| **Inputs** | `pipeline/sg-banks/frame.md` (thesis, questions, rubric) · `pipeline/sg-banks/data/tables.md` (finished table blocks + footnotes + validation data) · `pipeline/sg-banks/data/signals.md` (dated/sourced qualitative signals) · `pipeline/sg-banks/method/style.md` (marking/format/tone spec). |
+| **Inputs** | `pipeline/sg-banks/guides/frame.md` (human-owned: thesis, key questions, decision rule) · `pipeline/sg-banks/data/tables.md` (finished table blocks + footnotes + validation data) · `pipeline/sg-banks/data/signals.md` (dated/sourced qualitative signals) · `pipeline/sg-banks/guides/style.md` (marking/format/tone spec). |
 | **Sole output** | `reports/sg-banks/report.md` — the published report: legend/header, the table blocks (lifted from `tables.md`), per-bank narrative, methodology note, FY2026 guidance, and Appendices A–C. |
 | **Idempotence** | A rerun overwrites `reports/sg-banks/report.md` in place from the current inputs. Git retains history. Assemble does **not** recompute table arithmetic or re-retrieve data. |
 | **Recommended model** | Any capable writing/synthesis model. No search grounding — Assemble may only use its four inputs; it must not fetch outside facts. |
@@ -29,7 +29,7 @@ Assemble is the **composition** stage. Everything numeric is already decided: `t
 
 - **Not invent signals.** Do not add management-commentary or market-context narrative that a signal would have supplied but which is not present in `signals.md` or already in `tables.md`.
 - **Assemble from what is available.** Build the report from `tables.md` + `frame.md` + `style.md`. The per-bank "Other (non-NII) revenue" commentary and the FY2026 guidance bullets in the current report are grounded in ledger/report content (composition figures, disclosed guidance) — these are retained because they trace to the tables/ledger, not to an unrun scan.
-- **Mark omissions.** Where a section would be enriched by scan signals, note that the qualitative scan layer is not yet integrated rather than filling the gap. (See `frame.md` open framing questions.)
+- **Mark omissions.** Where a section would be enriched by scan signals, note that the qualitative scan layer is not yet integrated rather than filling the gap. (See the open questions in `index.md`.)
 
 When Scan is later run, a rerun of Assemble folds its dated, sourced signals into the narrative.
 
@@ -44,7 +44,7 @@ The report's top legend and formats block is copied from `style.md`'s report-lev
 1. **Header + legend + formats block.** Project/component line, banks/period/currency, the one-line `n/r`/`n/d` legend, and the one-line formats summary (per `style.md`).
 2. **Table blocks.** Lift Tables 1 (per bank), 2, 3, 4 (+ P/TB block), and 5 — with their derived-line and superscript footnotes — verbatim from `pipeline/sg-banks/data/tables.md`. **Do not recompute or reformat cells.** If a cell looks wrong, fix it upstream (ledger → Build-Tables), not here.
 3. **Per-bank "Other (non-NII) revenue" commentary** under each Table 1 — 2–3 standard-size dot points per bank covering: (1) **composition** (what non-NII is made of, latest-FY figure, biggest slices), (2) **growth engine** (structural driver + CAGR/growth number where available), (3) **risks** (one line on cyclicality / mark-to-market / bank-specific vulnerability, only where material). Factual only — sourced from the tables/ledger figures and, once Scan runs, from dated signals. **No investment view.**
-4. **"Why deposits + CASA is the attraction benchmark" methodology note** under Table 2 — ≈1 short paragraph carrying only the 2–4 most decision-relevant lines (see the rationale in `frame.md` / prior revisions): deposits = the only consistently-disclosed on-balance-sheet attraction measure; CASA = the quality overlay; wealth AUM = the truest but secondary flywheel; never sum deposits + AUM.
+4. **"Why deposits + CASA is the attraction benchmark" methodology note** under Table 2 — ≈1 short paragraph carrying only the 2–4 most decision-relevant lines (see the rationale in prior frame revisions — git history): deposits = the only consistently-disclosed on-balance-sheet attraction measure; CASA = the quality overlay; wealth AUM = the truest but secondary flywheel; never sum deposits + AUM.
 5. **FY2026 management guidance** under Table 3 — three standard-size bullets, one per bank, prefixed by bank name (verbatim management commentary; keep UOB's numeric target inline). These are disclosed-guidance narrative; once Scan runs, refresh them from dated Tier-1 signals.
 6. **Appendices A–C** (see below).
 
@@ -60,7 +60,7 @@ Keep all three as prose / compact tables — this is where explanation lives, so
 - **Neutral, descriptive tone; no investment view** (per `style.md`).
 - **Citations and trap-notes are superscripts** into small-font footnote blocks; no sentence-long text inside table cells (the tables arrive pre-formatted from `tables.md` — preserve that).
 - **Every narrative claim must trace to an input** — a table cell, a ledger-grounded figure already in `tables.md`, a dated signal in `signals.md`, or the framing in `frame.md`. No outside facts, no forecasts of your own, no memory-fills.
-- Read **within-bank trends**, never false cross-bank comparisons on non-comparable lines (wealth income, AUM definitions) — flag non-comparability per `frame.md`'s rubric.
+- Read **within-bank trends**, never false cross-bank comparisons on non-comparable lines (wealth income, AUM definitions) — always flag non-comparability.
 
 ## Canonical report structure
 
