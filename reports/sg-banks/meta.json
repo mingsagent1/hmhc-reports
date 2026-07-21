@@ -5,14 +5,14 @@
   "summary": "A reconciled, source-graded view of Singapore's three major banks as a regional wealth hub.",
   "status": "published",
   "first_published": "2026-07-16",
-  "last_updated": "2026-07-20",
-  "current_version": "2026.07.20",
+  "last_updated": "2026-07-21",
+  "current_version": "2026.07.21",
   "tags": ["singapore", "banks", "DBS", "OCBC", "UOB", "wealth", "NIM", "deposits", "1Q2026"],
   "executive_summary_status": "in report.md (Executive Summary section, between execsummary markers); 10 ranked insights (3 positive / 4 negative / 3 mixed); regenerated 2026-07-20",
   "pipeline": {
     "architecture_updated": "2026-07-20",
     "content_refreshed": "2026-07-20",
-    "refresh_note": "1Q2026 refresh + report restructure: 5-section layout (Interpretation · Key Questions · Executive Summary · Key Data · Appendix); signal commentary moved out of the body to feed the Executive Summary only. Ledger extended with 49 Q1-2026 rows; FY2016–FY2025 history unchanged.",
+    "refresh_note": "2026-07-21 presentation patch: new top 'How this report was made — a Human + AI workflow' section (above Interpretation) — non-technical workflow summary, key figures, workflow tree, GitHub link-outs; layout now 6 sections. No data changed. Prior refresh (2026-07-20): 1Q2026 refresh + 5-section restructure; ledger extended with 49 Q1-2026 rows; FY2016–FY2025 history unchanged.",
     "reconciliation_note": "Reconciliation of the retrieved/scanned ledger is a human/Claude step between Retrieve/Scan and Tables; it fills reconciled_* columns in ledger.csv (no separate output artifact).",
     "guides": {
       "frame": { "path": "pipeline/sg-banks/guides/frame.md", "human_owned": true },

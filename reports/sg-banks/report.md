@@ -1,5 +1,23 @@
 # SGBanks · Tables · Report — Revenue-engine / valuation view
 
+## How this report was made
+
+This report is produced by a documented, AI-run workflow, fully version-controlled in a public GitHub repository: [mingsagent1/hmhc-reports](https://github.com/mingsagent1/hmhc-reports). **Instruction files** (`.md`) instruct the AI how to perform each task (similar to a standard operating procedure); **data files** are plain CSV and markdown (for example recent signals or insights). The general structure of the workflow is as follows:
+
+- `guides/` — HUMAN-OWNED — the questions & rules the AI must follow
+  - `frame.md` — the key questions we are trying to answer from the analysis
+  - `style.md` — formatting & marking rules
+- `method/` and outputs — AI instruction files (SOPs), one per module
+  - `update-ledger.md` → `data/ledger.csv` — multiple agents retrieve & compare data
+  - `scan-signals.md` → `data/signals.md` — dated, sourced qualitative signals
+  - `build-tables.md` → `data/tables.md` — deterministic table generation
+  - `write-execsummary.md` → Executive Summary — closed-book top-10 insights
+  - `build-report.md` → **`report.md`** — assembling this publicized report
+
+**More:** [AGENTS.md — how AI agents work here](https://github.com/mingsagent1/hmhc-reports/blob/main/AGENTS.md) · [UPDATE.md — the update controller](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/UPDATE.md) · [ledger.csv — the reconciled data ledger](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/ledger.csv) · [version history](https://github.com/mingsagent1/hmhc-reports/commits/main/reports/sg-banks/report.md)
+
+---
+
 ## Interpretation
 
 **Thesis.** Singapore functions as a regional wealth hub; DBS, OCBC, and UOB are the vehicles to accumulate exposure to that.
