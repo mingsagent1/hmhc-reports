@@ -1,5 +1,26 @@
 # SGBanks · Tables · Report — Revenue-engine / valuation view
 
+## How this report was made — a Human + AI workflow
+
+This report is produced by a documented **Human + AI workflow**, fully version-controlled in a public GitHub repository: [mingsagent1/hmhc-reports](https://github.com/mingsagent1/hmhc-reports). The **human** owns the framing — the questions the report must answer and the style rules — and reviews every change through a pull-request gate; **AI agents** (Claude- and GPT-class models, run via Claude Code and Perplexity) do the mechanics: retrieving numbers from primary filings, cross-checking them, generating tables, and assembling the report. **Instruction files** (`.md`) tell the AI how to perform each task, similar to a standard operating procedure; **data files** are plain CSV and markdown (for example recent signals or insights). **Key figures:** 3 banks · FY2016–FY2025 + 1Q2026 · a 582-row reconciled ledger · 8 modules · two independent AI retrieval passes, tie-out-gated before publication. The general structure of the workflow is as follows (ignoring metadata and other files):
+
+```
+guides/   HUMAN-OWNED — the questions & rules the AI must follow
+├─ frame.md              Thesis + key questions · style.md — formatting & marking rules
+method/   AI instruction files (SOPs) — one per module
+├─ update-ledger.md      → data/ledger.csv    multiple agents retrieve & compare data
+├─ scan-signals.md       → data/signals.md    dated, sourced qualitative signals
+├─ build-tables.md       → data/tables.md     deterministic table generation
+├─ build-report.md       → report.md          assemble this report
+└─ write-execsummary.md  → Executive Summary  closed-book top-10 insights
+reports/
+└─ report.md             This document — always the latest version
+```
+
+**More:** [AGENTS.md — how AI agents work here](https://github.com/mingsagent1/hmhc-reports/blob/main/AGENTS.md) · [UPDATE.md — the update controller](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/UPDATE.md) · [ledger.csv — the reconciled data ledger](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/ledger.csv) · [version history](https://github.com/mingsagent1/hmhc-reports/commits/main/reports/sg-banks/report.md)
+
+---
+
 ## Interpretation
 
 **Thesis.** Singapore functions as a regional wealth hub; DBS, OCBC, and UOB are the vehicles to accumulate exposure to that.
