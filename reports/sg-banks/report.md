@@ -30,31 +30,25 @@ The instruction files are themselves living documents: the AI reviews and refine
 ---
 
 <!-- execsummary:start -->
-## Executive Summary — Top 10 Insights
+## Executive Summary — Answers to the Key Questions
 
-Positive: 3 · Negative: 4 · Mixed: 3
+1. **[+] Are deposits, CASA and wealth AUM growing, and with what trend and momentum?** — Yes, across all three banks and the full decade: FY2016–25 customer deposits compounded 6.5% p.a. at DBS (S$347bn → S$610bn), 5.6% at OCBC and 5.9% at UOB with no down year, and wealth AUM compounded faster still — 12.7% p.a. at DBS (to S$488bn) and 8.9% at UOB over FY2016–25, 7.4% at OCBC since 2021. Momentum held into 1Q26: DBS deposits reached S$630bn and a record S$492bn wealth AUM (+17% YoY cc) with +S$10bn net new money; UOB added +S$1bn net new money. (Table 2; 1Q2026 attraction table; Signals — DBS 2026-04-30, UOB 2026-05-07)
 
-1. **[±] All three banks trade well above their own long-run valuation, richest at DBS.** On the intraday 2026-07-20 snapshot, current P/B is 2.96 for DBS (+96% vs its 10-yr average of 1.51), 2.14 for OCBC (+84% vs 1.16), and 1.45 for UOB (+24% vs 1.17) — a real re-rating but one that leaves little historical cushion, and the prices are intraday, not closing. (1Q2026 Update — current valuation table; Table 4 — Current P/B / Current vs 10-yr avg rows)
+2. **Global wealth flows across hubs — trend, magnitude, Singapore's share** — Pending new research module — not answerable from current data.
 
-2. **[–] A Singapore rate-regime shift is compressing net interest margin and NII at all three banks.** 3M SORA averaged ~1.07% in 1Q26 versus ~2.54% a year earlier, pulling 1Q26 group NIM down year-on-year to 1.89% (DBS), 1.76% (OCBC), and 1.82% (UOB) with net interest income down about 4–5% YoY across the group. (1Q2026 Update — "The one-line story"; 1Q2026 income & returns table; Table 5)
+3. **[±] Do the banks convert the growing capital base into income, and does income track the base over time?** — Over the cycle, yes: total revenue compounded 8.0% / 6.2% / 6.2% p.a. and net profit 11.2% / 8.8% / 4.7% (FY2016–25), ahead of deposit growth, and DBS's revenue per deposit dollar rose from 0.033 to 0.038. But conversion is strongly rate-cyclical: DBS group NIM swung 1.45% (2021) → 2.15% (2023) → 2.01% (2025), and in 1Q26 — with 3M SORA averaging ~1.07% versus ~2.54% a year earlier — NII fell ~4–5% YoY at all three, offset to record total income by wealth/fee engines at DBS and OCBC but not at UOB. (Tables 1 ×3; Table 5; 1Q2026 income table)
 
-3. **[+] A record wealth and fee cycle is offsetting the rate drag, driving record total income at DBS and OCBC.** 1Q26 total income set records at DBS (S$5,948m) and OCBC (S$3,828m), net fee income rose +16% YoY at DBS and +24% at OCBC, and DBS reported record wealth AUM of S$492bn (+17% YoY constant-currency) with net new money of +S$10bn. (1Q2026 income & returns table; 1Q2026 attraction/balance-sheet table; Signal synthesis)
+4. **Larger banks' earnings/valuation on multi-trillion bases + income engines from other wealth hubs** — Pending new research module — not answerable from current data.
 
-4. **[+] DBS posted the strongest quarter, with record profit, top returns, and a guidance upgrade.** DBS 1Q26 net profit was a record S$2,930m (+1% YoY) at a group ROE of 17.0%, and management upgraded FY2026 guidance to net profit having "a good shot at coming close to 2025 levels" from the earlier "below 2025." (1Q2026 income & returns table; Signal synthesis — DBS; FY2026 management guidance — DBS)
+5. **[±] What absolute deposit/AUM levels is the market implying at current multiples?** — The report documents the premium but not yet an implied-growth model: current P/B is 2.96 at DBS (+96% vs its own 10-yr average of 1.51), 2.14 at OCBC (+84% vs 1.16) and 1.45 at UOB (+24% vs 1.17) on FY2025 books, at intraday 2026-07-20 prices. Translating those multiples into implied future deposit/AUM levels requires a valuation model this pipeline has not yet built — only the size of the premium is answerable today. (Table 4; 1Q2026 valuation table)
 
-5. **[–] UOB is the laggard, with a third straight quarter of year-on-year income and profit declines.** UOB 1Q26 net profit fell 4% YoY and net fee income fell 8% YoY, with an elevated 26bps credit cost, rising Greater-China NPAs, and the highest NPL ratio of the three at 1.5%. (1Q2026 income & returns table; 1Q2026 asset-quality table; Signal synthesis — UOB)
+6. **How do the three price against comparable banks in other wealth-hub jurisdictions?** — Pending new research module — not answerable from current data.
 
-6. **[–] OCBC absorbed the steepest margin squeeze and booked management overlays citing elevated uncertainty.** OCBC's group NIM fell the most of the three, −28bps YoY to 1.76%, and it booked S$191m of management-overlay allowances for non-impaired assets, lifting credit cost to 23bps. (1Q2026 income & returns table note; 1Q2026 asset-quality table; Signal synthesis — OCBC)
+7. **[+] Are the inter-bank valuation premiums justified by fundamentals?** — Directionally, yes: DBS's premium (P/B 2.96 vs OCBC 2.14 and UOB 1.45) tracks the strongest fundamentals — the highest ROE (16.2% FY25; 17.0% in 1Q26 vs 13.0 / 11.5), the fastest wealth-AUM compounding (12.7% p.a.) and profit CAGR (11.2%), record 1Q26 profit, and the only FY26 guidance upgrade — while UOB's discount matches its provisioning-depressed FY25 ROE (9.6%), a third consecutive down quarter, elevated 26bps credit cost and rising Greater-China NPAs. Whether the *absolute size* of the premia is fair is the Q5 valuation question, not settled by current data. (Table 4; 1Q2026 income table; Signals — DBS 2026-04-30, UOB 2026-05-06/07)
 
-7. **[+] Capital and asset quality remain solid across the group.** 1Q26 CET1 ratios were 16.9% (DBS), 17.0% (OCBC), and 15.3% (UOB), with NPL ratios of 1.0%, 0.9%, and 1.5% respectively. (1Q2026 attraction, balance-sheet & asset-quality table)
+**Thesis score: 70/100.** The thesis' core driver is intact: deposits and wealth AUM have grown every year for a decade at all three banks, momentum carried into 1Q26 (record DBS AUM, positive net new money at DBS and UOB), and the banks demonstrably monetize the base across rate cycles (Table 2; Tables 1). The score is held back by valuation — current P/B sits 96% / 84% / 24% above the banks' own 10-yr averages, so much of the thesis may already be in the price (Table 4) — and by the open evidence gaps at the heart of the claim: Singapore's share of cross-hub wealth flows and the large-bank precedent (Q2, Q4, Q6 pending). Decision rule: capital-attraction momentum is **positive** — no stall or reversal in deposits or AUM — so the kill signal is not triggered.
 
-8. **[±] Banks now plan on zero 2026 Fed cuts, and FY2026 guidance diverges by bank.** After the Fed held its target at 3.50–3.75% on 17 Jun 2026 with a hawkish dot plot, DBS guides total income at or around 2025 levels, OCBC targets double-digit non-interest-income growth, and UOB guides a full-year NIM of 1.75%–1.80% (versus FY25 1.89%). (1Q2026 Update — "The one-line story"; FY2026 management guidance)
-
-9. **[–] UOB's FY2025 net profit fell 23% on a large pre-emptive provision.** The drop reflects ~S$2.0bn of general allowances booked in 3Q2025, cutting reported FY2025 ROE to 9.6% while operating profit was only −4%. (Table 1 — UOB footnote 5; Appendix C)
-
-10. **[±] The 1Q2026 figures are single-retriever and partly low-confidence, warranting spot-verification.** All 1Q26 cells are `single-cl` (one Claude pass, not yet dual-checked), UOB's 1Q26 income-statement detail is Tier-2 host (CFO/CEO slides via MarketScreener), and the official 3M SORA is `n/d` because the MAS portal was under maintenance on 2026-07-20. (Comparability notes & retrieval limitations (1Q2026); Appendix A — 1Q2026 refresh validation & provenance)
-
-Scope: derived solely from reports/sg-banks/report.md (v2026.07.20). Not investment advice.
+Scope: questions from `guides/frame.md` (7 questions, 2026-07-21); grounded in report.md + data/signals.md (v2026.07.21-r2). Not investment advice.
 <!-- execsummary:end -->
 
 ---
@@ -213,11 +207,11 @@ Scope: derived solely from reports/sg-banks/report.md (v2026.07.20). Not investm
 
 | FY | DBS Price | DBS BVPS | DBS P/B | DBS ROE | DBS RoTE | OCBC Price | OCBC BVPS | OCBC P/B | OCBC ROE | OCBC RoTE | UOB Price | UOB BVPS | UOB P/B | UOB ROE | UOB RoTE |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 2016 | 17.34 | 16.87 | 1.03 | 10.1 | n/r | 8.92 | 8.49 | 1.05 | 10.0 | n/d | 20.40 | 18.82 | 1.08 | 10.2 | n/d |
-| 2017 | 24.85 | 17.85 | 1.39 | 9.7 | n/r | 12.39 | 8.96 | 1.38 | 11.2 | n/d | 26.45 | 20.37 | 1.30 | 10.2 | n/d |
-| 2018 | 23.69 | 18.12 | 1.31 | 12.1 | n/r | 11.26 | 9.56 | 1.18 | 11.5 | n/d | 24.57 | 21.31 | 1.15 | 11.3 | n/d |
-| 2019 | 25.88 | 19.17 | 1.35 | 13.2 | n/r | 10.98 | 10.38 | 1.06 | 11.4 | n/d | 26.41 | 22.33 | 1.18 | 11.6 | n/d |
-| 2020 | 25.04 | 20.08 | 1.25 | 9.1 | n/r | 10.21 | 10.82 | 0.94 | 7.6 | n/d | 22.75 | 23.03 | 0.99 | 7.4 | n/d |
+| 2016 | 17.34 | 16.87 | 1.03 | 10.1 | n/d | 8.92 | 8.49 | 1.05 | 10.0 | n/d | 20.40 | 18.82 | 1.08 | 10.2 | n/d |
+| 2017 | 24.85 | 17.85 | 1.39 | 9.7 | n/d | 12.39 | 8.96 | 1.38 | 11.2 | n/d | 26.45 | 20.37 | 1.30 | 10.2 | n/d |
+| 2018 | 23.69 | 18.12 | 1.31 | 12.1 | n/d | 11.26 | 9.56 | 1.18 | 11.5 | n/d | 24.57 | 21.31 | 1.15 | 11.3 | n/d |
+| 2019 | 25.88 | 19.17 | 1.35 | 13.2 | n/d | 10.98 | 10.38 | 1.06 | 11.4 | n/d | 26.41 | 22.33 | 1.18 | 11.6 | n/d |
+| 2020 | 25.04 | 20.08 | 1.25 | 9.1 | n/d | 10.21 | 10.82 | 0.94 | 7.6 | n/d | 22.75 | 23.03 | 0.99 | 7.4 | n/d |
 | 2021 | 32.66 | 21.47 | 1.52 | 12.5 | 13.8 | 11.40 | 11.46 | 0.99 | 9.6 | n/d | 26.90 | 24.08 | 1.12 | 10.2 | n/d |
 | 2022 | 33.92 | 21.17 | 1.60 | 15.0 | 16.7 | 12.18 | 10.99 | 1.11 | 11.1 | n/d | 30.70 | 24.24 | 1.27 | 11.9 | n/d |
 | 2023 | 33.41 | 23.14 | 1.44 | 18.0 | 20.0 | 13.00 | 11.77 | 1.10 | 13.7 | n/d | 28.45 | 26.00 | 1.09 | 13.4 | n/d |
@@ -229,7 +223,7 @@ Scope: derived solely from reports/sg-banks/report.md (v2026.07.20). Not investm
 | **Current vs 10-yr avg** |  |  | +96% |  |  |  |  | +84% |  |  |  |  | +24% |  |  |
 | **10-yr avg ROE** |  |  |  | 13.4 |  |  |  |  | 11.2 |  |  |  |  | 10.9 |  |
 
-<sub>P/B = 31-Dec close ÷ BVPS for FY rows (derived; both inputs shown). ROE reported (group). RoTE: DBS discloses FY2021+ where shown; OCBC and UOB do not print RoTE → `n/d`. <sup>5</sup> UOB FY2025 ROE = 9.6 reflects the ~S$2.0bn pre-emptive GP booked 3Q2025 (provisioning artefact); UOB core ROE ≈ 14.2% (FY2023) where separately disclosed. DBS 1-for-10 bonus issue (1Q2024): price and BVPS kept on the same basis within each year — P/B is bonus-invariant; do not mix adjusted price with unadjusted BVPS. **Current P/B uses the intraday 2026-07-20 price (71.96 / 28.60 / 42.60 — NOT a closing price) ÷ FY2025 BVPS** (see the 1Q2026 Update valuation table).</sub>
+<sub>P/B = 31-Dec close ÷ BVPS for FY rows (derived; both inputs shown). ROE reported (group). RoTE: DBS discloses FY2021+ (`n/d` before); OCBC and UOB do not print RoTE → `n/d`. <sup>5</sup> UOB FY2025 ROE = 9.6 reflects the ~S$2.0bn pre-emptive GP booked 3Q2025 (provisioning artefact); UOB core ROE ≈ 14.2% (FY2023) where separately disclosed. DBS 1-for-10 bonus issue (1Q2024): price and BVPS kept on the same basis within each year — P/B is bonus-invariant; do not mix adjusted price with unadjusted BVPS. **Current P/B uses the intraday 2026-07-20 price (71.96 / 28.60 / 42.60 — NOT a closing price) ÷ FY2025 BVPS** (see the 1Q2026 Update valuation table).</sub>
 
 **P/TB block (FY2025)**
 
@@ -292,7 +286,7 @@ The remaining ~30 `resolved` rows are ±S$1–25m rounding between the reconcile
 - **Table 2 (Wealth AUM):** OCBC 2016–2017 = `n/d`; UOB 2018–2019 = `n/d`. All disclosed AUM cells are `single-px` (Perplexity-only) — flagged low-confidence pending a second retriever.
 - **Table 2 (CASA):** OCBC 2016–2018 filled 2026-07-16 via a non-Claude retrieval pass (`single-px`); a second retriever pass would upgrade to `match`.
 - **Table 5 (rates):** 3M compounded SORA `n/r` for 2016–2019 (series began 6-Aug-2020; no SIBOR splice). **2026-latest: 3M SORA (31-Dec) = `n/d`** (MAS eServices portal under maintenance 2026-07-20); the 1.07 shown in the FY-avg column is the bank-characterised 1Q26 average, not an official MAS figure. **2026 interim group NIM now filled** (1Q26: 1.89 / 1.76 / 1.82).
-- **Table 4:** OCBC & UOB RoTE = `n/d` (not disclosed); DBS RoTE disclosed FY2021+.
+- **Table 4:** OCBC & UOB RoTE = `n/d` (not disclosed); DBS RoTE disclosed FY2021+ (`n/d` before).
 
 **1Q2026 refresh — validation & provenance.**
 - All 1Q2026 cells are `single-cl` (one Claude pass from the evidence set, stamped `20260720-001 CwClOpus4.8`) — not yet dual-checked. Spot-verify against each bank's own release before high-stakes use.
