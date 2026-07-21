@@ -12,7 +12,7 @@
 
 | | |
 |---|---|
-| **Inputs** | The pre-set ledger skeleton `pipeline/sg-banks/data/ledger.csv` (row keys, units, embedded checksums) and the Tier-1 / Tier-2 source hierarchy in §2. Framing context from `pipeline/sg-banks/frame.md` may inform which rows matter most, but Retrieve fills every row it can regardless. |
+| **Inputs** | The pre-set ledger skeleton `pipeline/sg-banks/data/ledger.csv` (row keys, units, embedded checksums) and the Tier-1 / Tier-2 source hierarchy in §2. Framing context from `pipeline/sg-banks/guides/frame.md` may inform which rows matter most, but Retrieve fills every row it can regardless. |
 | **Sole output** | `pipeline/sg-banks/data/ledger.csv` — this module fills the retriever's own value/source/comment/version columns. It writes **no** report and **no** derived quantities. |
 | **Idempotence** | A rerun overwrites the retriever's columns in place (bump the `NNN` in the run stamp for same-day re-runs). Git retains history; there are no timestamped ledger copies. |
 | **Recommended model** | A **search-grounded, non-Claude** model for maximum cross-model independence — **GPT-5.6** (or the nearest available non-Claude search-grounded model) run via a search harness (e.g. Perplexity). Running a non-Claude retriever is what breaks the same-model blind spot on un-checksummed cells (see §1 "Un-cross-checked cells" and the Index open decisions). |
