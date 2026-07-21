@@ -17,19 +17,17 @@ Over a **10–15 year** horizon, Singapore keeps attracting and growing the weal
 
 3. Do the banks convert a growing capital base into income (NIM on deposits, wealth and fee income, new products), recognizing that rates and spreads are cyclical and the product mix evolves? Does income broadly track the capital base over time?
 
-4. What do far larger banks earn on — and command in valuation for — multi-trillion deposit / AUM bases, and what does that precedent imply for the three as their bases grow?
+4. What do far larger banks earn on — and command in valuation for — multi-trillion deposit / AUM bases, and what income engines — used by other jurisdictions or previous wealth hubs — are yet to be introduced in Singapore (if any), and what potential revenue / fees could they represent? What does that precedent imply for the three as their bases grow?
 
 **C. Valuation — to what extent is it priced in?**
 
 5. Given current valuation models and multiples, what absolute levels of deposits and wealth AUM is the market implying the banks will reach over the next 3–5 years?
 
-6. What income engines — used by other jurisdictions or previous wealth hubs — are yet to be introduced in Singapore (if any), and what potential revenue / fees could they represent?
-
-7. How do the three price against comparable banks in other wealth-hub jurisdictions?
+6. How do the three price against comparable banks in other wealth-hub jurisdictions?
 
 **D. Inter-bank premium**
 
-8. Are there different valuation premiums between DBS, OCBC and UOB, and are they justified by fundamentals (growth, quality, monetization)?
+7. Are there different valuation premiums between DBS, OCBC and UOB, and are they justified by fundamentals (growth, quality, monetization)?
 
 ## Decision rule
 The decisive signal is capital-attraction momentum: if deposit and wealth-AUM growth stalls or reverses — capital no longer moving into Singapore — the narrative and the premium die with it, and the asset is not allocated regardless of the other answers.
