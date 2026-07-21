@@ -8,13 +8,15 @@ This report is produced by a documented, AI-run workflow, fully version-controll
   - `frame.md` — the key questions we are trying to answer from the analysis
   - `style.md` — formatting & marking rules
 - `method/` and outputs — AI instruction files (SOPs), one per module
-  - `update-ledger.md` → `data/ledger.csv` — multiple agents retrieve & compare data
+  - [`AGENTS.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/AGENTS.md) — the ground rules every AI agent reads before working in this repo
+  - [`UPDATE.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/UPDATE.md) — intelligent instruction routing of user prompts
+  - `update-ledger.md` → [`data/ledger.csv`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/ledger.csv) — multiple agents retrieve & compare data
   - `scan-signals.md` → `data/signals.md` — dated, sourced qualitative signals
   - `build-tables.md` → `data/tables.md` — deterministic table generation
   - `write-execsummary.md` → Executive Summary — closed-book top-10 insights
-  - `build-report.md` → **`report.md`** — assembling this publicized report
+  - `build-report.md` → [**`report.md`**](https://github.com/mingsagent1/hmhc-reports/commits/main/reports/sg-banks/report.md) — assembling this publicized report
 
-**More:** [AGENTS.md — how AI agents work here](https://github.com/mingsagent1/hmhc-reports/blob/main/AGENTS.md) · [UPDATE.md — the update controller](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/UPDATE.md) · [ledger.csv — the reconciled data ledger](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/ledger.csv) · [version history](https://github.com/mingsagent1/hmhc-reports/commits/main/reports/sg-banks/report.md)
+The instruction files are themselves living documents: the AI reviews and refines them run over run — a continuous self-improvement cycle, with every revision version-controlled and traceable in the repository's history.
 
 ---
 
