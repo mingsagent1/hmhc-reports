@@ -11,7 +11,7 @@ This report is produced by a documented, AI-run workflow, fully version-controll
   - [`AGENTS.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/AGENTS.md) — the ground rules every AI agent reads before working in this repo
   - [`UPDATE.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/UPDATE.md) — intelligent instruction routing of user prompts
   - `update-ledger.md` → [`data/ledger.csv`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/ledger.csv) — multiple agents retrieve & compare data
-  - `scan-signals.md` → `data/signals.md` — dated, sourced qualitative signals
+  - `scan-signals.md` → [`data/signals.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/signals.md) — dated, sourced qualitative signals
   - `build-tables.md` → `data/tables.md` — deterministic table generation
   - `write-execsummary.md` → Executive Summary — closed-book top-10 insights
   - `build-report.md` → [**`report.md`**](https://github.com/mingsagent1/hmhc-reports/commits/main/reports/sg-banks/report.md) — assembling this publicized report
