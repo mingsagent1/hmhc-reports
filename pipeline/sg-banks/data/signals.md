@@ -1,7 +1,7 @@
 # SG Banks — Signals (qualitative scan output)
 
 > **Project:** Singapore Bank Stock Accumulation Strategy
-> **Artifact:** `pipeline/sg-banks/data/signals.md` — sole output of `pipeline/sg-banks/method/scan.md`.
+> **Artifact:** `pipeline/sg-banks/data/signals.md` — sole output of `pipeline/sg-banks/method/scan-signals.md`.
 > **Status:** **POPULATED — 1Q2026 scan run 2026-07-20.** Grounded strictly in the supplied evidence set (`sg_banks_evidence_report_2026-07-20.md`); every signal carries its dated Tier-1/Tier-2 source URL. **Descriptive only — not investment advice.**
 > **Banks:** DBS (D05) · OCBC (O39) · UOB (U11). **Recency window:** 1Q2026 results (quarters ended 31 Mar 2026, announced 30 Apr–8 May 2026) + FY2026 guidance + latest macro (to mid-Jul 2026).
 

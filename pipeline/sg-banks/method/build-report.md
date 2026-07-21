@@ -1,7 +1,7 @@
 # Assemble — Module SOP: Report assembly (SG Banks · Tables)
 
 > **Project:** Singapore Bank Stock Accumulation Strategy
-> **Artifact:** `pipeline/sg-banks/method/build.md` — version history in git (`git log --oneline pipeline/sg-banks/method/build.md`).
+> **Artifact:** `pipeline/sg-banks/method/build-report.md` — version history in git (`git log --oneline pipeline/sg-banks/method/build-report.md`).
 > **Status:** Draft.
 > **History:** Until 2026-07-20 this file was the monolithic "reconcile + build" SOP. In the modular-pipeline refactor its **reconciliation** guidance moved to the upstream human/Claude step (documented in `build-tables.md`) and all **table specifications, formulas, tie-outs, canaries, and number formats** moved to `pipeline/sg-banks/method/build-tables.md`. This file is now **Assemble-only**: it turns finished inputs into the published report. **Table arithmetic is NOT specified here — it lives only in `build-tables.md`.**
 
@@ -23,19 +23,18 @@
 
 Assemble is the **composition** stage. Everything numeric is already decided: `tables.md` carries the finished tables and their footnotes; `signals.md` carries the qualitative colour; `frame.md` says what the report is arguing; `style.md` says how to mark and word it. Assemble's job is to weave these into one clean, readable report — **without introducing a single number or fact that is not already in its inputs.**
 
-## Handling the current state (Scan not yet run)
+## Handling an unpopulated or stale Scan
 
-`pipeline/sg-banks/data/signals.md` is currently a **scaffold — Scan has not been run**, so it contains no signals. Assemble must:
+If `pipeline/sg-banks/data/signals.md` is unpopulated or stale (check its as-of date against the report period):
 
-- **Not invent signals.** Do not add management-commentary or market-context narrative that a signal would have supplied but which is not present in `signals.md` or already in `tables.md`.
-- **Assemble from what is available.** Build the report from `tables.md` + `frame.md` + `style.md`. The per-bank "Other (non-NII) revenue" commentary and the FY2026 guidance bullets in the current report are grounded in ledger/report content (composition figures, disclosed guidance) — these are retained because they trace to the tables/ledger, not to an unrun scan.
-- **Mark omissions.** Where a section would be enriched by scan signals, note that the qualitative scan layer is not yet integrated rather than filling the gap. (See the open questions in `index.md`.)
+- **Never invent signals.** Do not add management-commentary or market-context narrative that is not present in `signals.md` or already in `tables.md`.
+- **Assemble from what is available** and **mark omissions** — where a section would be enriched by scan signals, say the qualitative layer is stale/absent rather than filling the gap.
 
-When Scan is later run, a rerun of Assemble folds its dated, sourced signals into the narrative.
+*(Scan was first run 2026-07-20; `signals.md` is currently populated.)*
 
 ## Formatting, marking, and tone
 
-**All marking and formatting conventions come from `pipeline/sg-banks/method/style.md`** (`n/r` vs `n/d`, number formats, superscript citations and trap-notes, derived-cell marking, table formatting, currency/scope, neutral descriptive tone, no investment advice). Assemble applies that spec. It does **not** restate per-column number formats or re-derive any cell — those belong to `build-tables.md`.
+**All marking and formatting conventions come from `pipeline/sg-banks/guides/style.md`** (`n/r` vs `n/d`, number formats, superscript citations and trap-notes, derived-cell marking, table formatting, currency/scope, neutral descriptive tone, no investment advice). Assemble applies that spec. It does **not** restate per-column number formats or re-derive any cell — those belong to `build-tables.md`.
 
 The report's top legend and formats block is copied from `style.md`'s report-level conventions; keep it to one short legend + one short formats line.
 
@@ -64,14 +63,13 @@ Keep all three as prose / compact tables — this is where explanation lives, so
 
 ## Canonical report structure
 
-The published `reports/sg-banks/report.md` has a **fixed six-section order**, top to bottom. Every rebuild must reproduce it exactly:
+The published `reports/sg-banks/report.md` has a **fixed five-section order**, top to bottom. Every rebuild must reproduce it exactly:
 
 1. **How this report was made** — a **static provenance section** for non-technical readers, **kept to ~15 lines (half a page) max**: one short paragraph (documented AI-run workflow + repo link; instruction files as SOPs; data files as CSV/markdown; then exactly "The general structure of the workflow is as follows:"), the simplified workflow tree, and a one-sentence closing line on the instruction files as living documents the AI reviews and refines run over run (a continuous self-improvement cycle, version-controlled and traceable in git). Tree rules: **indented list lines with inline-code paths, not a fenced code block** (bold/links don't render in fenced blocks); link-outs are inline on the tree lines with absolute GitHub URLs (the report is served off-repo) — no separate "More:" line; no "Human + AI" phrasing — human ownership shows only via the `guides/` HUMAN-OWNED comment; `frame.md` = "the key questions we are trying to answer from the analysis"; `style.md` on its own line; the module block is headed "`method/` and outputs" and opens with two hyperlinked entries: [`AGENTS.md`] ("the ground rules every AI agent reads before working in this repo") then [`UPDATE.md`] ("intelligent instruction routing of user prompts"); `update-ledger.md` links its `data/ledger.csv` output; no separate `reports/` block — `build-report.md` sits **last**, pointing at a **bolded `report.md`** hyperlinked to the report's commit history, with the comment "assembling this publicized report". **Not data-dependent:** rebuilds reproduce it verbatim; its content changes only when the workflow itself changes (new module, moved artifact).
-2. **Interpretation (short)** — the one-line thesis (Singapore as a regional wealth hub; DBS/OCBC/UOB the vehicles), the banks/period/currency line, and a compact "How this was built" flex line. No Legend/Formats here.
-3. **Key Questions & AI Recommendations** — the big questions from `pipeline/sg-banks/guides/frame.md` as dot points, each with a concise AI recommendation answered from the report's findings. **If `guides/frame.md` still holds placeholder `<your question>` lines, do not invent questions** — insert *"Key Questions pending — to be set in guides/frame.md by the author."* and leave recommendations blank.
-4. **Executive Summary** — sits in the top-third, **wrapped in the `<!-- execsummary:start -->` / `<!-- execsummary:end -->` markers** so the Exec-Summary module (`write-execsummary.md`) can regenerate it in place. Exactly 10 ranked insights, ≥3 positive and ≥3 negative.
-5. **Key Data (tables)** — the five tables (Table 1 ×3, Tables 2–5) plus the latest-quarter interim tables, numbers unchanged. **No signal commentary in the body:** no "Risks:" blocks, no "FY2026 management guidance" block, no forward/interpretive "Growth engine:" passages — that content lives only in `data/signals.md` and feeds the Executive Summary only. Factual composition breakdowns and the deposits/CASA methodology are relocated to Appendix B, never dropped; any hard datum (e.g. a CAGR) must survive in a table or an appendix.
-6. **Appendix** — **A — Validation report**, **B — Definitions** (also holding the relocated composition/benchmark methodology), **C — Restatement log**, and **D — Notation & Formats** (the Legend/Formats moved out of the top).
+2. **Interpretation (short)** — the one-line thesis (Singapore as a regional wealth hub; DBS/OCBC/UOB the vehicles) and the banks/period/currency line. No Legend/Formats here, and no "how built" line (that lives in section 1).
+3. **Executive Summary** — sits in the top-third, **wrapped in the `<!-- execsummary:start -->` / `<!-- execsummary:end -->` markers** so the Exec-Summary module (`write-execsummary.md`) can regenerate it in place. Format: **answers to the Frame's key questions, in order, plus a 0–100 thesis score** (see `write-execsummary.md`). There is no separate Key Questions section — the Executive Summary *is* where the Frame's questions are answered.
+4. **Key Data (tables)** — the five tables (Table 1 ×3, Tables 2–5) plus the latest-quarter interim tables, numbers unchanged. **No signal commentary in the body:** no "Risks:" blocks, no "FY2026 management guidance" block, no forward/interpretive "Growth engine:" passages — that content lives only in `data/signals.md` and feeds the Executive Summary only. Factual composition breakdowns and the deposits/CASA methodology are relocated to Appendix B, never dropped; any hard datum (e.g. a CAGR) must survive in a table or an appendix.
+5. **Appendix** — **A — Validation report**, **B — Definitions** (also holding the relocated composition/benchmark methodology), **C — Restatement log**, and **D — Notation & Formats** (the Legend/Formats moved out of the top). Appendices are top-level `## Appendix A/B/C/D` headings — no bare `## Appendix` wrapper heading.
 
 **Rules that keep rebuilds consistent:**
 - The "How this report was made" section is **workflow-descriptive only** — it never carries report data, findings, or signal content, and is not touched by data refreshes.

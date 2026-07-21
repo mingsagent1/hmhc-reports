@@ -1,7 +1,7 @@
 # SG Banks — Tables (generated table-block artifact)
 
 > **Project:** Singapore Bank Stock Accumulation Strategy · **Component:** `Tables`
-> **Artifact:** `pipeline/sg-banks/data/tables.md` — sole output of `pipeline/sg-banks/method/build-tables.md`. Consumed by the Assemble step (`pipeline/sg-banks/method/build.md`).
+> **Artifact:** `pipeline/sg-banks/data/tables.md` — sole output of `pipeline/sg-banks/method/build-tables.md`. Consumed by the Assemble step (`pipeline/sg-banks/method/build-report.md`).
 > **Status:** **Refreshed 2026-07-20 for the 1Q2026 update.** The historical FY2016–FY2025 blocks (Tables 1–5) are **unchanged** from the prior build (rev 2026-07-16c). A new **Latest 1Q2026 snapshot** section is prepended, and the Table 4 **Current P/B** / **Current vs 10-yr avg** rows and the **P/TB (current)** column are updated to as-of-2026-07-20 intraday prices. Provenance: every number traces to reconciled `pipeline/sg-banks/data/ledger.csv` (1Q2026 rows stamped `20260720-001 CwClOpus4.8`) and, for history, to the prior `reports/sg-banks/report.md`.
 > **Note on materialization:** the historical blocks were copied verbatim from the prior report (no arithmetic re-run); the 1Q2026 snapshot and updated current-valuation cells are computed from the ledger 1Q2026 rows. A future clean Build-Tables run will overwrite this file from the ledger and should reproduce these values.
 > **Banks:** DBS (D05) · OCBC (O39) · UOB (U11). FY2016–FY2025 long-run base + **1Q2026 interim (quarters ended 31 Mar 2026)** + **current (2026-07-20 intraday) valuation.** **SGD only.**

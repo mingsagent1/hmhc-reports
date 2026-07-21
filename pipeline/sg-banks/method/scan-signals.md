@@ -1,7 +1,7 @@
 # sg-banks — Scan-Signals SOP (earnings + media, recency-biased)
 
-> ## ⚠ Cost gate — opt-in only (read first)
-> This module runs **live web retrieval** across many sources and is **token/time-intensive**. **Do NOT run it unless the user has explicitly requested it AND confirmed in chat** (the UPDATE controller's Step 2b cost gate). If you have reached this file without that explicit confirmation, **stop and ask for it first** — do not begin scanning.
+> ## ⚠ EXPENSIVE — opt-in only
+> Runs only via `UPDATE.md`'s ask-gate + Step 2b cost gate (explicit user confirmation — full rule there). Reached this file without that confirmation? **Stop and ask first.**
 
 **Module:** Scan · **Input:** `guides/frame.md` · **Output:** `data/signals.md` · **Depends on:** Frame
 **Run on:** Orchestrator or **GPT-5.6** (search-heavy — **must** use live web/search; the opposite of the closed-book Exec Summary). Non-Claude keeps it independent of the Claude-built numeric work.
