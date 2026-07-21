@@ -1,0 +1,37 @@
+name: Tag report versions
+
+# When a merge to main changes a report's current_version in meta.json,
+# create the matching git tag <slug>-v<version> (UPDATE.md Step 5).
+# Existing tags are never moved or overwritten.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Create missing version tags
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for meta in reports/*/meta.json; do
+            slug=$(basename "$(dirname "$meta")")
+            version=$(python3 -c "import json,sys; print(json.load(open(sys.argv[1]))['current_version'])" "$meta")
+            tag="${slug}-v${version}"
+            if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+              echo "$tag already exists — skipping"
+            else
+              git tag "$tag"
+              git push origin "refs/tags/$tag"
+              echo "created $tag"
+            fi
+          done
