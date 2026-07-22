@@ -1,4 +1,24 @@
-# SGBanks · Tables · Report — Revenue-engine / valuation view
+# Analysis of Singapore Banks — DBS · OCBC · UOB
+
+## Purpose
+
+**Thesis.** Over a 10–15 year horizon, Singapore keeps attracting and growing the wealth the world parks and moves through it, and DBS, OCBC and UOB monetize that growing capital base — deposits and wealth AUM — into income and are valued accordingly. The decisive signal is **capital-attraction momentum**: if deposit and wealth-AUM growth stalls or reverses, the thesis dies with it.
+
+**Key questions this analysis answers** *(each is answered in the Conclusions below)*:
+
+1. Are the banks' deposits, CASA and wealth AUM growing — and how fast?
+2. Is Singapore gaining, holding or losing share of global wealth flows versus other hubs?
+3. Do the banks convert the growing capital base into income across rate cycles?
+4. What do far larger banks earn on — and command in valuation for — multi-trillion bases, and which of their income engines have yet to reach Singapore?
+5. What future deposit and AUM levels do current valuations imply?
+6. How do the three price against banks in other wealth hubs?
+7. Are the valuation premiums between DBS, OCBC and UOB justified by fundamentals?
+
+**Scope.** DBS (SGX: D05) · OCBC (O39) · UOB (U11) · FY2016–FY2025 (31-Dec year-ends) + 1Q2026 interim (quarters ended 31 Mar 2026) + current (2026-07-20 intraday) valuation · **SGD only** · notation and formats in Appendix D.
+
+> **This is not financial advice.** It is a demonstration of the use of AI in business analysis.
+
+---
 
 ## How this report was made
 
@@ -23,14 +43,6 @@ The instruction files are themselves living documents: the AI reviews and refine
 
 ---
 
-## Interpretation
-
-**Thesis.** Singapore functions as a regional wealth hub; DBS, OCBC, and UOB are the vehicles to accumulate exposure to that.
-
-**Banks / period / currency.** DBS (SGX: D05) · OCBC (SGX: O39) · UOB (SGX: U11). Period: FY2016–FY2025 (31-Dec year-ends) long-run base + 1Q2026 interim (quarters ended 31 Mar 2026) + current (2026-07-20 intraday) valuation. **Currency: SGD only.** Descriptive analysis, **not investment advice**; no forecasts beyond management's own guidance. Notation and number formats are in **Appendix D**.
-
----
-
 <!-- conclusions:start -->
 ## Conclusions — Answers to the Key Questions
 
@@ -50,7 +62,7 @@ The instruction files are themselves living documents: the AI reviews and refine
 
 **Thesis score: 70/100.** The thesis' core driver is intact: deposits and wealth AUM have grown every year for a decade at all three banks, momentum carried into 1Q26 (record DBS AUM, positive net new money at DBS and UOB), and the banks demonstrably monetize the base across rate cycles (Table 2; Tables 1). The score is held back by valuation — current P/B sits 96% / 84% / 24% above the banks' own 10-yr averages, so much of the thesis may already be in the price (Table 4) — and by the open evidence gaps at the heart of the claim: Singapore's share of cross-hub wealth flows and the large-bank precedent (Q2, Q4, Q6 pending). Decision rule: capital-attraction momentum is **positive** — no stall or reversal in deposits or AUM — so the kill signal is not triggered.
 
-Scope: questions from `guides/frame.md` (7 questions, 2026-07-21); grounded in report.md + data/signals.md (v2026.07.21-r2). Not investment advice.
+Scope: questions from `guides/frame.md` (7 questions, 2026-07-21); grounded in report.md + data/signals.md (v2026.07.22). Not investment advice.
 <!-- conclusions:end -->
 
 ---
