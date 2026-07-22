@@ -14,8 +14,8 @@ No web search, no outside knowledge, no number/name/date that isn't in sources 2
 
 ## Task
 
-1. **Answer each key question in `guides/frame.md`, in order** (currently 7). Each answer: 2–4 sentences, grounded in the report/signals, **cited to a real location** — a report table/section/appendix (e.g. "Table 2", "Appendix C") and/or a signal id (e.g. "SCN-DBS-003"). Open each answer with a polarity marker: `+` (supports the thesis), `–` (against), `±` (mixed).
-2. **Honesty rule — pending questions.** Where the report and signals cannot support an answer (currently **Q2** — cross-hub wealth flows, **Q4** — larger-bank / other-hub precedent, and **Q6** — pricing vs other wealth-hub banks; check `index.md` open questions for the current list), write exactly: *"Pending new research module — not answerable from current data."* Do not synthesize an answer from outside knowledge, and cite nothing.
+1. **Answer each key question in `guides/frame.md`, in order** (currently 6), **honoring each question's internal-note format** (mini-tables/lists as specified — e.g. `Bank_Metric: 5y-CAGR %, 1y %, S$bn`). Simple arithmetic on report numbers (CAGRs, ratios, differences) is permitted and counts as grounded. Each answer is otherwise 2–4 sentences, grounded in the report/signals, **cited to a real location** — a report table/section/appendix (e.g. "Table 2", "Appendix C") and/or a signal id (e.g. "SCN-DBS-003"). Open each answer with a polarity marker: `+` (supports the thesis), `–` (against), `±` (mixed).
+2. **Honesty rule — pending questions.** Where the report and signals cannot support an answer (currently **Q2** — wealth-hub capital flows — and the **peer-indexed parts of Q5 and Q6**; check `index.md` open questions for the current list), write exactly: *"Pending new research module — not answerable from current data."* Where a question is partially answerable (e.g. the SG banks' own un-indexed values), give the supported part and mark the rest pending. Do not synthesize an answer from outside knowledge.
 3. **Thesis score.** Score the Frame's thesis **0–100** on current evidence (100 = the evidence fully supports it). Give the score, a 2–3 sentence rationale naming the strongest supporting and opposing evidence (cited), and one sentence on the **decision rule** (current capital-attraction momentum vs the kill signal). *Note: a multi-model "AI council" scoring mechanism may later replace the single-model score (design pending, Perplexity-led); until then one closed-book model scores.*
 
 No forecasts beyond what the sources state. Neutral tone. Not investment advice.
@@ -29,7 +29,7 @@ Replace everything between these markers:
 1. **[±] <short label of Q1>** — <answer>. (source)
 2. **[–] <short label of Q2>** — Pending new research module — not answerable from current data.
 …
-7. **[+] <short label of Q7>** — <answer>. (source)
+6. **[+] <short label of Q6>** — <answer>. (source)
 
 **Thesis score: NN/100.** <rationale with cited strongest evidence for and against>. Decision rule: <capital-attraction momentum status>.
 
