@@ -6,26 +6,25 @@
   "status": "published",
   "first_published": "2026-07-16",
   "last_updated": "2026-07-21",
-  "current_version": "2026.07.21-r2",
+  "current_version": "2026.07.21-r3",
   "tags": ["singapore", "banks", "DBS", "OCBC", "UOB", "wealth", "NIM", "deposits", "1Q2026"],
-  "executive_summary_status": "in report.md (Executive Summary section, between execsummary markers); answers-to-key-questions + thesis-score format — 4 of 7 questions answered, Q2/Q4/Q6 pending new research modules, thesis score 70/100; regenerated 2026-07-21 closed-book by Claude (CwClFable5) — SOP-recommended non-Claude cross-model rerun still advisable",
+  "conclusions_status": "in report.md (Conclusions section, between conclusions markers); answers-to-key-questions + thesis-score format — 4 of 7 questions answered, Q2/Q4/Q6 pending new research modules, thesis score 70/100; regenerated 2026-07-21 closed-book by Claude (CwClFable5) — SOP-recommended non-Claude cross-model rerun still advisable",
   "pipeline": {
     "architecture_updated": "2026-07-21",
     "content_refreshed": "2026-07-20",
-    "refresh_note": "2026.07.21-r2: first report produced end-to-end by the new pipeline — tables regenerated deterministically by build_tables.py (854/854 numeric cells identical; DBS RoTE 2016-2020 markers normalized to n/d per ledger), Executive Summary regenerated in the answers-to-key-questions + thesis-score format (score 70/100; Q2/Q4/Q6 pending new research modules). No new data or signals retrieved. Prior refresh (2026-07-20): 1Q2026 refresh; ledger extended with 49 Q1-2026 rows; FY2016-FY2025 history unchanged.",
-    "reconciliation_note": "Reconciliation of the retrieved/scanned ledger is a human/Claude step between Retrieve/Scan and Tables; it fills reconciled_* columns in ledger.csv (no separate output artifact).",
-    "guides": {
+    "refresh_note": "2026.07.21-r3: method architecture split (method/ai/ vs method/code/; verbs fetch-/reconcile-/build-/write- as execution categories; Executive Summary renamed Conclusions). Prior (2026.07.21-r2): first report produced end-to-end by the new pipeline — tables regenerated deterministically by build_tables.py (854/854 numeric cells identical; DBS RoTE 2016-2020 markers normalized to n/d per ledger), Executive Summary regenerated in the answers-to-key-questions + thesis-score format (score 70/100; Q2/Q4/Q6 pending new research modules). No new data or signals retrieved. Prior refresh (2026-07-20): 1Q2026 refresh; ledger extended with 49 Q1-2026 rows; FY2016-FY2025 history unchanged.",
+        "guides": {
       "frame": { "path": "pipeline/sg-banks/guides/frame.md", "human_owned": true },
       "style": { "path": "pipeline/sg-banks/guides/style.md", "human_owned": true,
-                 "consumed_by": ["pipeline/sg-banks/method/build-tables.md", "pipeline/sg-banks/method/build-report.md"] }
+                 "consumed_by": ["pipeline/sg-banks/method/code/build-tables.md", "pipeline/sg-banks/method/ai/build-report.md"] }
     },
     "modules": {
-      "retrieve":     { "method": "pipeline/sg-banks/method/update-ledger.md",     "output": "pipeline/sg-banks/data/ledger.csv",  "cost": "expensive" },
-      "scan":         { "method": "pipeline/sg-banks/method/scan-signals.md",      "output": "pipeline/sg-banks/data/signals.md", "cost": "expensive" },
-      "reconcile":    { "method": "pipeline/sg-banks/method/reconcile-ledger.md",  "output": "reconciled_* columns in pipeline/sg-banks/data/ledger.csv" },
-      "tables":       { "method": "pipeline/sg-banks/method/build-tables.md",      "output": "pipeline/sg-banks/data/tables.md" },
-      "assemble":     { "method": "pipeline/sg-banks/method/build-report.md",      "output": "reports/sg-banks/report.md" },
-      "exec_summary": { "method": "pipeline/sg-banks/method/write-execsummary.md", "output": "reports/sg-banks/report.md (Executive Summary section)" }
+      "fetch_ledger":      { "method": "pipeline/sg-banks/method/ai/fetch-ledger.md", "output": "pipeline/sg-banks/data/ledger.csv", "cost": "expensive" },
+      "fetch_signals":     { "method": "pipeline/sg-banks/method/ai/fetch-signals.md", "output": "pipeline/sg-banks/data/signals.md", "cost": "expensive" },
+      "reconcile":         { "method": "pipeline/sg-banks/method/ai/reconcile-ledger.md", "output": "reconciled_* columns in pipeline/sg-banks/data/ledger.csv" },
+      "build_tables":      { "method": "pipeline/sg-banks/method/code/build-tables.md", "executable": "pipeline/sg-banks/method/code/build_tables.py", "output": "pipeline/sg-banks/data/tables.md" },
+      "build_report":      { "method": "pipeline/sg-banks/method/ai/build-report.md", "output": "reports/sg-banks/report.md" },
+      "write_conclusions": { "method": "pipeline/sg-banks/method/ai/write-conclusions.md", "output": "reports/sg-banks/report.md (Conclusions section)" }
     },
     "control": {
       "entrypoint": "pipeline/sg-banks/UPDATE.md",

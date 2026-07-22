@@ -41,7 +41,7 @@ for meta in ROOT.glob("reports/*/meta.json"):
 for upd in ROOT.glob("pipeline/*/UPDATE.md"):
     base = upd.parent
     text = upd.read_text()
-    for m in re.findall(r"`((?:method|guides|data)/[A-Za-z0-9_.-]+\.(?:md|py|csv))`", text):
+    for m in re.findall(r"`((?:method(?:/(?:ai|code))?|guides|data)/[A-Za-z0-9_.-]+\.(?:md|py|csv))`", text):
         if not (base / m).exists():
             errors.append(f"{upd.relative_to(ROOT)}: missing path '{m}'")
 

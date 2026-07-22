@@ -19,4 +19,4 @@ jobs:
       - name: Referenced paths exist
         run: python3 .github/scripts/docs_lint.py
       - name: Tables reproducible from ledger
-        run: python3 pipeline/sg-banks/method/build_tables.py --check
+        run: python3 pipeline/sg-banks/method/code/build_tables.py --check

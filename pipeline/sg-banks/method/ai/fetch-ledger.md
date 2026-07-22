@@ -1,7 +1,6 @@
-# Retrieve — Module SOP: Raw Data Retrieval (SG Banks)
+# Fetch-Ledger — Module SOP: raw data retrieval (SG Banks)
 
-> **Project:** Singapore Bank Stock Accumulation Strategy
-> **Artifact:** `pipeline/sg-banks/method/update-ledger.md` — version history in git (`git log --oneline pipeline/sg-banks/method/update-ledger.md`).
+> **Artifact:** `pipeline/sg-banks/method/ai/fetch-ledger.md` — version history in git (`git log --oneline pipeline/sg-banks/method/ai/fetch-ledger.md`).
 > **Status:** Draft — not yet validated by a full two-agent run.
 > **Ledger schema:** v0.2 (adds `px_version` / `cl_version` run-stamp columns, format `YYYYMMDD-NNN <Harness><Model>`).
 > **Changelog:** v0.1 — Split retrieval from report-build (was one monolithic brief); output is now a shared reconciliation ledger, not a report; added customer-deposits, total-assets and wealth-AUM rows; checksums embedded per row.
@@ -16,7 +15,7 @@
 | **Sole output** | `pipeline/sg-banks/data/ledger.csv` — this module fills the retriever's own value/source/comment/version columns. It writes **no** report and **no** derived quantities. |
 | **Idempotence** | A rerun overwrites the retriever's columns in place (bump the `NNN` in the run stamp for same-day re-runs). Git retains history; there are no timestamped ledger copies. |
 | **Recommended model** | A **search-grounded, non-Claude** model for maximum cross-model independence — **GPT-5.6** (or the nearest available non-Claude search-grounded model) run via a search harness (e.g. Perplexity). Running a non-Claude retriever is what breaks the same-model blind spot on un-checksummed cells (see §1 "Un-cross-checked cells" and the Index open decisions). |
-| **Position** | `Frame → (Retrieve ‖ Scan) → [human/Claude Reconcile] → Tables → …`. Retrieve runs in parallel with Scan. Reconciliation of the filled ledger is the existing human/Claude step **between** Retrieve/Scan and Tables (see `build.md`); it is not a separate automated artifact. |
+| **Position** | `Frame → (Fetch-Ledger ‖ Fetch-Signals) → Reconcile → Build-Tables → …`. Fetch-Ledger runs in parallel with Fetch-Signals. Reconciliation of the filled ledger is the existing human/Claude step **between** Retrieve/Scan and Tables (see `build.md`); it is not a separate automated artifact. |
 
 **Supersedes:** ad-hoc brief `SOP_BankDataAndTables.md`.
 
