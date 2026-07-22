@@ -107,7 +107,7 @@ def gates():
 # ---------- table builders ----------
 
 def t1(bank):
-    sup = {"OCBC": {"2022": "<sup>6</sup>"}, "UOB": {"2025": "<sup>5</sup>"}}.get(bank, {})
+    sup = {"OCBC": {"2022": " [6]"}, "UOB": {"2025": " [5]"}}.get(bank, {})
     L = [f"### Table 1 — {bank}: Income Engine", "",
          "| FY | Dep | Assets | NII | Other | TotalRev | Profit | NIM | Rev/Dep | Profit/Dep | Profit/Rev |",
          "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|"]
@@ -127,20 +127,20 @@ def t1(bank):
         oth = "n/r" if None in (a0, a1, n0, n1) else f"{rnd((((a1-n1)/(a0-n0))**(1.0/(2025-int(y0)))-1)*100,1)}%"
         cells += [oth, cagr_s(bank, "TotalIncome", y0, "2025"), cagr_s(bank, "NetProfit", y0, "2025")]
         L.append(f"| **{lbl}** | " + " | ".join(cells) + " |  |  |  |  |")
-    foot = ("<sub>Other = TotalRev − NII (derived). TotalRev = reported total income. Rev/Dep = TotalRev ÷ Deposits; "
+    foot = ("*Other = TotalRev − NII (derived). TotalRev = reported total income. Rev/Dep = TotalRev ÷ Deposits; "
             "Profit/Dep = Profit ÷ Deposits; Profit/Rev = Profit ÷ TotalRev (all dimensionless). CAGR = (end/start)^(1/n) − 1, "
             "on FY2021→FY2025 (4-yr) and FY2016→FY2025 (9-yr) bases. NIM = group net interest margin as reported. "
             "Profit = net profit attributable to shareholders (reported).")
     if bank == "OCBC":
-        foot += " <sup>6</sup> FY2022 figures as restated for SFRS(I) 17 (insurance) in the FY2023 release."
+        foot += " [6] FY2022 figures as restated for SFRS(I) 17 (insurance) in the FY2023 release."
     if bank == "UOB":
-        foot += (" <sup>5</sup> FY2025 profit −23% is a provisioning artefact: ~S$2.0bn pre-emptive general allowances booked 3Q2025; "
+        foot += (" [5] FY2025 profit −23% is a provisioning artefact: ~S$2.0bn pre-emptive general allowances booked 3Q2025; "
                  "operating profit was −4%; UOB core net profit ≈ S$4.82bn (FY2022) / S$6.06bn (FY2023) where separately disclosed.")
-    return L + ["", foot + "</sub>", ""]
+    return L + ["", foot + "*", ""]
 
 def t2():
-    csup = {("OCBC", "2016"): "<sup>c1</sup>", ("OCBC", "2017"): "<sup>c1</sup>", ("OCBC", "2018"): "<sup>c1</sup>",
-            ("UOB", "2023"): "<sup>u1</sup>", ("UOB", "2024"): "<sup>u1</sup>", ("UOB", "2025"): "<sup>u1</sup>"}
+    csup = {("OCBC", "2016"): " [c1]", ("OCBC", "2017"): " [c1]", ("OCBC", "2018"): " [c1]",
+            ("UOB", "2023"): " [u1]", ("UOB", "2024"): " [u1]", ("UOB", "2025"): " [u1]"}
     L = ["### Table 2 — Attracted assets: deposits, CASA & wealth AUM", "",
          "| FY | " + " | ".join(f"{b} Dep | {b} CASA | {b} AUM" for b in BANKS) + " |",
          "|---|" + "---:|" * 9]
@@ -159,15 +159,15 @@ def t2():
         for b in BANKS:
             cells += [cagr_s(b, "CustomerDeposits", y0, "2025"), "", cagr_s(b, "WealthAUM", y0, "2025")]
         L.append(f"| **{lbl}** | " + " | ".join(cells) + " |")
-    foot = ("<sub>Deposits = total non-bank customer deposits (group). CASA = (current + savings) / total customer deposits, as printed "
-            "by each bank where available. Wealth AUM = bank-reported wealth / private-bank AUM. <sup>c1</sup> OCBC 2016–2018 CASA sourced "
+    foot = ("*Deposits = total non-bank customer deposits (group). CASA = (current + savings) / total customer deposits, as printed "
+            "by each bank where available. Wealth AUM = bank-reported wealth / private-bank AUM. [c1] OCBC 2016–2018 CASA sourced "
             "from OCBC FY-results presentations (Tier-1) via a non-Claude retrieval pass (2026-07-16), computer-verified against source PDFs; "
-            "currently `single-px` pending a second retriever. <sup>u1</sup> UOB CASA lifted ~48% → 58% (2023→25) mainly on post-rate-cycle "
+            "currently `single-px` pending a second retriever. [u1] UOB CASA lifted ~48% → 58% (2023→25) mainly on post-rate-cycle "
             "deposit remix (customers rotating back from fixed deposits) plus mix contribution from the Citi consumer (deposit-heavy) book. "
             "CASA is a point-in-time ratio — CAGR cells intentionally blank. AUM: OCBC 2016–17 and UOB 2018–19 = `n/d` (not disclosed in that "
             "vintage of results decks). AUM definitions differ across banks (DBS \"Wealth Management AUM\"; OCBC group/banking wealth incl. "
             "Bank of Singapore + Great Eastern; UOB narrower, reclassified 1 Jan 2023) — read within-bank trends, not cross-bank levels. "
-            "Never sum Deposits + AUM (double-count risk).</sub>")
+            "Never sum Deposits + AUM (double-count risk).*")
     return L + ["", foot, ""]
 
 def t3():
@@ -179,8 +179,8 @@ def t3():
         for b in BANKS:
             cells += [bn(val(b, "NII", y), 2), pct(val(b, "NIMgroup", y))]
         L.append(f"| {y} | " + " | ".join(cells) + " |")
-    return L + ["", "<sub>NIM = group net interest margin, %, as printed by each bank; NII in S$bn (2 dp). DBS uses **group** NIM "
-                "(not the commercial-book series, which was 2.80% in FY2024); canary FY2025 group NIM = 2.01%.</sub>", ""]
+    return L + ["", "*NIM = group net interest margin, %, as printed by each bank; NII in S$bn (2 dp). DBS uses **group** NIM "
+                "(not the commercial-book series, which was 2.80% in FY2024); canary FY2025 group NIM = 2.01%.*", ""]
 
 def pb_series(bank):
     out = {}
@@ -190,7 +190,7 @@ def pb_series(bank):
     return out
 
 def t4():
-    sup5 = {("UOB", "2025"): "<sup>5</sup>"}
+    sup5 = {("UOB", "2025"): " [5]"}
     hdr = " | ".join(f"{b} Price | {b} BVPS | {b} P/B | {b} ROE | {b} RoTE" for b in BANKS)
     L = ["### Table 4 — Valuation & Returns (P/B + ROE)", "", f"| FY | {hdr} |", "|---|" + "---:|" * 15]
     pb = {b: pb_series(b) for b in BANKS}
@@ -219,12 +219,12 @@ def t4():
     L.append(row("Current P/B", lambda b: ["", "", f"{rnd(cur[b],2)}", "", ""]))
     L.append(row("Current vs 10-yr avg", lambda b: ["", "", f"+{rnd((cur[b]/avg10[b]-1)*100,0)}%", "", ""]))
     L.append(row("10-yr avg ROE", lambda b: ["", "", "", f"{rnd(sum(val(b,'ROE',y) for y in YEARS)/10,1)}", ""]))
-    foot = ("<sub>P/B = 31-Dec close ÷ BVPS for FY rows (derived; both inputs shown). ROE reported (group). RoTE: DBS discloses FY2021+ "
-            "(`n/d` before); OCBC and UOB do not print RoTE → `n/d`. <sup>5</sup> UOB FY2025 ROE = 9.6 reflects the ~S$2.0bn pre-emptive GP "
+    foot = ("*P/B = 31-Dec close ÷ BVPS for FY rows (derived; both inputs shown). ROE reported (group). RoTE: DBS discloses FY2021+ "
+            "(`n/d` before); OCBC and UOB do not print RoTE → `n/d`. [5] UOB FY2025 ROE = 9.6 reflects the ~S$2.0bn pre-emptive GP "
             "booked 3Q2025 (provisioning artefact); UOB core ROE ≈ 14.2% (FY2023) where separately disclosed. DBS 1-for-10 bonus issue "
             "(1Q2024): price and BVPS kept on the same basis within each year — P/B is bonus-invariant; do not mix adjusted price with "
             "unadjusted BVPS. **Current P/B uses the intraday 2026-07-20 price (71.96 / 28.60 / 42.60 — NOT a closing price) ÷ FY2025 BVPS** "
-            "(see the 1Q2026 snapshot valuation table).</sub>")
+            "(see the 1Q2026 snapshot valuation table).*")
     # P/TB block
     P = ["", foot, "", "**P/TB block (FY2025)**", "",
          "| Bank | BVPS | Goodwill+Intang (S$m) | Shares (m) | TBVPS | P/TB (FY25 close) | P/TB (current) |",
@@ -234,9 +234,9 @@ def t4():
         tb = bv - gi / sh
         P.append(f"| {b} | {rnd(bv,2)} | {int(rnd(gi,0))} | {int(rnd(sh,0))} | {rnd(tb,2)} | "
                  f"{rnd(val(b,'PriceYE','2025')/tb,2)} | {rnd(val(b,'PriceCurrent','2026-latest')/tb,2)} |")
-    P += ["", "<sub>TBVPS = BVPS − (Goodwill + Intangibles) / Shares outstanding. P/TB (FY25 close) uses the 31-Dec-2025 close; "
+    P += ["", "*TBVPS = BVPS − (Goodwill + Intangibles) / Shares outstanding. P/TB (FY25 close) uses the 31-Dec-2025 close; "
           "**P/TB (current) uses the intraday 2026-07-20 price (71.96 / 28.60 / 42.60) — not a closing price.** P/TB derived from stated "
-          "prices. Historical P/TB not shown — per-year goodwill was not retrieved.</sub>", ""]
+          "prices. Historical P/TB not shown — per-year goodwill was not retrieved.*", ""]
     return L + P
 
 def t5():
@@ -253,14 +253,14 @@ def t5():
     sora_avg = val("-", "SORA_avg", "Q1-2026")
     L.append(f"| 2026 latest (1Q26) | {q[0]} | {q[1]} | {q[2]} | n/d | {rnd(sora_avg,2)}* | "
              f"{rnd(val('-','FedUpper','2026-latest'),2)} | {rnd(val('-','EFFRavg','2026-latest'),2)} |")
-    foot = ("<sub>NIM from Table 3 (group), with `%` symbol per 2dp format. **2026-latest NIM row is 1Q2026 group NIM** (quarter ended "
+    foot = ("*NIM from Table 3 (group), with `%` symbol per 2dp format. **2026-latest NIM row is 1Q2026 group NIM** (quarter ended "
             "31 Mar 2026), all down YoY. 3M compounded SORA (MAS) exists only from 6-Aug-2020 → pre-2020 = `n/r` (no SIBOR splice). "
             "**3M SORA (31-Dec) 2026 = `n/d`**: MAS eServices statistics portal under scheduled maintenance on 2026-07-20; latest official "
             "single-day value not retrievable. **\\*3M SORA (FY avg) 2026 = 1.07 is the bank-characterised 1Q26 average** "
             "([DBS 1Q26 media transcript](https://www.dbs.com/iwov-resources/images/investors/quarterly-financials/2026/1Q26_media_transcript.pdf)), "
             "**not an official MAS FY figure**. Fed funds target upper = FRED `DFEDTARU` (3.75, held at the "
             "[17-Jun-2026 FOMC](https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm)); effective fed funds (FY avg) = "
-            "FRED `DFF`, 2026 YTD ≈ 3.62. 2026-latest rates as of mid-July 2026.</sub>")
+            "FRED `DFF`, 2026 YTD ≈ 3.62. 2026-latest rates as of mid-July 2026.*")
     return L + ["", foot, ""]
 
 def snapshot():
@@ -283,10 +283,10 @@ def snapshot():
     L.append("| ROE (%) | " + " | ".join(f"{rnd(val(b,'ROE','Q1-2026'),1)}" for b in BANKS) + " | reported (group) |")
     L.append("| Cost/income (%) | " + " | ".join(f"{rnd(val(b,'CostIncome','Q1-2026'),1)}" for b in BANKS) + " |  |")
     tie = " · ".join(f"{b} {sm(val(b,'NII','Q1-2026'))}+{sm(val(b,'NonII','Q1-2026'))}={sm(val(b,'TotalIncome','Q1-2026'))}" for b in BANKS)
-    L += ["", f"<sub>NII + Non-II = Total income ties exactly for all three ({tie}). DBS non-II is derived (fee 1,482 + other 972); OCBC NII "
+    L += ["", f"*NII + Non-II = Total income ties exactly for all three ({tie}). DBS non-II is derived (fee 1,482 + other 972); OCBC NII "
           "is derived-to-tie (TI 3,828 − non-II 1,606). **UOB non-II caveat:** UOB's CFO-slide components (net fee 637 + trading & investment "
           "405 + other 462 = 1,504) do not reconcile with total income − NII (1,098); the tie-out-consistent derived 1,098 is shown and the "
-          "slide split is flagged as an unresolved retrieval gap. Net profit = attributable to shareholders (reported).</sub>", "",
+          "slide split is flagged as an unresolved retrieval gap. Net profit = attributable to shareholders (reported).*", "",
           "### 1Q2026 — attraction, balance sheet & asset quality (period-end 31 Mar 2026)", "",
           "| Metric | DBS | OCBC | UOB | Note |", "|---|---:|---:|---:|---|"]
     bs = [("Customer deposits (S$m)", "CustomerDeposits", 0, ""),
@@ -303,11 +303,11 @@ def snapshot():
     pb_all = {b: pb_series(b) for b in BANKS}
     avg10 = {b: sum(v for v in pb_all[b].values() if v) / 10 for b in BANKS}
     tb = {b: val(b, "BVPS", "2025") - val(b, "GoodwillIntangibles", "2025") / val(b, "SharesOut", "2025") for b in BANKS}
-    L += ["", "<sub>**Never sum deposits + AUM** (double-count). Wealth-AUM levels are **not** cross-comparable — DBS \"Wealth Management "
+    L += ["", "***Never sum deposits + AUM** (double-count). Wealth-AUM levels are **not** cross-comparable — DBS \"Wealth Management "
           "AUM\"; OCBC group wealth incl. Bank of Singapore + Great Eastern; UOB \"Group Retail AUM\" (narrower, reclassified 1-Jan-2023). "
           "UOB balance-sheet/ratio lines are Tier-1 (UOB Financial Highlights); UOB CASA / wealth AUM / credit cost are Tier-2 host "
           "(UOB 1Q26 CFO slides via MarketScreener). OCBC credit cost includes S$191m management-overlay allowances for non-impaired "
-          "assets.</sub>", "",
+          "assets.*", "",
           "### 1Q2026 — current valuation (as of 2026-07-20, intraday)", "",
           "| Metric | DBS | OCBC | UOB |", "|---|---:|---:|---:|",
           "| Price (S$, intraday 2026-07-20) | " + " | ".join(f"{rnd(val(b,'PriceCurrent','2026-latest'),2)}" for b in BANKS) + " |",
@@ -316,9 +316,9 @@ def snapshot():
           "| Current vs 10-yr avg P/B | " + " | ".join(f"+{rnd((pbn[b]/avg10[b]-1)*100,0)}%" for b in BANKS) + " |",
           "| FY2025 TBVPS (S$) | " + " | ".join(f"{rnd(tb[b],2)}" for b in BANKS) + " |",
           "| Current P/TB | " + " | ".join(f"{rnd(val(b,'PriceCurrent','2026-latest')/tb[b],2)}" for b in BANKS) + " |", "",
-          "<sub>Prices are **intraday 2026-07-20 (Perplexity Finance, SGX open) — NOT closing prices**; treat as a tier-2 market-data "
+          "*Prices are **intraday 2026-07-20 (Perplexity Finance, SGX open) — NOT closing prices**; treat as a tier-2 market-data "
           "snapshot only. P/B = price ÷ FY2025 BVPS; P/TB = price ÷ FY2025 TBVPS (FY2025 per-share book denominators; 1Q26 per-share book "
-          "not retrieved). These figures feed the Table 4 \"Current P/B\" rows and the P/TB \"current\" column.</sub>", "", "---", ""]
+          "not retrieved). These figures feed the Table 4 \"Current P/B\" rows and the P/TB \"current\" column.*", "", "---", ""]
     return L
 
 def validation():
@@ -377,7 +377,7 @@ def cells_of(text):
     out = []
     for line in text.splitlines():
         if line.startswith("|") and not set(line) <= set("|-: "):
-            row = [re.sub(r"<sup>.*?</sup>|\*\*|`", "", c).strip() for c in line.strip("|").split("|")]
+            row = [re.sub(r"<sup>.*?</sup>|\s?\[[a-z0-9]+\]|\*\*|`", "", c).strip() for c in line.strip("|").split("|")]
             nums = [c for c in (re.sub(r"[%,+]", "", c) for c in row) if re.fullmatch(r"-?\d+(\.\d+)?", c)]
             if nums:
                 out.append(nums)

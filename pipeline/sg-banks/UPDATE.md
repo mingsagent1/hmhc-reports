@@ -4,7 +4,7 @@
 > Do not edit `reports/sg-banks/*` directly. Follow Steps 1–6 **in order**, **stop at the Step 2 gate to ask the user**, and **never auto-run an EXPENSIVE module** (see the cost rule below). Never assume which modules to run.
 
 ## ⚠ Cost rule (read first)
-Two modules are **EXPENSIVE** (live web retrieval, token/time-intensive): **`fetch-ledger`** and **`fetch-signals`**. They are **opt-in only**:
+Every **`fetch-` module is EXPENSIVE** (live web retrieval, token/time-intensive): **`fetch-ledger`**, **`fetch-signals`**, **`fetch-flows`**, **`fetch-peers`**. They are **opt-in only**:
 - They are **never run by default** and **never triggered automatically by staleness** — staleness only *flags* them, it never *runs* them.
 - They run **only** when BOTH are true: (1) the user **explicitly names** the module, and (2) the user **reconfirms at the cost gate** (Step 2b) in chat.
 - No explicit confirmation ⇒ skip that module and continue with the rest.
@@ -24,14 +24,18 @@ Two modules are **EXPENSIVE** (live web retrieval, token/time-intensive): **`fet
 |---|---|---|---|---|
 | Fetch-Ledger | `method/ai/fetch-ledger.md` | `data/ledger.csv` (retriever columns) | **EXPENSIVE — opt-in** | Frame |
 | Fetch-Signals | `method/ai/fetch-signals.md` | `data/signals.md` | **EXPENSIVE — opt-in** | Frame |
+| Fetch-Flows | `method/ai/fetch-flows.md` | `data/flows.csv` | **EXPENSIVE — opt-in** | Frame |
+| Fetch-Peers | `method/ai/fetch-peers.md` | `data/peers.csv` | **EXPENSIVE — opt-in** | Frame |
 | Reconcile | `method/ai/reconcile-ledger.md` | `reconciled_*` columns of `data/ledger.csv` | cheap | Fetch-Ledger |
 | Build-Tables | `method/code/build-tables.md` (spec) + `method/code/build_tables.py` (executable) | `data/tables.md` | cheap | Reconcile |
 | Build-Charts | `method/code/build-charts.md` (spec) + `method/code/build_charts.py` (executable) | `reports/sg-banks/assets/*.svg` | cheap | Reconcile |
+| Build-Benchmarks | `method/code/build-benchmarks.md` (spec) + `method/code/build_benchmarks.py` (executable) | `data/benchmarks.md` | cheap | Reconcile (+ Fetch-Peers/Fetch-Flows when run) |
+| Build-Health | `method/code/build-health.md` (spec) + `method/code/build_health.py` (executable) | `data/health.md` + `data/health.json` | cheap | any data change |
 | Build-Report | `method/ai/build-report.md` | `reports/sg-banks/report.md` | cheap | Build-Tables, Frame, Fetch-Signals, Style |
 | Write-Conclusions | `method/ai/write-conclusions.md` | Conclusions section of `report.md` (in place, between markers) | cheap | Build-Report, Frame |
 | Publish | (this controller) | `reports/sg-banks/meta.json` | cheap | Write-Conclusions |
 
-Model per module: Fetch-Ledger/Fetch-Signals → GPT-5.6/Orchestrator (search); Reconcile → human + Claude; Build-Tables/Build-Charts → deterministic scripts (no model); Build-Report → Claude 4.8; Write-Conclusions → GPT-5.6 (closed-book).
+Model per module: all Fetch-* → non-Claude search-grounded (Perplexity Computer / GPT-class, by design for independence); Reconcile → human + Claude; Build-Tables/Build-Charts/Build-Benchmarks/Build-Health → deterministic scripts (no model); Build-Report → Claude; Write-Conclusions → non-Claude (closed-book).
 
 ---
 
@@ -45,7 +49,7 @@ Output a table: `item | type (guide/module) | cost | status | reason`. **Flaggin
 ## Step 2 — GATE: ask the user (mandatory stop)
 
 Present the table, then ask:
-> "Which modules would you like to refresh? Cheap/suggested: [list]. **Expensive (needs explicit confirm): fetch-ledger, fetch-signals.** Or reply **none** to just refresh the report (lite). Also: revise your **Frame** or **Style**? I can propose, you approve."
+> "Which modules would you like to refresh? Cheap/suggested: [list]. **Expensive (needs explicit confirm): any fetch- module.** Or reply **none** to just refresh the report (lite). Also: revise your **Frame** or **Style**? I can propose, you approve."
 
 **Do not proceed until the user answers.**
 

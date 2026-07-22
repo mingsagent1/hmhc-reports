@@ -1,9 +1,9 @@
 # SGBanks — Project Registry (state)
 
-> **Registry updated:** 2026-07-22 SGT (Build-Charts module: NIM cycle chart)
+> **Registry updated:** 2026-07-22 SGT (fetch SOPs written · benchmarks/health modules · markdown-safe rendering)
 > This is the **single, living registry of state** — artifact statuses, standing analytical decisions, open questions, and the changelog. Always current, overwritten in place; **version history lives in git** (commits, tags, blame; no timestamped filenames, no `archive/`).
 > **The pipeline itself — modules, method files, outputs, costs, and gates — is described once, in [`UPDATE.md`](UPDATE.md) (the single source of truth and the entrypoint for any change).** Repo layout is in the root `README.md`; agent rules and commit attribution in `AGENTS.md`.
-> **Current content version:** `2026.07.22-r5` (Build-Charts: NIM-vs-SORA/Fed chart in Conclusions Q4). **Conclusions:** answers to the 6 reframed questions + thesis score **70/100** — Q1/Q3/Q4 answered with formatted trend tables, Q5 partial (SG values; peer index pending), Q2/Q6 pending. Regenerated closed-book 2026-07-22 by **Claude (CwClFable5)** — the SOP-recommended **non-Claude** cross-model rerun remains advisable for independence.
+> **Current content version:** `2026.07.22-r6` (markdown-safe rendering; fetch SOPs + benchmarks/health modules). **Conclusions:** answers to the 6 reframed questions + thesis score **70/100** — Q1/Q3/Q4 answered with formatted trend tables, Q5 partial (SG values; peer index pending), Q2/Q6 pending. Regenerated closed-book 2026-07-22 by **Claude (CwClFable5)** — the SOP-recommended **non-Claude** cross-model rerun remains advisable for independence.
 
 ## Artifact statuses
 
@@ -21,11 +21,11 @@
 
 - **Asset-attraction proxy:** customer **deposits = primary** · **CASA % = quality overlay** · **wealth AUM = FY2019+ overlay** · **total assets = leverage only**.
 - **UOB profit:** reported (attributable) headline, core in footnote.
-- **Marking:** report tables carry numbers / `n/r` / `n/d` only; derived cells unmarked (per-table formula footnote); citations as superscripts. (Formalized in `guides/style.md`.)
+- **Marking:** report tables carry numbers / `n/r` / `n/d` only; derived cells unmarked (per-table formula footnote); citations as bracketed `[n]` markers; no raw HTML in published files. (Formalized in `guides/style.md`.)
 
 ## Open questions (carry forward)
 
-- **Frame v2 pending modules** — **Q2** (wealth-hub capital flows, USD, 5-yr trend) needs **`fetch-flows`** (expensive, opt-in); **Q5 peer index & Q6** (four valuation indexes + 5-yr required outperformance) need **`fetch-peers`** (expensive, opt-in: the 7 approved benchmark banks' deposits, AUM, revenue, profit, book, market cap) **+ `build-benchmarks`** (cheap, `code/`: both monetization indices, four valuation indexes vs HSBC = 100, (premium)^(1/5) − 1 outperformance). Until run, any Write-Conclusions pass marks these "Pending new research module"; Q5's SG-only un-indexed values may be shown.
+- **Pending fetch runs (modules written 2026-07-22, runs cost-gated, non-Claude by design)** — **`ai/fetch-flows.md`** → `data/flows.csv` (Q2) and **`ai/fetch-peers.md`** → `data/peers.csv` (Q5/Q6; 7 peers + SG cross-check rows). `code/build_benchmarks.py` computes all indices automatically once the CSVs land (SG-only preview in `data/benchmarks.md` meanwhile). Intended runner: Perplexity Computer. Until run, Write-Conclusions marks Q2/Q6 pending and Q5 partial.
 - **1Q2026 block is single-retriever** — all 49 Q1-2026 ledger rows are `single-cl` (one Claude pass from the evidence set, stamp `20260720-001 CwClOpus4.8`); not yet dual-checked. **UOB 1Q26 income-statement detail is Tier-2 host** (CFO/CEO slides via MarketScreener); re-pull UOB's own PDFs and run a non-Claude confirmation before high-stakes use.
 - **UOB 1Q26 non-II components don't reconcile** — slide split (637+405+462=1,504) ≠ TI−NII (1,098); derived 1,098 used, split flagged. Resolve when UOB's own release is retrievable.
 - **Official 3M SORA `n/d`** — MAS eServices statistics portal under maintenance 2026-07-20; interim ~1.07% is the bank-characterised 1Q26 average (DBS transcript). Re-fetch MAS before publishing a hard SORA number.
@@ -34,6 +34,8 @@
 - **OCBC 2016–2018 CASA** — filled 2026-07-16 from OCBC FY-results presentations (Tier-1, GPT-5.5 non-Claude pass, computer-verified): 51.1 / 49.2 / 46.4. Currently `single-px` pending a second retriever pass. **OCBC AUM 2016–2017** — still `n/d` (not disclosed in that vintage of results decks).
 
 ## Changelog
+
+- **2026-07-22 (v2026.07.22-r6 — fetch SOPs · benchmarks/health · markdown-safe rendering)** — **(1) Fetch SOPs written, not run** (cost-gated; non-Claude runner intended, e.g. Perplexity Computer): `ai/fetch-flows.md` (wealth-hub flows, Tier-1 regulators + single-source-family share rule) and `ai/fetch-peers.md` (7 peers + SG cross-check rows; within-bank ratios so currencies cancel). **(2) New `code/` modules:** `build_benchmarks.py` → `data/benchmarks.md` (Q5/Q6 indices vs HSBC = 100 + (premium)^(1/5) − 1; SG-only preview until peers land) and `build_health.py` → `data/health.md` + **`health.json`** (completeness: 3/6 questions, 95.7% ledger fill · confidence: 57.3% dual-verified, 42.2% single-retriever · gates · freshness; the JSON is the feed for a future UI). Both CI-checked. **(3) Rendering hardened:** the published site renders pure markdown only, so **all raw HTML was removed** from published files — `<sub>` footnotes → italic paragraphs, `<sup>n</sup>` citations → bracketed `[n]` markers — across `report.md`, `build_tables.py`/`tables.md`, and the style guide/spec wording (`guides/style.md` citation rule updated accordingly — flagged for author review). No new data fetched.
 
 - **2026-07-22 (v2026.07.22-r5 — Build-Charts: NIM cycle chart)** — New deterministic **Build-Charts** module (`method/code/build-charts.md` + `build_charts.py`): hand-written SVG, no plotting libraries, byte-reproducible from the ledger with a `--check` CI gate (added to docs-lint). First asset: **`reports/sg-banks/assets/nim-vs-sora.svg`** — group NIM per bank (solid) vs 3M SORA FY-avg and effective Fed funds FY-avg (dashed, per the author: theoretical Fed → SORA link), FY2016–25 + 2026 latest — embedded in Conclusions Q4 per the frame's updated format note (chart chosen over mermaid: renders on any markdown host, full legend/annotation control). First use of the `assets/` folder. `meta.json` → `2026.07.22-r5`. No new data fetched.
 

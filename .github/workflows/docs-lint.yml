@@ -22,3 +22,7 @@ jobs:
         run: python3 pipeline/sg-banks/method/code/build_tables.py --check
       - name: Charts reproducible from ledger
         run: python3 pipeline/sg-banks/method/code/build_charts.py --check
+      - name: Benchmarks reproducible from inputs
+        run: python3 pipeline/sg-banks/method/code/build_benchmarks.py --check
+      - name: Health metrics reproducible from inputs
+        run: python3 pipeline/sg-banks/method/code/build_health.py --check

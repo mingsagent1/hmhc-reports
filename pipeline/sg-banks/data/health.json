@@ -1,0 +1,79 @@
+{
+  "version": "2026.07.22-r6",
+  "last_updated": "2026-07-22",
+  "completeness": {
+    "questions_total": 6,
+    "questions_answered": 3,
+    "questions": [
+      {
+        "id": "Q1",
+        "topic": "Deposits & Wealth AUM trend",
+        "status": "answered",
+        "depends_on": "ledger"
+      },
+      {
+        "id": "Q2",
+        "topic": "Wealth-hub capital flows",
+        "status": "pending",
+        "depends_on": "fetch-flows"
+      },
+      {
+        "id": "Q3",
+        "topic": "NII & Other Revenue trend",
+        "status": "answered",
+        "depends_on": "ledger"
+      },
+      {
+        "id": "Q4",
+        "topic": "NIM volatility & cyclicality",
+        "status": "answered",
+        "depends_on": "ledger + chart"
+      },
+      {
+        "id": "Q5",
+        "topic": "Monetization score vs peers",
+        "status": "partial (SG-only)",
+        "depends_on": "fetch-peers + build-benchmarks"
+      },
+      {
+        "id": "Q6",
+        "topic": "Relative valuation vs peers",
+        "status": "pending",
+        "depends_on": "fetch-peers + build-benchmarks"
+      }
+    ],
+    "ledger_rows": 582,
+    "ledger_filled": 557,
+    "ledger_filled_pct": 95.7,
+    "not_disclosed": 17,
+    "not_retrieved": 8
+  },
+  "confidence": {
+    "dual_verified_rows": 319,
+    "dual_verified_pct_of_filled": 57.3,
+    "single_retriever_rows": 235,
+    "single_retriever_pct_of_filled": 42.2,
+    "q1_2026_single_retriever_rows": 46,
+    "checksum_rows": 72,
+    "checksum_exact_match": 34,
+    "status_breakdown": {
+      "match": 261,
+      "resolved": 58,
+      "single-px": 119,
+      "n/d": 17,
+      "single-cl": 116,
+      "text/other": 3,
+      "n/r": 8
+    }
+  },
+  "gates": {
+    "tie_out_failures": 0,
+    "dbs_nim_canary_ok": true
+  },
+  "freshness": {
+    "ledger_latest_stamp": "20260720",
+    "signals_last_run": "2026-07-20",
+    "peers_fetched": false,
+    "flows_fetched": false
+  }
+}

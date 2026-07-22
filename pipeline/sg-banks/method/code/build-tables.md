@@ -30,7 +30,7 @@ Reconciling the ledger is the **Reconcile module** (`method/ai/reconcile-ledger.
 
 ### Global formatting rules (apply to every table)
 1. **No inline `calc` marker.** Derived cells appear as plain numbers. Under each table add ONE small-font line naming the derived columns and the formula, e.g. `Other = Total income − NII; CAGR = (end/start)^(1/n) − 1`.
-2. **Citations & trap-notes = superscript numbers only.** Put the note text in a small-font footnote block under the table using `<sub>…</sub>`. **No sentence-long text inside any table cell.**
+2. **Citations & trap-notes = bracketed `[n]` markers only.** Put the note text in an italic footnote paragraph under the table (`*…*`). **No raw HTML and no sentence-long text inside any table cell.**
 3. **Cell contents are only:** a number, `n/r`, or `n/d`. Nothing else.
 4. **No instructional text in the output** — no "amounts only", no "retrieval notes", no restating the SOP. The table block carries data + footnotes only.
 5. Right-align numeric columns. Keep tables as narrow as the data allows.
