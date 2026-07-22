@@ -41,7 +41,7 @@ The module table — method files, outputs, costs, dependencies, and the cost ga
 
 | Series | Slug | Status |
 |---|---|---|
-| Singapore Banks — Core Tables (DBS · OCBC · UOB) | `sg-banks` | Published |
+| Analysis of Singapore Banks (DBS · OCBC · UOB) | `sg-banks` | Published |
 
 ## Adding a new report
 
