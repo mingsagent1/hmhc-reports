@@ -10,15 +10,15 @@ Over a **10–15 year** horizon, Singapore keeps attracting and growing the weal
 **A. Capital attraction — the primary driver**
 
 1. What is the trend for Deposits and Wealth AUM?
-   *(Format: simplified table/list — `Bank_Metric: 5y-CAGR %, 1y %, S$bn` for Deposits and Wealth AUM per bank, plus current CASA % as the deposit-quality marker. "5y" = latest FY vs FY five years prior; "1y" = latest FY vs prior FY, with latest-quarter YoY as a dated secondary where available.)*
+   *(Format: `Bank_Metric: S$bn, CASA %, 5y-CAGR %, FY25 %, FY24 %, FY23 %, FY22 %` — metrics per bank: **Deposits**, **Wealth AUM**, and **Capital Base** = customer deposits + wealth AUM (internal note: included to see how consistent the various AUM/deposit/capital-base definitions are). Each `FYxx %` = that FY's YoY growth; CASA % applies to the Deposits rows as the deposit-quality marker; "5y" = latest FY vs FY five years prior; latest-quarter YoY as a dated secondary where available.)*
 
 2. What is the trend in wealth-hub capital flows over the last 5 years?
-   *(Format: `WealthHub: 5y-CAGR %, 1y %, US$tn` — Singapore versus Hong Kong, Switzerland, and other relevant hubs. Cross-hub macro is reported in USD as sourced — a deliberate exception to the SGD-only rule, which applies to bank financials.)*
+   *(Format: `WealthHub: US$tn, 5y-CAGR %, FY25 %, FY24 %, FY23 %, FY22 %` — Singapore versus Hong Kong, Switzerland, and other relevant hubs. Cross-hub macro is reported in USD as sourced — a deliberate exception to the SGD-only rule, which applies to bank financials.)*
 
 **B. Monetization — secondary (expected to follow attraction)**
 
 3. What is the trend in NII and Other Revenue?
-   *(Format: `Bank_NII: 5y-CAGR %, 1y %, S$bn` · `Bank_OR: 5y-CAGR %, 1y %, S$bn` per bank. OR = total income − NII.)*
+   *(Format: `Bank_Metric: S$bn, 5y-CAGR %, FY25 %, FY24 %, FY23 %, FY22 %` — metrics per bank: NII and OR. Each `FYxx %` = that FY's YoY growth. OR = total income − NII.)*
 
 4. How volatile and cyclical is NIM?
    *(Format: within-bank NIM swing across the cycle — FY2016–25 trough → peak → latest — against 3M SORA; one or two sentences per bank plus the group pattern.)*
