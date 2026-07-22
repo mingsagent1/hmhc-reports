@@ -21,7 +21,7 @@ Over a **10–15 year** horizon, Singapore keeps attracting and growing the weal
    *(Format: `Bank_Metric: S$bn, 5y-CAGR %, FY25 %, FY24 %, FY23 %, FY22 %` — metrics per bank: NII and OR. Each `FYxx %` = that FY's YoY growth. OR = total income − NII.)*
 
 4. How volatile and cyclical is NIM?
-   *(Format: within-bank NIM swing across the cycle — FY2016–25 trough → peak → latest — against 3M SORA; one or two sentences per bank plus the group pattern.)*
+   *(Format: **line chart** — group NIM per bank vs **3M SORA (FY avg)** and **effective Fed funds (FY avg)** (theoretical Fed → SORA → NIM transmission), FY2016–25 + latest, generated deterministically from the ledger (`method/code/build_charts.py` → `reports/sg-banks/assets/nim-vs-sora.svg`); plus one or two sentences on the swing — trough → peak → latest — and the group pattern.)*
 
 5. What is the monetization score of the SG banks versus benchmark peers?
    *(Format: two indices, latest available FY, index bank = 100:

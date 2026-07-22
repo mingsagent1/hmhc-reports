@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" font-family="Helvetica, Arial, sans-serif">
+<rect width="880" height="460" fill="#ffffff"/>
+<text x="64" y="22" font-size="16" font-weight="bold" fill="#222222">Group NIM vs 3M SORA and Fed funds (%)</text>
+<text x="64" y="38" font-size="11" fill="#666666">FY2016–FY2025 + 2026 latest · NIM solid, policy/benchmark rates dashed · generated from data/ledger.csv</text>
+<line x1="64" y1="382.0" x2="856" y2="382.0" stroke="#e0e0e0" stroke-width="1"/>
+<text x="56" y="386.0" font-size="11" fill="#666666" text-anchor="end">0%</text>
+<line x1="64" y1="320.9" x2="856" y2="320.9" stroke="#e0e0e0" stroke-width="1"/>
+<text x="56" y="324.9" font-size="11" fill="#666666" text-anchor="end">1%</text>
+<line x1="64" y1="259.8" x2="856" y2="259.8" stroke="#e0e0e0" stroke-width="1"/>
+<text x="56" y="263.8" font-size="11" fill="#666666" text-anchor="end">2%</text>
+<line x1="64" y1="198.7" x2="856" y2="198.7" stroke="#e0e0e0" stroke-width="1"/>
+<text x="56" y="202.7" font-size="11" fill="#666666" text-anchor="end">3%</text>
+<line x1="64" y1="137.6" x2="856" y2="137.6" stroke="#e0e0e0" stroke-width="1"/>
+<text x="56" y="141.6" font-size="11" fill="#666666" text-anchor="end">4%</text>
+<line x1="64" y1="76.5" x2="856" y2="76.5" stroke="#e0e0e0" stroke-width="1"/>
+<text x="56" y="80.5" font-size="11" fill="#666666" text-anchor="end">5%</text>
+<text x="64.0" y="400" font-size="11" fill="#666666" text-anchor="middle">FY16</text>
+<text x="143.2" y="400" font-size="11" fill="#666666" text-anchor="middle">FY17</text>
+<text x="222.4" y="400" font-size="11" fill="#666666" text-anchor="middle">FY18</text>
+<text x="301.6" y="400" font-size="11" fill="#666666" text-anchor="middle">FY19</text>
+<text x="380.8" y="400" font-size="11" fill="#666666" text-anchor="middle">FY20</text>
+<text x="460.0" y="400" font-size="11" fill="#666666" text-anchor="middle">FY21</text>
+<text x="539.2" y="400" font-size="11" fill="#666666" text-anchor="middle">FY22</text>
+<text x="618.4" y="400" font-size="11" fill="#666666" text-anchor="middle">FY23</text>
+<text x="697.6" y="400" font-size="11" fill="#666666" text-anchor="middle">FY24</text>
+<text x="776.8" y="400" font-size="11" fill="#666666" text-anchor="middle">FY25</text>
+<text x="856.0" y="400" font-size="11" fill="#666666" text-anchor="middle">2026*</text>
+<polyline points="64.0,272.0 143.2,275.1 222.4,269.0 301.6,266.5 380.8,283.0 460.0,293.4 539.2,275.1 618.4,250.7 697.6,251.9 776.8,259.2 856.0,266.5" fill="none" stroke="#d62728" stroke-width="2.5"/>
+<circle cx="64.0" cy="272.0" r="2.4" fill="#d62728"/>
+<circle cx="143.2" cy="275.1" r="2.4" fill="#d62728"/>
+<circle cx="222.4" cy="269.0" r="2.4" fill="#d62728"/>
+<circle cx="301.6" cy="266.5" r="2.4" fill="#d62728"/>
+<circle cx="380.8" cy="283.0" r="2.4" fill="#d62728"/>
+<circle cx="460.0" cy="293.4" r="2.4" fill="#d62728"/>
+<circle cx="539.2" cy="275.1" r="2.4" fill="#d62728"/>
+<circle cx="618.4" cy="250.7" r="2.4" fill="#d62728"/>
+<circle cx="697.6" cy="251.9" r="2.4" fill="#d62728"/>
+<circle cx="776.8" cy="259.2" r="2.4" fill="#d62728"/>
+<circle cx="856.0" cy="266.5" r="2.4" fill="#d62728"/>
+<polyline points="64.0,280.0 143.2,281.2 222.4,278.1 301.6,273.9 380.8,283.6 460.0,287.9 539.2,265.3 618.4,242.7 697.6,247.6 776.8,265.3 856.0,274.5" fill="none" stroke="#ff7f0e" stroke-width="2.5"/>
+<circle cx="64.0" cy="280.0" r="2.4" fill="#ff7f0e"/>
+<circle cx="143.2" cy="281.2" r="2.4" fill="#ff7f0e"/>
+<circle cx="222.4" cy="278.1" r="2.4" fill="#ff7f0e"/>
+<circle cx="301.6" cy="273.9" r="2.4" fill="#ff7f0e"/>
+<circle cx="380.8" cy="283.6" r="2.4" fill="#ff7f0e"/>
+<circle cx="460.0" cy="287.9" r="2.4" fill="#ff7f0e"/>
+<circle cx="539.2" cy="265.3" r="2.4" fill="#ff7f0e"/>
+<circle cx="618.4" cy="242.7" r="2.4" fill="#ff7f0e"/>
+<circle cx="697.6" cy="247.6" r="2.4" fill="#ff7f0e"/>
+<circle cx="776.8" cy="265.3" r="2.4" fill="#ff7f0e"/>
+<circle cx="856.0" cy="274.5" r="2.4" fill="#ff7f0e"/>
+<polyline points="64.0,277.5 143.2,273.9 222.4,270.8 301.6,273.3 380.8,286.1 460.0,286.7 539.2,268.4 618.4,254.3 697.6,258.0 776.8,266.5 856.0,270.8" fill="none" stroke="#1f77b4" stroke-width="2.5"/>
+<circle cx="64.0" cy="277.5" r="2.4" fill="#1f77b4"/>
+<circle cx="143.2" cy="273.9" r="2.4" fill="#1f77b4"/>
+<circle cx="222.4" cy="270.8" r="2.4" fill="#1f77b4"/>
+<circle cx="301.6" cy="273.3" r="2.4" fill="#1f77b4"/>
+<circle cx="380.8" cy="286.1" r="2.4" fill="#1f77b4"/>
+<circle cx="460.0" cy="286.7" r="2.4" fill="#1f77b4"/>
+<circle cx="539.2" cy="268.4" r="2.4" fill="#1f77b4"/>
+<circle cx="618.4" cy="254.3" r="2.4" fill="#1f77b4"/>
+<circle cx="697.6" cy="258.0" r="2.4" fill="#1f77b4"/>
+<circle cx="776.8" cy="266.5" r="2.4" fill="#1f77b4"/>
+<circle cx="856.0" cy="270.8" r="2.4" fill="#1f77b4"/>
+<polyline points="380.8,375.9 460.0,371.6 539.2,316.0 618.4,165.7 697.6,163.3 776.8,256.2 856.0,316.6" fill="none" stroke="#7f7f7f" stroke-width="2" stroke-dasharray="6,4"/>
+<circle cx="380.8" cy="375.9" r="2.4" fill="#7f7f7f"/>
+<circle cx="460.0" cy="371.6" r="2.4" fill="#7f7f7f"/>
+<circle cx="539.2" cy="316.0" r="2.4" fill="#7f7f7f"/>
+<circle cx="618.4" cy="165.7" r="2.4" fill="#7f7f7f"/>
+<circle cx="697.6" cy="163.3" r="2.4" fill="#7f7f7f"/>
+<circle cx="776.8" cy="256.2" r="2.4" fill="#7f7f7f"/>
+<circle cx="856.0" cy="316.6" r="2.4" fill="#7f7f7f"/>
+<polyline points="64.0,357.6 143.2,320.9 222.4,270.2 301.6,250.0 380.8,358.8 460.0,377.1 539.2,279.4 618.4,75.3 697.6,68.0 776.8,124.8 856.0,160.9" fill="none" stroke="#9467bd" stroke-width="2" stroke-dasharray="6,4"/>
+<circle cx="64.0" cy="357.6" r="2.4" fill="#9467bd"/>
+<circle cx="143.2" cy="320.9" r="2.4" fill="#9467bd"/>
+<circle cx="222.4" cy="270.2" r="2.4" fill="#9467bd"/>
+<circle cx="301.6" cy="250.0" r="2.4" fill="#9467bd"/>
+<circle cx="380.8" cy="358.8" r="2.4" fill="#9467bd"/>
+<circle cx="460.0" cy="377.1" r="2.4" fill="#9467bd"/>
+<circle cx="539.2" cy="279.4" r="2.4" fill="#9467bd"/>
+<circle cx="618.4" cy="75.3" r="2.4" fill="#9467bd"/>
+<circle cx="697.6" cy="68.0" r="2.4" fill="#9467bd"/>
+<circle cx="776.8" cy="124.8" r="2.4" fill="#9467bd"/>
+<circle cx="856.0" cy="160.9" r="2.4" fill="#9467bd"/>
+<line x1="70" y1="56" x2="92" y2="56" stroke="#d62728" stroke-width="3"/>
+<text x="98" y="60" font-size="11" fill="#333333">DBS NIM</text>
+<line x1="220" y1="56" x2="242" y2="56" stroke="#ff7f0e" stroke-width="3"/>
+<text x="248" y="60" font-size="11" fill="#333333">OCBC NIM</text>
+<line x1="370" y1="56" x2="392" y2="56" stroke="#1f77b4" stroke-width="3"/>
+<text x="398" y="60" font-size="11" fill="#333333">UOB NIM</text>
+<line x1="70" y1="74" x2="92" y2="74" stroke="#7f7f7f" stroke-width="3" stroke-dasharray="6,4"/>
+<text x="98" y="78" font-size="11" fill="#333333">3M SORA (FY avg)</text>
+<line x1="220" y1="74" x2="242" y2="74" stroke="#9467bd" stroke-width="3" stroke-dasharray="6,4"/>
+<text x="248" y="78" font-size="11" fill="#333333">Fed funds effective (FY avg)</text>
+<text x="64" y="448" font-size="10" fill="#888888">*2026 = 1Q26 group NIM (quarter ended 31 Mar 2026) · 1Q26 average 3M SORA (bank-characterised, ~1.07%) · Fed funds effective 2026 YTD. 3M compounded SORA exists only from Aug-2020.</text>
+</svg>

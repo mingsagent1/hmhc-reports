@@ -26,11 +26,12 @@ Two modules are **EXPENSIVE** (live web retrieval, token/time-intensive): **`fet
 | Fetch-Signals | `method/ai/fetch-signals.md` | `data/signals.md` | **EXPENSIVE — opt-in** | Frame |
 | Reconcile | `method/ai/reconcile-ledger.md` | `reconciled_*` columns of `data/ledger.csv` | cheap | Fetch-Ledger |
 | Build-Tables | `method/code/build-tables.md` (spec) + `method/code/build_tables.py` (executable) | `data/tables.md` | cheap | Reconcile |
+| Build-Charts | `method/code/build-charts.md` (spec) + `method/code/build_charts.py` (executable) | `reports/sg-banks/assets/*.svg` | cheap | Reconcile |
 | Build-Report | `method/ai/build-report.md` | `reports/sg-banks/report.md` | cheap | Build-Tables, Frame, Fetch-Signals, Style |
 | Write-Conclusions | `method/ai/write-conclusions.md` | Conclusions section of `report.md` (in place, between markers) | cheap | Build-Report, Frame |
 | Publish | (this controller) | `reports/sg-banks/meta.json` | cheap | Write-Conclusions |
 
-Model per module: Fetch-Ledger/Fetch-Signals → GPT-5.6/Orchestrator (search); Reconcile → human + Claude; Build-Tables → deterministic script (no model); Build-Report → Claude 4.8; Write-Conclusions → GPT-5.6 (closed-book).
+Model per module: Fetch-Ledger/Fetch-Signals → GPT-5.6/Orchestrator (search); Reconcile → human + Claude; Build-Tables/Build-Charts → deterministic scripts (no model); Build-Report → Claude 4.8; Write-Conclusions → GPT-5.6 (closed-book).
 
 ---
 

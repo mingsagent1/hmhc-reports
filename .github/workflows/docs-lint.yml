@@ -20,3 +20,5 @@ jobs:
         run: python3 .github/scripts/docs_lint.py
       - name: Tables reproducible from ledger
         run: python3 pipeline/sg-banks/method/code/build_tables.py --check
+      - name: Charts reproducible from ledger
+        run: python3 pipeline/sg-banks/method/code/build_charts.py --check
