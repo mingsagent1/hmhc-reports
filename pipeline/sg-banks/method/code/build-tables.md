@@ -1,7 +1,6 @@
 # Build-Tables — Module SOP: deterministic table generation (SG Banks)
 
-> **Project:** Singapore Bank Stock Accumulation Strategy
-> **Artifact:** `pipeline/sg-banks/method/build-tables.md` — version history in git (`git log --oneline pipeline/sg-banks/method/build-tables.md`).
+> **Artifact:** `pipeline/sg-banks/method/code/build-tables.md` — version history in git (`git log --oneline pipeline/sg-banks/method/code/build-tables.md`).
 > **Status:** Draft.
 > **History:** Split out of `pipeline/sg-banks/method/build.md` on 2026-07-20 (modular-pipeline refactor). All table specs, formulas, tie-outs, canaries, and validation gates below were moved here verbatim from `build.md` rev 2026-07-16c; `build.md` is now the Assemble-only SOP. **Formulas live here only — do not duplicate them in `build.md`.**
 
@@ -9,10 +8,10 @@
 
 | | |
 |---|---|
-| **Inputs** | Reconciled `pipeline/sg-banks/data/ledger.csv` (the Reconcile module — `method/reconcile-ledger.md` — must be complete: every consumed row carries a `reconciled_value` / `reconciliation_status`) **and** `pipeline/sg-banks/guides/style.md` (the marking/number-format spec). |
+| **Inputs** | Reconciled `pipeline/sg-banks/data/ledger.csv` (the Reconcile module — `method/ai/reconcile-ledger.md` — must be complete: every consumed row carries a `reconciled_value` / `reconciliation_status`) **and** `pipeline/sg-banks/guides/style.md` (the marking/number-format spec). |
 | **Sole output** | `pipeline/sg-banks/data/tables.md` — the generated table blocks (Tables 1–5, the P/TB block, per-table derived-line and superscript footnotes, and the table-level validation gates). It writes **no** narrative body and **no** report. |
 | **Idempotence** | A rerun regenerates `data/tables.md` in place from the current reconciled ledger. Git retains history. Rerunning must not change report or ledger values — it is a **deterministic transform** of the ledger, not a re-retrieval. |
-| **Executor** | **No model — a deterministic script:** `pipeline/sg-banks/method/build_tables.py`. Run `python3 pipeline/sg-banks/method/build_tables.py` to regenerate `data/tables.md`; `--check` verifies the committed tables still match the ledger without writing (CI runs this on every PR). Same ledger in → same tables out; no search, no memory-fills, no LLM arithmetic. This SOP is the script's specification — keep the two in sync. |
+| **Executor** | **No model — a deterministic script:** `pipeline/sg-banks/method/code/build_tables.py`. Run `python3 pipeline/sg-banks/method/code/build_tables.py` to regenerate `data/tables.md`; `--check` verifies the committed tables still match the ledger without writing (CI runs this on every PR). Same ledger in → same tables out; no search, no memory-fills, no LLM arithmetic. This SOP is the script's specification — keep the two in sync. |
 | **Position** | `… → [human/Claude Reconcile] → Build-Tables → Assemble → …`. Build-Tables consumes the reconciled ledger; Assemble consumes this module's `tables.md` output. |
 
 **Why this module exists (resolving the proposal gap).** The proposal's module list named a Tables step but did not give the table blocks their own explicit artifact. This SOP resolves that: the deterministic table blocks are materialised as the single artifact `pipeline/sg-banks/data/tables.md`, so Assemble consumes a finished table block rather than recomputing arithmetic.
@@ -21,7 +20,7 @@
 
 ## Reconciliation is an input, not a step here
 
-Reconciling the ledger is the **Reconcile module** (`method/reconcile-ledger.md`), which runs between Retrieve/Scan and this module and fills the `reconciled_*` columns in place. Build-Tables assumes it is complete and does not re-open source retrieval; every consumed row must carry a `reconciliation_status`, and each `resolved` row becomes a line in the Validation Report (below).
+Reconciling the ledger is the **Reconcile module** (`method/ai/reconcile-ledger.md`), which runs between Retrieve/Scan and this module and fills the `reconciled_*` columns in place. Build-Tables assumes it is complete and does not re-open source retrieval; every consumed row must carry a `reconciliation_status`, and each `resolved` row becomes a line in the Validation Report (below).
 
 ---
 

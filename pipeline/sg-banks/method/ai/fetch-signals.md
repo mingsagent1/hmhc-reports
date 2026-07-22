@@ -1,14 +1,14 @@
-# sg-banks — Scan-Signals SOP (earnings + media, recency-biased)
+# sg-banks — Fetch-Signals SOP (earnings + media, recency-biased)
 
 > ## ⚠ EXPENSIVE — opt-in only
 > Runs only via `UPDATE.md`'s ask-gate + Step 2b cost gate (explicit user confirmation — full rule there). Reached this file without that confirmation? **Stop and ask first.**
 
-**Module:** Scan · **Input:** `guides/frame.md` · **Output:** `data/signals.md` · **Depends on:** Frame
+**Module:** Fetch-Signals · **Input:** `guides/frame.md` · **Output:** `data/signals.md` · **Depends on:** Frame
 **Run on:** Orchestrator or **GPT-5.6** (search-heavy — **must** use live web/search; the opposite of the closed-book Exec Summary). Non-Claude keeps it independent of the Claude-built numeric work.
 
 ## Purpose
 
-Gather **qualitative signals** about DBS, OCBC, and UOB from earnings and media — the narrative counterpart to the numeric ledger. Like `update-ledger`, this step **gathers raw, sourced, dated signals only**. It does **not** draw cross-bank conclusions, rank, or write prose — that is Assemble's job. One signal = one sourced statement.
+Gather **qualitative signals** about DBS, OCBC, and UOB from earnings and media — the narrative counterpart to the numeric ledger. Like `fetch-ledger`, this step **gathers raw, sourced, dated signals only**. It does **not** draw cross-bank conclusions, rank, or write prose — that is Assemble's job. One signal = one sourced statement.
 
 ## Step 0 — Read the Frame first
 
@@ -103,4 +103,4 @@ Provenance stamp matches the ledger: `YYMMDD-NNN <Harness><Model>` (Perplexity +
 If any check fails, fix and re-verify before saving `data/signals.md`.
 
 ## Hand-off
-`data/signals.md` feeds **Assemble** (`method/build-report.md`) and **ExecSummary** downstream. Scan itself publishes nothing to `reports/`.
+`data/signals.md` feeds **Build-Report** (`method/ai/build-report.md`) and **Write-Conclusions** downstream. Fetch-Signals itself publishes nothing to `reports/`.

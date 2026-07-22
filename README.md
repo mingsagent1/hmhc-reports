@@ -9,7 +9,7 @@ Each report is a self-contained, source-graded business analysis produced with a
 ```
 reports/      Published, web-facing reports. The website reads only this.
   <slug>/     One folder per report series; the folder name is the URL slug.
-    report.md       The current report (always the latest); its Executive Summary
+    report.md       The current report (always the latest); its Conclusions section
                     lives inside it, between regeneration markers.
     meta.json       Title, summary, status, dates, version, pipeline lineage.
     assets/         Charts and images for this report.
@@ -22,7 +22,9 @@ pipeline/     How each report is made. Not published.
                     decisions, open questions, changelog.
     guides/         Human-owned: frame.md (thesis + key questions the report
                     must answer) and style.md (formatting & marking rules).
-    method/         One instruction file (SOP) per module, named <verb>-<artifact>.md.
+    method/         One instruction file per module, named <verb>-<artifact>.md;
+      ai/           steps performed by AI models (fetch-, reconcile-, write-, build-).
+      code/         steps performed by deterministic programs (build_tables.py) — no AI.
     data/           Working data: ledger.csv (reconciliation master),
                     signals.md (qualitative signals), tables.md (generated tables).
 
@@ -31,9 +33,9 @@ reports.json  Master index of all series (the site's landing-page feed).
 
 ## Pipeline
 
-The flow is linear: **Frame (human guide) → Retrieve ‖ Scan → Reconcile → Tables → Assemble → Exec Summary → Publish**, with the human-owned **Style** guide consumed by Tables and Assemble. Every module has one SOP in `method/`, explicit inputs, one output, and is **idempotent** (rerunning overwrites its output; git retains history).
+The flow is linear: **Frame (human guide) → Fetch-Ledger ‖ Fetch-Signals → Reconcile → Build-Tables → Build-Report → Write-Conclusions → Publish**, with the human-owned **Style** guide consumed by Build-Tables and Build-Report. The method **verb is the execution category**: `fetch-` = live web (expensive, opt-in) · `reconcile-` = human+AI cross-check · `build-` = assembly · `write-` = insight/synthesis; `method/ai/` steps run on AI models, `method/code/` steps are deterministic programs. Every module has one SOP in `method/`, explicit inputs, one output, and is **idempotent** (rerunning overwrites its output; git retains history).
 
-The module table — method files, outputs, costs, dependencies, and the cost gates for the two **expensive** modules (Retrieve, Scan: live web retrieval, opt-in only) — lives in **`pipeline/<slug>/UPDATE.md`**, the controller every change must route through. Do not duplicate it here.
+The module table — method files, outputs, costs, dependencies, and the cost gates for the two **expensive** `fetch-` modules (live web retrieval, opt-in only) — lives in **`pipeline/<slug>/UPDATE.md`**, the controller every change must route through. Do not duplicate it here.
 
 ## Reports
 

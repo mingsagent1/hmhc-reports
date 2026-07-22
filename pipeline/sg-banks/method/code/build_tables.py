@@ -4,17 +4,17 @@
 Reads the reconciled ledger (data/ledger.csv) and regenerates data/tables.md.
 Same ledger in -> same tables out. No retrieval, no LLM, no timestamps.
 
-Usage:  python3 pipeline/sg-banks/method/build_tables.py [--check]
+Usage:  python3 pipeline/sg-banks/method/code/build_tables.py [--check]
         --check: build to a temp string, compare numeric cells against the
                  committed data/tables.md, exit non-zero on any difference.
 
-Spec: pipeline/sg-banks/method/build-tables.md (formats, gates, footnotes).
+Spec: pipeline/sg-banks/method/code/build-tables.md (formats, gates, footnotes).
 """
 import csv, sys, re
 from decimal import Decimal, ROUND_HALF_EVEN
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]          # pipeline/sg-banks
+ROOT = Path(__file__).resolve().parents[2]          # pipeline/sg-banks (this file lives in method/code/)
 LEDGER = ROOT / "data" / "ledger.csv"
 OUT = ROOT / "data" / "tables.md"
 
@@ -353,12 +353,11 @@ def build():
         counts[st] = counts.get(st, 0) + 1
     status_line = " · ".join(f"{v} {k}" for k, v in sorted(counts.items(), key=lambda kv: -kv[1]))
     head = ["# SG Banks — Tables (generated table-block artifact)", "",
-            "> **Project:** Singapore Bank Stock Accumulation Strategy · **Component:** `Tables`",
-            "> **Artifact:** `pipeline/sg-banks/data/tables.md` — sole output of `pipeline/sg-banks/method/build_tables.py` "
-            "(the deterministic Build-Tables script; spec in `method/build-tables.md`). Consumed by the Assemble step "
-            "(`pipeline/sg-banks/method/build-report.md`).",
+            "> **Artifact:** `pipeline/sg-banks/data/tables.md` — sole output of `pipeline/sg-banks/method/code/build_tables.py` "
+            "(the deterministic Build-Tables script; spec in `method/code/build-tables.md`). Consumed by the Build-Report step "
+            "(`pipeline/sg-banks/method/ai/build-report.md`).",
             f"> **Provenance:** every number is a deterministic transform of reconciled `pipeline/sg-banks/data/ledger.csv` "
-            f"({len(ROWS)} data rows: {status_line}). Rerun `python3 pipeline/sg-banks/method/build_tables.py` to regenerate; "
+            f"({len(ROWS)} data rows: {status_line}). Rerun `python3 pipeline/sg-banks/method/code/build_tables.py` to regenerate; "
             "same ledger in → same tables out.",
             "> **Banks:** DBS (D05) · OCBC (O39) · UOB (U11). FY2016–FY2025 long-run base + **1Q2026 interim (quarters ended "
             "31 Mar 2026)** + **current (2026-07-20 intraday) valuation.** **SGD only.**", "",

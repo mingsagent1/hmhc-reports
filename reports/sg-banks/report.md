@@ -7,15 +7,17 @@ This report is produced by a documented, AI-run workflow, fully version-controll
 - `guides/` — HUMAN-OWNED — the questions & rules the AI must follow
   - `frame.md` — the key questions we are trying to answer from the analysis
   - `style.md` — formatting & marking rules
-- `method/` and outputs — AI instruction files (SOPs), one per module
+- `method/` — one instruction file per step; the verb is the category (`fetch-` web · `reconcile-` cross-check · `build-` assembly · `write-` insight)
   - [`AGENTS.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/AGENTS.md) — the ground rules every AI agent reads before working in this repo
   - [`UPDATE.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/UPDATE.md) — intelligent instruction routing of user prompts
-  - `update-ledger.md` → [`data/ledger.csv`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/ledger.csv) — multiple agents retrieve & compare data
-  - `scan-signals.md` → [`data/signals.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/signals.md) — dated, sourced qualitative signals
-  - `reconcile-ledger.md` → reconciled ledger columns — cross-checking the retrieved data
-  - `build-tables.md` → `data/tables.md` — deterministic table generation
-  - `write-execsummary.md` → Executive Summary — closed-book answers to the key questions + thesis score
-  - `build-report.md` → [**`report.md`**](https://github.com/mingsagent1/hmhc-reports/commits/main/reports/sg-banks/report.md) — assembling this publicized report
+  - `method/ai/` — steps performed by AI models
+    - `fetch-ledger.md` → [`data/ledger.csv`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/ledger.csv) — multiple agents retrieve & compare data
+    - `fetch-signals.md` → [`data/signals.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/signals.md) — dated, sourced qualitative signals
+    - `reconcile-ledger.md` → reconciled ledger columns — human + AI cross-check of the fetched data
+    - `write-conclusions.md` → Conclusions — closed-book answers to the key questions + thesis score
+    - `build-report.md` → [**`report.md`**](https://github.com/mingsagent1/hmhc-reports/commits/main/reports/sg-banks/report.md) — assembling this publicized report
+  - `method/code/` — steps performed by deterministic programs, no AI (same input → same output, verified by automated checks)
+    - `build_tables.py` → `data/tables.md` — all table arithmetic, regenerated from the ledger
 
 The instruction files are themselves living documents: the AI reviews and refines them run over run — a continuous self-improvement cycle, with every revision version-controlled and traceable in the repository's history.
 
@@ -29,8 +31,8 @@ The instruction files are themselves living documents: the AI reviews and refine
 
 ---
 
-<!-- execsummary:start -->
-## Executive Summary — Answers to the Key Questions
+<!-- conclusions:start -->
+## Conclusions — Answers to the Key Questions
 
 1. **[+] Are deposits, CASA and wealth AUM growing, and with what trend and momentum?** — Yes, across all three banks and the full decade: FY2016–25 customer deposits compounded 6.5% p.a. at DBS (S$347bn → S$610bn), 5.6% at OCBC and 5.9% at UOB with no down year, and wealth AUM compounded faster still — 12.7% p.a. at DBS (to S$488bn) and 8.9% at UOB over FY2016–25, 7.4% at OCBC since 2021. Momentum held into 1Q26: DBS deposits reached S$630bn and a record S$492bn wealth AUM (+17% YoY cc) with +S$10bn net new money; UOB added +S$1bn net new money. (Table 2; 1Q2026 attraction table; Signals — DBS 2026-04-30, UOB 2026-05-07)
 
@@ -49,7 +51,7 @@ The instruction files are themselves living documents: the AI reviews and refine
 **Thesis score: 70/100.** The thesis' core driver is intact: deposits and wealth AUM have grown every year for a decade at all three banks, momentum carried into 1Q26 (record DBS AUM, positive net new money at DBS and UOB), and the banks demonstrably monetize the base across rate cycles (Table 2; Tables 1). The score is held back by valuation — current P/B sits 96% / 84% / 24% above the banks' own 10-yr averages, so much of the thesis may already be in the price (Table 4) — and by the open evidence gaps at the heart of the claim: Singapore's share of cross-hub wealth flows and the large-bank precedent (Q2, Q4, Q6 pending). Decision rule: capital-attraction momentum is **positive** — no stall or reversal in deposits or AUM — so the kill signal is not triggered.
 
 Scope: questions from `guides/frame.md` (7 questions, 2026-07-21); grounded in report.md + data/signals.md (v2026.07.21-r2). Not investment advice.
-<!-- execsummary:end -->
+<!-- conclusions:end -->
 
 ---
 

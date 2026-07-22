@@ -1,8 +1,7 @@
 # SG Banks — Tables (generated table-block artifact)
 
-> **Project:** Singapore Bank Stock Accumulation Strategy · **Component:** `Tables`
-> **Artifact:** `pipeline/sg-banks/data/tables.md` — sole output of `pipeline/sg-banks/method/build_tables.py` (the deterministic Build-Tables script; spec in `method/build-tables.md`). Consumed by the Assemble step (`pipeline/sg-banks/method/build-report.md`).
-> **Provenance:** every number is a deterministic transform of reconciled `pipeline/sg-banks/data/ledger.csv` (582 data rows: 261 match · 119 single-px · 116 single-cl · 58 resolved · 17 n/d · 8 n/r · 3 text/other). Rerun `python3 pipeline/sg-banks/method/build_tables.py` to regenerate; same ledger in → same tables out.
+> **Artifact:** `pipeline/sg-banks/data/tables.md` — sole output of `pipeline/sg-banks/method/code/build_tables.py` (the deterministic Build-Tables script; spec in `method/code/build-tables.md`). Consumed by the Build-Report step (`pipeline/sg-banks/method/ai/build-report.md`).
+> **Provenance:** every number is a deterministic transform of reconciled `pipeline/sg-banks/data/ledger.csv` (582 data rows: 261 match · 119 single-px · 116 single-cl · 58 resolved · 17 n/d · 8 n/r · 3 text/other). Rerun `python3 pipeline/sg-banks/method/code/build_tables.py` to regenerate; same ledger in → same tables out.
 > **Banks:** DBS (D05) · OCBC (O39) · UOB (U11). FY2016–FY2025 long-run base + **1Q2026 interim (quarters ended 31 Mar 2026)** + **current (2026-07-20 intraday) valuation.** **SGD only.**
 
 **Contents:** Latest 1Q2026 snapshot · Tables 1 (per bank) · 2 · 3 · 4 (+ P/TB block) · 5, each with derived-line and superscript footnotes; plus table-level validation data for Appendix A. Narrative blocks are written by Assemble, not here.
