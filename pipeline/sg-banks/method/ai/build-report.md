@@ -56,7 +56,7 @@ Keep all three as prose / compact tables — this is where explanation lives, so
 
 ## Narrative & citation rules
 - **Neutral, descriptive tone; no investment view** (per `style.md`).
-- **Citations and trap-notes are superscripts** into small-font footnote blocks; no sentence-long text inside table cells (the tables arrive pre-formatted from `tables.md` — preserve that).
+- **Citations and trap-notes are bracketed `[n]` markers** pointing into italic footnote paragraphs (no raw HTML — the site renders pure markdown only); no sentence-long text inside table cells (the tables arrive pre-formatted from `tables.md` — preserve that).
 - **Every narrative claim must trace to an input** — a table cell, a ledger-grounded figure already in `tables.md`, a dated signal in `signals.md`, or the framing in `frame.md`. No outside facts, no forecasts of your own, no memory-fills.
 - Read **within-bank trends**, never false cross-bank comparisons on non-comparable lines (wealth income, AUM definitions) — always flag non-comparability.
 
