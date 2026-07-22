@@ -45,6 +45,7 @@ This report is produced by a documented, AI-run workflow, fully version-controll
     - `build-report.md` → [**`report.md`**](https://github.com/mingsagent1/hmhc-reports/commits/main/reports/sg-banks/report.md) — assembling this publicized report
   - `method/code/` — steps performed by deterministic programs, no AI (same input → same output, verified by automated checks)
     - `build_tables.py` → `data/tables.md` — all table arithmetic, regenerated from the ledger
+    - `build_charts.py` → `assets/` charts — all figures drawn from the ledger
 
 The instruction files are themselves living documents: the AI reviews and refines them run over run — a continuous self-improvement cycle, with every revision version-controlled and traceable in the repository's history.
 
@@ -86,9 +87,11 @@ The instruction files are themselves living documents: the AI reviews and refine
 
    <sub>Levels as of FY25. OR = total income − NII (derived from reported figures). 5y-CAGR = FY2020→FY2025; each FYxx % = that FY's YoY growth. OCBC FY22 OR reflects the SFRS(I) 17 insurance restatement. Sources: Tables 1 ×3; Appendix C.</sub>
 
-4. **[±] NIM volatility and cyclicality** — Highly cyclical, tightly tracking 3M SORA with a lag: every bank troughed in FY2021 (DBS 1.45% · OCBC 1.54% · UOB 1.56%), peaked in FY2023 (2.15% · 2.28% · 2.09%) as SORA averaged ~3.5%, and is compressing again as SORA fell to ~1.07% in 1Q26 (NIM 1.89% · 1.76% · 1.82%, all down YoY).
+4. **[±] NIM volatility and cyclicality** — Highly cyclical, tracking the Fed → SORA transmission with a lag: every bank troughed in FY2021 (DBS 1.45% · OCBC 1.54% · UOB 1.56%), peaked in FY2023 (2.15% · 2.28% · 2.09%) as SORA averaged ~3.5%, and is compressing again as SORA fell to ~1.07% in 1Q26 (NIM 1.89% · 1.76% · 1.82%, all down YoY).
 
-   <sub>Intra-cycle swing ≈ 53–74bps trough-to-peak — large enough that NII alone cannot anchor income, which is why the fee/wealth offset (Q3) matters. Sources: Table 5; 1Q2026 income table.</sub>
+   ![Group NIM vs 3M SORA and Fed funds](assets/nim-vs-sora.svg)
+
+   <sub>Chart generated deterministically from `data/ledger.csv` by `method/code/build_charts.py` (CI-verified). Intra-cycle swing ≈ 53–74bps trough-to-peak — large enough that NII alone cannot anchor income, which is why the fee/wealth offset (Q3) matters. NIM's amplitude is far smaller than the policy rates' (~5pp Fed swing → ~0.7pp NIM swing): deposit franchises damp the cycle. Sources: Table 5; 1Q2026 income table.</sub>
 
 5. **[±] Monetization score vs benchmark peers** — Peer index pending new research module. The SG banks' own FY25 values, ahead of indexing: `Monetization_vDeposits` 3.75% DBS · 3.41% OCBC · 3.24% UOB; `Monetization_vCapitalBase` 2.09% · 1.89% · 2.20% — UOB ranks highest on the second metric largely because its reported AUM base is narrowest, illustrating why the two indices are read together. Top Other-Revenue categories (FY25, % of total revenue): DBS net fees ≈21%; OCBC wealth income ≈38%; UOB net fees ≈19%.
 

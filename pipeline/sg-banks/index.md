@@ -1,9 +1,9 @@
 # SGBanks — Project Registry (state)
 
-> **Registry updated:** 2026-07-22 SGT (Frame v2.1: yearly-growth formats + Capital Base metric)
+> **Registry updated:** 2026-07-22 SGT (Build-Charts module: NIM cycle chart)
 > This is the **single, living registry of state** — artifact statuses, standing analytical decisions, open questions, and the changelog. Always current, overwritten in place; **version history lives in git** (commits, tags, blame; no timestamped filenames, no `archive/`).
 > **The pipeline itself — modules, method files, outputs, costs, and gates — is described once, in [`UPDATE.md`](UPDATE.md) (the single source of truth and the entrypoint for any change).** Repo layout is in the root `README.md`; agent rules and commit attribution in `AGENTS.md`.
-> **Current content version:** `2026.07.22-r4` (Frame v2.1: yearly-growth formats + Capital Base metric). **Conclusions:** answers to the 6 reframed questions + thesis score **70/100** — Q1/Q3/Q4 answered with formatted trend tables, Q5 partial (SG values; peer index pending), Q2/Q6 pending. Regenerated closed-book 2026-07-22 by **Claude (CwClFable5)** — the SOP-recommended **non-Claude** cross-model rerun remains advisable for independence.
+> **Current content version:** `2026.07.22-r5` (Build-Charts: NIM-vs-SORA/Fed chart in Conclusions Q4). **Conclusions:** answers to the 6 reframed questions + thesis score **70/100** — Q1/Q3/Q4 answered with formatted trend tables, Q5 partial (SG values; peer index pending), Q2/Q6 pending. Regenerated closed-book 2026-07-22 by **Claude (CwClFable5)** — the SOP-recommended **non-Claude** cross-model rerun remains advisable for independence.
 
 ## Artifact statuses
 
@@ -14,7 +14,8 @@
 - `data/signals.md` — **Scan run 2026-07-20**; dated 1Q2026 Tier-1/Tier-2 signal register (≥3 positive / ≥3 negative per bank), transcribed from the evidence set (Claude Opus 4.8, not live-searched).
 - `data/tables.md` — **regenerated deterministically 2026-07-21** by `method/code/build_tables.py` from the reconciled ledger. All **854 numeric cells verified identical** to the prior snapshot; DBS RoTE 2016–2020 markers normalized to `n/d` (ledger-true). CI re-verifies reproducibility on every PR (`--check`).
 - `reports/sg-banks/report.md` — **Purpose + Conclusions rebuilt to Frame v2 (2026-07-22)**: Purpose lists the 6 reframed questions; Conclusions answers them in the specified formats (Q1/Q3 trend mini-tables; Q4 cyclicality; Q5 SG monetization values with peer index pending; Q2/Q6 pending) + thesis score 70/100. Key Data numbers unchanged from the 1Q2026 refresh.
-- `reports/sg-banks/meta.json` — `last_updated` 2026-07-22, `current_version` `2026.07.22-r4`, title "Analysis of Singapore Banks"; pipeline lineage current.
+- `reports/sg-banks/assets/nim-vs-sora.svg` — **generated 2026-07-22** by `method/code/build_charts.py` (group NIM ×3 vs 3M SORA FY-avg + effective Fed funds FY-avg, FY2016–25 + 2026 latest); byte-reproducible from the ledger, CI-verified.
+- `reports/sg-banks/meta.json` — `last_updated` 2026-07-22, `current_version` `2026.07.22-r5`, title "Analysis of Singapore Banks"; pipeline lineage current.
 
 ## Standing analytical decisions
 
@@ -33,6 +34,8 @@
 - **OCBC 2016–2018 CASA** — filled 2026-07-16 from OCBC FY-results presentations (Tier-1, GPT-5.5 non-Claude pass, computer-verified): 51.1 / 49.2 / 46.4. Currently `single-px` pending a second retriever pass. **OCBC AUM 2016–2017** — still `n/d` (not disclosed in that vintage of results decks).
 
 ## Changelog
+
+- **2026-07-22 (v2026.07.22-r5 — Build-Charts: NIM cycle chart)** — New deterministic **Build-Charts** module (`method/code/build-charts.md` + `build_charts.py`): hand-written SVG, no plotting libraries, byte-reproducible from the ledger with a `--check` CI gate (added to docs-lint). First asset: **`reports/sg-banks/assets/nim-vs-sora.svg`** — group NIM per bank (solid) vs 3M SORA FY-avg and effective Fed funds FY-avg (dashed, per the author: theoretical Fed → SORA link), FY2016–25 + 2026 latest — embedded in Conclusions Q4 per the frame's updated format note (chart chosen over mermaid: renders on any markdown host, full legend/annotation control). First use of the `assets/` folder. `meta.json` → `2026.07.22-r5`. No new data fetched.
 
 - **2026-07-22 (v2026.07.22-r4 — Frame v2.1 formats + Capital Base)** — Per the author: Q1–Q3 answer formats widened from `5y-CAGR, 1y` to **yearly growth columns** (`S$bn, [CASA %,] 5y-CAGR %, FY25 %, FY24 %, FY23 %, FY22 %`), and Q1 gains a **Capital Base** metric (= deposits + wealth AUM; internal note: to test consistency of the AUM/deposit/capital-base definitions). Conclusions regenerated to the new formats (all values computed from the ledger; e.g. capital base FY25 growth +11.2% DBS · +11.8% OCBC · +5.6% UOB) with **notes/definitions/citations moved into `<sub>` footnote blocks** under each answer (house style, matching the Key Data tables). `frame.md` hyperlinked in the report's workflow tree. `meta.json` → `2026.07.22-r4`. No new data fetched.
 
