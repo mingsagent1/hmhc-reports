@@ -6,13 +6,12 @@
 
 **Key questions this analysis answers** *(each is answered in the Conclusions below)*:
 
-1. Are the banks' deposits, CASA and wealth AUM growing — and how fast?
-2. Is Singapore gaining, holding or losing share of global wealth flows versus other hubs?
-3. Do the banks convert the growing capital base into income across rate cycles?
-4. What do far larger banks earn on — and command in valuation for — multi-trillion bases, and which of their income engines have yet to reach Singapore?
-5. What future deposit and AUM levels do current valuations imply?
-6. How do the three price against banks in other wealth hubs?
-7. Are the valuation premiums between DBS, OCBC and UOB justified by fundamentals?
+1. What is the trend for deposits and wealth AUM? *(capital attraction — the primary driver)*
+2. What is the trend in wealth-hub capital flows over the last 5 years?
+3. What is the trend in NII and other revenue? *(monetization)*
+4. How volatile and cyclical is NIM?
+5. What is the monetization score of the SG banks versus benchmark peers?
+6. What is the SG banks' relative valuation premium versus benchmark peers, and what 5-year growth outperformance would justify it?
 
 **Scope.** DBS (SGX: D05) · OCBC (O39) · UOB (U11) · FY2016–FY2025 (31-Dec year-ends) + 1Q2026 interim (quarters ended 31 Mar 2026) + current (2026-07-20 intraday) valuation · **SGD only** · notation and formats in Appendix D.
 
@@ -46,23 +45,43 @@ The instruction files are themselves living documents: the AI reviews and refine
 <!-- conclusions:start -->
 ## Conclusions — Answers to the Key Questions
 
-1. **[+] Are deposits, CASA and wealth AUM growing, and with what trend and momentum?** — Yes, across all three banks and the full decade: FY2016–25 customer deposits compounded 6.5% p.a. at DBS (S$347bn → S$610bn), 5.6% at OCBC and 5.9% at UOB with no down year, and wealth AUM compounded faster still — 12.7% p.a. at DBS (to S$488bn) and 8.9% at UOB over FY2016–25, 7.4% at OCBC since 2021. Momentum held into 1Q26: DBS deposits reached S$630bn and a record S$492bn wealth AUM (+17% YoY cc) with +S$10bn net new money; UOB added +S$1bn net new money. (Table 2; 1Q2026 attraction table; Signals — DBS 2026-04-30, UOB 2026-05-07)
+1. **[+] Trend for Deposits and Wealth AUM** — Growing at every bank, with wealth AUM outpacing deposits and momentum accelerating in the latest year (5y = FY2020→25 CAGR; 1y = FY2025 vs FY2024; CASA = FY25 deposit-quality marker):
 
-2. **Global wealth flows across hubs — trend, magnitude, Singapore's share** — Pending new research module — not answerable from current data.
+   | Bank_Metric | 5y-CAGR | 1y | FY25 level |
+   |---|---:|---:|---:|
+   | DBS_Deposits | 5.6% | 8.6% | S$610bn |
+   | DBS_WealthAUM | 13.1% | 14.6% | S$488bn |
+   | OCBC_Deposits | 6.3% | 9.6% | S$428bn |
+   | OCBC_WealthAUM | 7.3% | 14.7% | S$343bn |
+   | UOB_Deposits | 5.6% | 5.4% | S$426bn |
+   | UOB_WealthAUM | 8.4% | 5.8% | S$201bn |
 
-3. **[±] Do the banks convert the growing capital base into income, and does income track the base over time?** — Over the cycle, yes: total revenue compounded 8.0% / 6.2% / 6.2% p.a. and net profit 11.2% / 8.8% / 4.7% (FY2016–25), ahead of deposit growth, and DBS's revenue per deposit dollar rose from 0.033 to 0.038. But conversion is strongly rate-cyclical: DBS group NIM swung 1.45% (2021) → 2.15% (2023) → 2.01% (2025), and in 1Q26 — with 3M SORA averaging ~1.07% versus ~2.54% a year earlier — NII fell ~4–5% YoY at all three, offset to record total income by wealth/fee engines at DBS and OCBC but not at UOB. (Tables 1 ×3; Table 5; 1Q2026 income table)
+   CASA: DBS 54.5% · OCBC 50.7% · UOB 58.4%. Secondary (1Q26): DBS deposits reached S$630bn with a record S$492bn AUM (+17% YoY cc, +S$10bn net new money); UOB added +S$1bn net new money. AUM levels are not cross-comparable (definitions differ). (Tables 1–2; 1Q2026 attraction table; Signals — DBS 2026-04-30, UOB 2026-05-07)
 
-4. **Larger banks' earnings/valuation on multi-trillion bases + income engines from other wealth hubs** — Pending new research module — not answerable from current data.
+2. **Wealth-hub capital flows, last 5 years** — Pending new research module — not answerable from current data. *(planned: `fetch-flows`)*
 
-5. **[±] What absolute deposit/AUM levels is the market implying at current multiples?** — The report documents the premium but not yet an implied-growth model: current P/B is 2.96 at DBS (+96% vs its own 10-yr average of 1.51), 2.14 at OCBC (+84% vs 1.16) and 1.45 at UOB (+24% vs 1.17) on FY2025 books, at intraday 2026-07-20 prices. Translating those multiples into implied future deposit/AUM levels requires a valuation model this pipeline has not yet built — only the size of the premium is answerable today. (Table 4; 1Q2026 valuation table)
+3. **[+] Trend in NII and Other Revenue** — Both engines compounded high-single-digit over five years; the latest year shows the rate turn (NII flat-to-down) with Other Revenue picking up the slack at DBS and OCBC but not UOB:
 
-6. **How do the three price against comparable banks in other wealth-hub jurisdictions?** — Pending new research module — not answerable from current data.
+   | Bank_Metric | 5y-CAGR | 1y | FY25 level |
+   |---|---:|---:|---:|
+   | DBS_NII | 9.8% | +0.5% | S$14.5bn |
+   | DBS_OR | 8.8% | +6.7% | S$8.4bn |
+   | OCBC_NII | 8.9% | −6.2% | S$9.2bn |
+   | OCBC_OR | 5.5% | +15.8% | S$5.5bn |
+   | UOB_NII | 9.2% | −3.3% | S$9.4bn |
+   | UOB_OR | 7.2% | −3.6% | S$4.5bn |
 
-7. **[+] Are the inter-bank valuation premiums justified by fundamentals?** — Directionally, yes: DBS's premium (P/B 2.96 vs OCBC 2.14 and UOB 1.45) tracks the strongest fundamentals — the highest ROE (16.2% FY25; 17.0% in 1Q26 vs 13.0 / 11.5), the fastest wealth-AUM compounding (12.7% p.a.) and profit CAGR (11.2%), record 1Q26 profit, and the only FY26 guidance upgrade — while UOB's discount matches its provisioning-depressed FY25 ROE (9.6%), a third consecutive down quarter, elevated 26bps credit cost and rising Greater-China NPAs. Whether the *absolute size* of the premia is fair is the Q5 valuation question, not settled by current data. (Table 4; 1Q2026 income table; Signals — DBS 2026-04-30, UOB 2026-05-06/07)
+   (Tables 1 ×3; OR = total income − NII, derived from reported figures.)
 
-**Thesis score: 70/100.** The thesis' core driver is intact: deposits and wealth AUM have grown every year for a decade at all three banks, momentum carried into 1Q26 (record DBS AUM, positive net new money at DBS and UOB), and the banks demonstrably monetize the base across rate cycles (Table 2; Tables 1). The score is held back by valuation — current P/B sits 96% / 84% / 24% above the banks' own 10-yr averages, so much of the thesis may already be in the price (Table 4) — and by the open evidence gaps at the heart of the claim: Singapore's share of cross-hub wealth flows and the large-bank precedent (Q2, Q4, Q6 pending). Decision rule: capital-attraction momentum is **positive** — no stall or reversal in deposits or AUM — so the kill signal is not triggered.
+4. **[±] NIM volatility and cyclicality** — Highly cyclical, tightly tracking 3M SORA with a lag: every bank troughed in FY2021 (DBS 1.45% · OCBC 1.54% · UOB 1.56%), peaked in FY2023 (2.15% · 2.28% · 2.09%) as SORA averaged ~3.5%, and is compressing again as SORA fell to ~1.07% in 1Q26 (NIM 1.89% · 1.76% · 1.82%, all down YoY). The intra-cycle swing is ~53–74bps trough-to-peak — large enough that NII alone cannot anchor income, which is why the fee/wealth offset (Q3) matters. (Table 5; 1Q2026 income table)
 
-Scope: questions from `guides/frame.md` (7 questions, 2026-07-21); grounded in report.md + data/signals.md (v2026.07.22). Not investment advice.
+5. **[±] Monetization score vs benchmark peers** — Peer index pending new research module *(planned: `fetch-peers` + `build-benchmarks`; index bank HSBC = 100)*. The SG banks' own FY25 values, ahead of indexing: `Monetization_vDeposits` (revenue ÷ deposits) 3.75% DBS · 3.41% OCBC · 3.24% UOB; `Monetization_vCapitalBase` (revenue ÷ (deposits + AUM)) 2.09% · 1.89% · 2.20% — UOB ranks highest on the second metric largely because its reported AUM base is narrowest, illustrating why the two indices are read together. Top Other-Revenue categories (FY25, % of total revenue): DBS net fees ≈21% (wealth fees and cards the biggest slices); OCBC wealth income ≈38% (includes Great Eastern insurance and NII on wealth deposits, per OCBC's definition); UOB net fees ≈19% (cards, wealth, loan-related). (Tables 1; Appendix B)
+
+6. **Relative valuation premium vs benchmark peers, and the 5-year growth outperformance required** — Pending new research module — not answerable from current data *(planned: `fetch-peers` + `build-benchmarks`: P/CapitalBase, P/Rev, P/E and P/B indexed to HSBC = 100, with required outperformance = (premium)^(1/5) − 1 per index)*. What current data does show: the three trade at 2.96 / 2.14 / 1.45 P/B — 96% / 84% / 24% above their own 10-yr averages — so the premium question versus peers is live, not hypothetical. (Table 4; 1Q2026 valuation table)
+
+**Thesis score: 70/100.** The primary driver is intact and verified: deposits and wealth AUM compound mid-single-digit-plus at every bank with 1y momentum above the 5y trend (Q1), and monetization has followed the base over the cycle (Q3), albeit with heavy NIM cyclicality that the fee engine currently offsets at two of three banks (Q4). The score is capped because the entire relative-valuation pillar (Q5 index, Q6) and the cross-hub flows test of the attraction claim (Q2) await their research modules — and the banks' multiples already sit far above their own history. Decision rule: capital-attraction momentum is **positive** — no stall or reversal — so the kill signal is not triggered.
+
+Scope: questions from `guides/frame.md` (6 questions, 2026-07-22); grounded in report.md + data/signals.md (v2026.07.22-r2). Not investment advice.
 <!-- conclusions:end -->
 
 ---
