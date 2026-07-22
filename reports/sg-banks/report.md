@@ -6,12 +6,20 @@
 
 **Key questions this analysis answers** *(each is answered in the Conclusions below)*:
 
-1. What is the trend for deposits and wealth AUM? *(capital attraction — the primary driver)*
+**A. Capital attraction — the primary driver**
+
+1. What is the trend for Deposits and Wealth AUM?
 2. What is the trend in wealth-hub capital flows over the last 5 years?
-3. What is the trend in NII and other revenue? *(monetization)*
+
+**B. Monetization — secondary (expected to follow attraction)**
+
+3. What is the trend in NII and Other Revenue?
 4. How volatile and cyclical is NIM?
 5. What is the monetization score of the SG banks versus benchmark peers?
-6. What is the SG banks' relative valuation premium versus benchmark peers, and what 5-year growth outperformance would justify it?
+
+**C. Relative valuations**
+
+6. What is the relative valuation premium of the SG banks versus benchmark peers, and what annual growth outperformance over the next 5 years would justify it?
 
 **Scope.** DBS (SGX: D05) · OCBC (O39) · UOB (U11) · FY2016–FY2025 (31-Dec year-ends) + 1Q2026 interim (quarters ended 31 Mar 2026) + current (2026-07-20 intraday) valuation · **SGD only** · notation and formats in Appendix D.
 
