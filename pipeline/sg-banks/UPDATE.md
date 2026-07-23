@@ -30,12 +30,13 @@ Every **`fetch-` module is EXPENSIVE** (live web retrieval, token/time-intensive
 | Build-Tables | `method/code/build-tables.md` (spec) + `method/code/build_tables.py` (executable) | `data/tables.md` | cheap | Reconcile |
 | Build-Charts | `method/code/build-charts.md` (spec) + `method/code/build_charts.py` (executable) | `reports/sg-banks/assets/*.svg` | cheap | Reconcile |
 | Build-Benchmarks | `method/code/build-benchmarks.md` (spec) + `method/code/build_benchmarks.py` (executable) | `data/benchmarks.md` | cheap | Reconcile (+ Fetch-Peers/Fetch-Flows when run) |
-| Build-Health | `method/code/build-health.md` (spec) + `method/code/build_health.py` (executable) | `data/health.md` + `data/health.json` | cheap | any data change |
+| Build-Health | `method/code/build-health.md` (spec) + `method/code/build_health.py` (executable) | `meta/health.md` + `meta/health.json` | cheap | any data change |
+| Build-Gaps | `method/code/build-gaps.md` (spec) + `method/code/build_gaps.py` (executable) | `meta/gaps.md` + `meta/gaps.json` | cheap | any data change |
 | Build-Report | `method/ai/build-report.md` | `reports/sg-banks/report.md` | cheap | Build-Tables, Frame, Fetch-Signals, Style |
 | Write-Conclusions | `method/ai/write-conclusions.md` | Conclusions section of `report.md` (in place, between markers) | cheap | Build-Report, Frame |
 | Publish | (this controller) | `reports/sg-banks/meta.json` | cheap | Write-Conclusions |
 
-Model per module: all Fetch-* → non-Claude search-grounded (Perplexity Computer / GPT-class, by design for independence); Reconcile → human + Claude; Build-Tables/Build-Charts/Build-Benchmarks/Build-Health → deterministic scripts (no model); Build-Report → Claude; Write-Conclusions → non-Claude (closed-book).
+Model per module: all Fetch-* → non-Claude search-grounded (Perplexity Computer / GPT-class, by design for independence); Reconcile → human + Claude; Build-Tables/Build-Charts/Build-Benchmarks/Build-Health/Build-Gaps → deterministic scripts (no model); Build-Report → Claude; Write-Conclusions → non-Claude (closed-book).
 
 ---
 

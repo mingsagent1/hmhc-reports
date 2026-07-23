@@ -2,8 +2,8 @@
 """Build-Health — pipeline completeness & confidence metrics for sg-banks.
 
 Reads the ledger, data files, meta.json and the frame, and generates
-  data/health.md    human-readable status print (GitHub-friendly)
-  data/health.json  machine-readable mirror (feed for a future UI)
+  meta/health.md    human-readable status print (GitHub-friendly)
+  meta/health.json  machine-readable mirror (feed for a future UI)
 
 Completeness = how much of the frame is answered / how many cells are filled.
 Confidence   = how trustworthy the filled cells are (dual-verified share,
@@ -18,6 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
+METADIR = ROOT / "meta"
 META = ROOT.parents[1] / "reports" / "sg-banks" / "meta.json"
 
 rows = list(csv.DictReader(open(DATA / "ledger.csv", newline="", encoding="utf-8")))
@@ -50,6 +51,17 @@ q126_single = sum(1 for r in rows if r["period"] == "Q1-2026"
                   and (r["reconciliation_status"] or "").strip() == "single-cl")
 checksum_rows = [r for r in rows if (r["checksum_expected"] or "").strip()]
 checksum_agree = sum(1 for r in checksum_rows if (r["reconciliation_status"] or "").strip() == "match")
+
+# retriever scorecard: where BOTH retrievers filled a numeric cell, do they agree?
+both = agree = 0
+for r in rows:
+    try:
+        pv, cv = float(r["px_value"]), float(r["cl_value"])
+    except (ValueError, TypeError, KeyError):
+        continue
+    both += 1
+    if pv == cv or (cv != 0 and abs(pv / cv - 1) <= 0.005):
+        agree += 1
 
 def tie_outs():
     fails = 0
@@ -101,6 +113,11 @@ health = {
         "q1_2026_single_retriever_rows": q126_single,
         "checksum_rows": len(checksum_rows),
         "checksum_exact_match": checksum_agree,
+        "retriever_scorecard": {
+            "both_filled_numeric": both,
+            "agree_within_half_pct": agree,
+            "agreement_pct": round(agree / both * 100, 1) if both else None,
+        },
         "status_breakdown": status_counts,
     },
     "gates": {
@@ -118,7 +135,7 @@ health = {
 def md():
     c, f, g, fr = health["completeness"], health["confidence"], health["gates"], health["freshness"]
     e = ["# SG Banks — Pipeline Health (generated artifact)", "",
-         f"*Artifact: `pipeline/sg-banks/data/health.md` (+ `health.json`, the machine-readable mirror) — sole output of "
+         f"*Artifact: `pipeline/sg-banks/meta/health.md` (+ `health.json`, the machine-readable mirror) — sole output of "
          f"`pipeline/sg-banks/method/code/build_health.py`. Report version {health['version']}, last updated {health['last_updated']}.*", "",
          "## Completeness — how much of the frame is answered", "",
          f"- Key questions: **{c['questions_answered']} of {c['questions_total']} fully answered**",
@@ -136,7 +153,10 @@ def md():
           f"one source only; of these, {f['q1_2026_single_retriever_rows']} are the whole 1Q2026 block (one Claude pass, "
           f"non-Claude cross-check advisable)",
           f"- Checksums: {f['checksum_exact_match']} of {f['checksum_rows']} embedded checksums matched exactly; the rest are "
-          f"`resolved` with documented causes (restatements, basis, rounding)", "",
+          f"`resolved` with documented causes (restatements, basis, rounding)",
+          f"- Retriever scorecard: where both retrievers filled a numeric cell, they agree (within 0.5%) on "
+          f"**{f['retriever_scorecard']['agree_within_half_pct']} of {f['retriever_scorecard']['both_filled_numeric']} cells "
+          f"({f['retriever_scorecard']['agreement_pct']}%)** — the cross-model error-rate baseline to improve on", "",
           "## Gates", "",
           f"- Arithmetic tie-outs (NII + Non-II = Total income): **{'all pass' if g['tie_out_failures'] == 0 else str(g['tie_out_failures']) + ' FAILURES'}**",
           f"- DBS group-NIM canary (FY25 = 2.01): **{'pass' if g['dbs_nim_canary_ok'] else 'FAIL'}**", "",
@@ -148,7 +168,8 @@ def md():
     return "\n".join(e)
 
 if __name__ == "__main__":
-    md_out, js_out = DATA / "health.md", DATA / "health.json"
+    METADIR.mkdir(exist_ok=True)
+    md_out, js_out = METADIR / "health.md", METADIR / "health.json"
     md_c = md()
     js_c = json.dumps(health, indent=2) + "\n"
     if "--check" in sys.argv:
