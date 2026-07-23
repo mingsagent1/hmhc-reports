@@ -1,0 +1,131 @@
+{
+  "p1_never_retrieved": {
+    "priority": 1,
+    "sop": "method/ai/fetch-ledger.md",
+    "rows": [
+      "RATE_SORA_YE_2016",
+      "RATE_SORA_AVG_2016",
+      "RATE_SORA_YE_2017",
+      "RATE_SORA_AVG_2017",
+      "RATE_SORA_YE_2018",
+      "RATE_SORA_AVG_2018",
+      "RATE_SORA_YE_2019",
+      "RATE_SORA_AVG_2019"
+    ],
+    "count": 8,
+    "note": "n/r cells \u2014 retrievable from Tier-1 but never fetched; smallest possible job"
+  },
+  "p2a_q1_2026_single_claude": {
+    "priority": 2,
+    "sop": "method/ai/fetch-ledger.md (verification pass, non-Claude)",
+    "rows": [
+      "DBS_NII_Q1-2026",
+      "DBS_TotalIncome_Q1-2026",
+      "DBS_NonII_Q1-2026",
+      "DBS_NetFee_Q1-2026",
+      "DBS_NetProfit_Q1-2026",
+      "DBS_CustomerDeposits_Q1-2026",
+      "DBS_CASAratio_Q1-2026",
+      "DBS_TotalAssets_Q1-2026",
+      "DBS_WealthAUM_Q1-2026",
+      "DBS_ROE_Q1-2026",
+      "DBS_CET1_Q1-2026",
+      "DBS_NPL_Q1-2026",
+      "DBS_CreditCost_Q1-2026",
+      "DBS_Loans_Q1-2026",
+      "DBS_CostIncome_Q1-2026",
+      "OCBC_NII_Q1-2026",
+      "OCBC_TotalIncome_Q1-2026",
+      "OCBC_NonII_Q1-2026",
+      "OCBC_NetFee_Q1-2026",
+      "OCBC_NetProfit_Q1-2026",
+      "OCBC_CustomerDeposits_Q1-2026",
+      "OCBC_CASAratio_Q1-2026",
+      "OCBC_TotalAssets_Q1-2026",
+      "OCBC_WealthAUM_Q1-2026",
+      "OCBC_ROE_Q1-2026",
+      "OCBC_CET1_Q1-2026",
+      "OCBC_NPL_Q1-2026",
+      "OCBC_CreditCost_Q1-2026",
+      "OCBC_Loans_Q1-2026",
+      "OCBC_CostIncome_Q1-2026",
+      "UOB_NII_Q1-2026",
+      "UOB_TotalIncome_Q1-2026",
+      "UOB_NonII_Q1-2026",
+      "UOB_NetFee_Q1-2026",
+      "UOB_NetProfit_Q1-2026",
+      "UOB_CustomerDeposits_Q1-2026",
+      "UOB_CASAratio_Q1-2026",
+      "UOB_TotalAssets_Q1-2026",
+      "UOB_WealthAUM_Q1-2026",
+      "UOB_ROE_Q1-2026",
+      "UOB_CET1_Q1-2026",
+      "UOB_NPL_Q1-2026",
+      "UOB_CreditCost_Q1-2026",
+      "UOB_Loans_Q1-2026",
+      "UOB_CostIncome_Q1-2026",
+      "RATE_SORA_AVG_Q1-2026"
+    ],
+    "count": 46,
+    "note": "the whole 1Q2026 interim block is one Claude pass \u2014 a non-Claude re-fetch upgrades it to dual-verified; consider bundling with the 2Q26 refresh (see calendar)"
+  },
+  "p2b_single_px_history": {
+    "priority": 2,
+    "sop": "method/ai/fetch-ledger.md (verification pass, Claude or non-Perplexity)",
+    "families": {
+      "CustomerDeposits": 30,
+      "TotalAssets": 30,
+      "WealthAUM": 26,
+      "Wealth": 14,
+      "SORA_YE": 6,
+      "SORA_avg": 6,
+      "RoTE": 3,
+      "CASAratio": 3,
+      "ROE": 1
+    },
+    "count": 119,
+    "note": "FY-history cells filled by one retriever only (px) \u2014 grouped by metric family for batch-sized jobs"
+  },
+  "p2c_single_cl_other": {
+    "priority": 3,
+    "sop": "method/ai/fetch-ledger.md (verification pass, non-Claude)",
+    "families": {
+      "CASAratio": 27,
+      "CurrentAccts": 20,
+      "SavingsDep": 20,
+      "PriceCurrent": 3
+    },
+    "count": 70,
+    "note": "non-1Q26 cells filled by the Claude retriever only"
+  },
+  "p3_reporting_calendar": {
+    "priority": 2,
+    "events": [
+      {
+        "bank": "DBS",
+        "event": "1H26 results",
+        "expected": "early Aug 2026 (historically ~first week of Aug)"
+      },
+      {
+        "bank": "OCBC",
+        "event": "1H26 results",
+        "expected": "early Aug 2026 (historically ~first week of Aug)"
+      },
+      {
+        "bank": "UOB",
+        "event": "1H26 results",
+        "expected": "early Aug 2026 (historically ~first week of Aug)"
+      }
+    ],
+    "note": "when 1H26/2Q26 results land, the 1Q2026 interim block (~46 rows) is superseded \u2014 the natural moment for one bundled fetch job (new quarter + P2a verification)"
+  },
+  "p4_pending_module_outputs": {
+    "priority": 1,
+    "items": [
+      "fetch-flows \u2192 data/flows.csv",
+      "fetch-peers \u2192 data/peers.csv"
+    ],
+    "count": 2,
+    "note": "modules written and cost-gated; queue via PERPLEXITY.md"
+  }
+}

@@ -56,6 +56,11 @@
     "q1_2026_single_retriever_rows": 46,
     "checksum_rows": 72,
     "checksum_exact_match": 34,
+    "retriever_scorecard": {
+      "both_filled_numeric": 322,
+      "agree_within_half_pct": 300,
+      "agreement_pct": 93.2
+    },
     "status_breakdown": {
       "match": 261,
       "resolved": 58,

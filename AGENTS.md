@@ -32,6 +32,14 @@ Claude Code on the web (`claude.ai/code`, Pro/Max/Team/Enterprise) runs in an An
 3. Claude works on a **feature branch** and opens a **pull request** rather than committing to `main` — the PR is the review gate before anything reaches `reports.hmhc.ai`.
 4. Commits are pushed under **your GitHub identity** (attribution for the push); the **`Generated-by:` / `Co-Authored-By:` trailers above** are what record the agent.
 
+## Perplexity working agreement (external fetch runner)
+Perplexity Computer executes **fetch jobs queued in [`PERPLEXITY.md`](PERPLEXITY.md)** (repo root). Rules:
+1. If `PERPLEXITY.md` says no job is queued, **do nothing**.
+2. Write scope: **only** the deliverable path declared in the job card, on a branch named `perplexity/<job>`. Never edit `method/`, `guides/`, `reports/`, `UPDATE.md`, the registry, workflows, or `PERPLEXITY.md` itself.
+3. **Always open a pull request; never merge.** Claude reviews, reconciles, runs the build modules, and merges. Questions go in the PR description.
+4. Commit trailers per § Commit attribution (e.g. `Generated-by: Perplexity Computer (GPT-5.6) [PxGPT5.6]`).
+5. A job queued in `PERPLEXITY.md` carries the author's cost-gate authorization for that one run.
+
 ## Repos & series
 - Repo: `mingsagent1/hmhc-reports` · Site: `reports.hmhc.ai`
 - Current series: `sg-banks` → controller at `pipeline/sg-banks/update.md`

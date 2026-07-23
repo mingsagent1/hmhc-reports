@@ -27,7 +27,8 @@
       "build_tables":      { "method": "pipeline/sg-banks/method/code/build-tables.md", "executable": "pipeline/sg-banks/method/code/build_tables.py", "output": "pipeline/sg-banks/data/tables.md" },
       "build_charts":     { "method": "pipeline/sg-banks/method/code/build-charts.md", "executable": "pipeline/sg-banks/method/code/build_charts.py", "output": "reports/sg-banks/assets/nim-vs-sora.svg" },
       "build_benchmarks":  { "method": "pipeline/sg-banks/method/code/build-benchmarks.md", "executable": "pipeline/sg-banks/method/code/build_benchmarks.py", "output": "pipeline/sg-banks/data/benchmarks.md" },
-      "build_health":      { "method": "pipeline/sg-banks/method/code/build-health.md", "executable": "pipeline/sg-banks/method/code/build_health.py", "output": "pipeline/sg-banks/data/health.md + data/health.json" },
+      "build_health":      { "method": "pipeline/sg-banks/method/code/build-health.md", "executable": "pipeline/sg-banks/method/code/build_health.py", "output": "pipeline/sg-banks/meta/health.md + meta/health.json" },
+      "build_gaps":        { "method": "pipeline/sg-banks/method/code/build-gaps.md", "executable": "pipeline/sg-banks/method/code/build_gaps.py", "output": "pipeline/sg-banks/meta/gaps.md + meta/gaps.json" },
       "build_report":      { "method": "pipeline/sg-banks/method/ai/build-report.md", "output": "reports/sg-banks/report.md" },
       "write_conclusions": { "method": "pipeline/sg-banks/method/ai/write-conclusions.md", "output": "reports/sg-banks/report.md (Conclusions section)" }
     },

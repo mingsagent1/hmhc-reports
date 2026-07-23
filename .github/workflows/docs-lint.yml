@@ -26,3 +26,5 @@ jobs:
         run: python3 pipeline/sg-banks/method/code/build_benchmarks.py --check
       - name: Health metrics reproducible from inputs
         run: python3 pipeline/sg-banks/method/code/build_health.py --check
+      - name: Gaps worklist reproducible from inputs
+        run: python3 pipeline/sg-banks/method/code/build_gaps.py --check

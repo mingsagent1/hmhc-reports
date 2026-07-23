@@ -50,7 +50,7 @@ for meta in ROOT.glob("reports/*/meta.json"):
 for upd in ROOT.glob("pipeline/*/UPDATE.md"):
     base = upd.parent
     text = upd.read_text()
-    for m in re.findall(r"`((?:method(?:/(?:ai|code))?|guides|data)/[A-Za-z0-9_.-]+\.(?:md|py|csv))`", text):
+    for m in re.findall(r"`((?:method(?:/(?:ai|code))?|guides|data|meta)/[A-Za-z0-9_.-]+\.(?:md|py|csv))`", text):
         if f"{base.relative_to(ROOT)}/{m}" in PENDING_OUTPUTS:
             continue
         if not (base / m).exists():

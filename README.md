@@ -27,15 +27,18 @@ pipeline/     How each report is made. Not published.
       code/         steps performed by deterministic programs (build_tables.py) — no AI.
     data/           Working data: ledger.csv (reconciliation master),
                     signals.md (qualitative signals), tables.md (generated tables).
+    meta/           Pipeline-about-itself: health.md/json (completeness &
+                    confidence metrics), gaps.md/json (smart-update worklist).
 
 reports.json  Master index of all series (the site's landing-page feed).
+PERPLEXITY.md Job card for the external fetch runner (see AGENTS.md).
 ```
 
 ## Pipeline
 
 The flow is linear: **Frame (human guide) → Fetch-Ledger ‖ Fetch-Signals → Reconcile → Build-Tables → Build-Report → Write-Conclusions → Publish**, with the human-owned **Style** guide consumed by Build-Tables and Build-Report. The method **verb is the execution category**: `fetch-` = live web (expensive, opt-in) · `reconcile-` = human+AI cross-check · `build-` = assembly · `write-` = insight/synthesis; `method/ai/` steps run on AI models, `method/code/` steps are deterministic programs. Every module has one SOP in `method/`, explicit inputs, one output, and is **idempotent** (rerunning overwrites its output; git retains history).
 
-The module table — method files, outputs, costs, dependencies, and the cost gates for the two **expensive** `fetch-` modules (live web retrieval, opt-in only) — lives in **`pipeline/<slug>/UPDATE.md`**, the controller every change must route through. Do not duplicate it here.
+The module table — method files, outputs, costs, dependencies, and the cost gates for the **expensive** `fetch-` modules (live web retrieval, opt-in only) — lives in **`pipeline/<slug>/UPDATE.md`**, the controller every change must route through. Do not duplicate it here.
 
 ## Reports
 
