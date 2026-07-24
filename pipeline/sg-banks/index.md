@@ -17,7 +17,7 @@
 - `reports/sg-banks/assets/nim-vs-sora.svg` — **generated 2026-07-22** by `method/code/build_charts.py` (group NIM ×3 vs 3M SORA FY-avg + effective Fed funds FY-avg, FY2016–25 + 2026 latest); byte-reproducible from the ledger, CI-verified.
 - `meta/health.md` + `meta/health.json` — **live** (Build-Health): 5/6 questions answered (Q2 flows pending) · 95.7% ledger fill · 57.3% dual-verified · retriever scorecard 93.2% cross-model agreement.
 - `meta/gaps.md` + `meta/gaps.json` — **live** (Build-Gaps): P1 8 `n/r` rows · P2a 46-row 1Q26 verification block · P2b 119 single-px · P2c 70 single-cl · P4 flows pending (peers landed 2026-07-24).
-- `reports/sg-banks/meta.json` — `last_updated` 2026-07-24, `current_version` `2026.07.24-r2`, title "Analysis of Singapore Banks"; pipeline lineage current.
+- `reports/sg-banks/meta.json` — `last_updated` 2026-07-24, `current_version` `2026.07.24-r3`, title "Analysis of Singapore Banks"; pipeline lineage current.
 
 ## Standing analytical decisions
 
@@ -37,6 +37,8 @@
 - **OCBC 2016–2018 CASA** — filled 2026-07-16 from OCBC FY-results presentations (Tier-1, GPT-5.5 non-Claude pass, computer-verified): 51.1 / 49.2 / 46.4. Currently `single-px` pending a second retriever pass. **OCBC AUM 2016–2017** — still `n/d` (not disclosed in that vintage of results decks).
 
 ## Changelog
+
+- **2026-07-24 (v2026.07.24-r3 — Frame format update: Q5/Q6 answers as tables)** — Author-approved rewrite of the frame's Q5/Q6 format notes: both answers are now **one table each**. Q5 gains a **Top Other-Revenue (% of total revenue)** comments column (from `peers.csv` `TopOtherRevenue`; `n/d` if undisclosed); Q6 gains a leading **Px (as-of)** column — local per-share price with its date as the staleness marker (SG banks from the ledger's dated `PriceCurrent`; peers show `n/r (mcap <date>)` until the next fetch-peers run — a **`SharePrice`** metric was added to `ai/fetch-peers.md` for it). `code/build_benchmarks.py` emits the new shapes (short headers `vDep`/`vCap`/`P/Cap`/`Px (as-of)`); Table 6 and the Conclusions Q5/Q6 tables lifted accordingly, with category labels and dates compressed in the Conclusions per the author's note. Indices, scores, and thesis (65/100) unchanged — presentation only.
 
 - **2026-07-24 (v2026.07.24-r2 — Q5/Q6 answered; thesis 70 → 65)** — Build-Report + Write-Conclusions pass on the freshly merged peer data (closed-book by Claude CwClFable5; the SOP-recommended non-Claude rerun remains advisable). **New Table 6** in Key Data: the two benchmark index tables lifted verbatim from `data/benchmarks.md` (monetization + four valuation indexes vs HSBC = 100, with definition/caveat footnote: AUM-definition spread, CBA `n/r`, CMB A-share basis, SC GBP→USD market cap). `build-report.md` contract updated (benchmarks.md input; Table 6 in Key Data). **Conclusions:** Q5 [±] — SG monetization *in line* with the index bank (98/89/85 vs deposits), US franchises far higher (JPM 187, BofA 147); vCapitalBase reshuffles (DBS 100 · UOB 106 · OCBC 91) on AUM definitions. Q6 [–] — DBS 175 / OCBC 157 P/CapitalBase → +11.9% / +9.4% per yr required for 5 years (P/Rev agrees; P/E kinder at 112/105); UOB near parity (106/100/91/83); only CBA richer among peers. **Thesis score 70 → 65**: less unknown, and what landed quantifies an expensive entry; Q2 (flows) is the last pending pillar. `meta.json` → `2026.07.24-r2`; health regenerated (5/6 answered).
 

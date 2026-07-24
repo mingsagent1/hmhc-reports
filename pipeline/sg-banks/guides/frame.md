@@ -24,10 +24,11 @@ Over a **10–15 year** horizon, Singapore keeps attracting and growing the weal
    *(Format: **line chart** — group NIM per bank vs **3M SORA (FY avg)** and **effective Fed funds (FY avg)** (theoretical Fed → SORA → NIM transmission), FY2016–25 + latest, generated deterministically from the ledger (`method/code/build_charts.py` → `reports/sg-banks/assets/nim-vs-sora.svg`); plus one or two sentences on the swing — trough → peak → latest — and the group pattern.)*
 
 5. What is the monetization score of the SG banks versus benchmark peers?
-   *(Format: two indices, latest available FY, index bank = 100:
+   *(Format: **one table**, SG banks + all peers, latest available FY, index bank = 100:
+   `Bank | Monetization_vDeposits (index) | Monetization_vCapitalBase (index) | Top Other-Revenue categories (% of total revenue)`
    **`Monetization_vDeposits`** = total revenue ÷ customer deposits — monetization of the sticky on-balance-sheet base.
    **`Monetization_vCapitalBase`** = total revenue ÷ (customer deposits + wealth AUM) — monetization of the full attracted-capital base.
-   The second deliberately sums deposits + AUM as a service-base denominator — a noted exception to the never-sum-for-attraction rule — and AUM definitions differ across banks and overlap deposits, so the two indices are always read together. Benchmarks: the peer set below. For each bank, list the top-3 Other-Revenue categories of any significance as % of total revenue, e.g. "insurance 23%".)*
+   The second deliberately sums deposits + AUM as a service-base denominator — a noted exception to the never-sum-for-attraction rule — and AUM definitions differ across banks and overlap deposits, so the two indices are always read together. The last column is compact per bank — the top-3 non-NII categories of any significance, e.g. "insurance 23% · fees 19%"; `n/d` where a bank does not disclose the split. Benchmarks: the peer set below.)*
 
 **C. Relative valuations**
 
@@ -37,7 +38,9 @@ Over a **10–15 year** horizon, Singapore keeps attracting and growing the weal
    **`P/Rev`** = market cap ÷ total revenue — valuation of monetization ability.
    **`P/E`** = market cap ÷ net profit — the standard earnings lens.
    **`P/B`** = market cap ÷ book equity — included as the banking convention, relevance viewed with skepticism.
-   Required outperformance per index = (premium ratio)^(1/5) − 1 per year — the extra annual growth in that index's denominator (capital base / revenue / earnings / book) needed for multiples to converge to the index bank's within 5 years. Present as `Bank: index, required %/yr` per index, e.g. `DBS P/Rev: 180, 12.5%`. Comment on whether the spread between DBS, OCBC and UOB is justified by fundamentals.)*
+   Required outperformance per index = (premium ratio)^(1/5) − 1 per year — the extra annual growth in that index's denominator (capital base / revenue / earnings / book) needed for multiples to converge to the index bank's within 5 years. Present as **one table**, SG banks + all peers:
+   `Bank | Price (local ccy/share, as-of date) | P/CapitalBase | req %/yr | P/Rev | req %/yr | P/E | req %/yr | P/B | req %/yr`
+   The Price column is the staleness/relevance marker: each bank's local per-share price with the date it was taken (the same dated market data behind its market cap). Comment on whether the spread between DBS, OCBC and UOB is justified by fundamentals.)*
 
 ## Benchmark peer set (used by Q5 & Q6)
 

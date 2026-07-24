@@ -55,6 +55,49 @@ def peer_fundamentals():
             continue
     return out
 
+def peer_meta():
+    """Per-bank text columns from data/peers.csv: top Other-Revenue text,
+    market-cap as-of date, unit, and (when fetched) dated share price."""
+    if not PEERS.exists():
+        return {}
+    out = {}
+    for r in csv.DictReader(open(PEERS, newline="", encoding="utf-8")):
+        m = out.setdefault(r["bank"], {})
+        if r["metric"] == "TopOtherRevenue":
+            m["top_or"] = r["value"].replace("; ", " · ")
+        elif r["metric"] == "MarketCap":
+            m["mcap_asof"] = r["period"]
+        elif r["metric"] == "SharePrice":
+            m["px"] = r["value"]
+            m["px_asof"] = r["period"]
+            m["px_unit"] = r["unit"]
+    return out
+
+def sg_price(bank):
+    """SG per-share price + as-of date from the ledger's PriceCurrent row."""
+    import re
+    for r in csv.DictReader(open(LEDGER, newline="", encoding="utf-8")):
+        if r["bank"] == bank and r["metric"] == "PriceCurrent" and r["period"] == "2026-latest":
+            try:
+                px = float(r["reconciled_value"])
+            except ValueError:
+                return None
+            m = re.search(r"(\d{4}-\d{2}-\d{2})", r["cl_comment"] + " " + r["cl_source"])
+            return (px, m.group(1) if m else "2026-latest")
+    return None
+
+def px_cell(bank, meta):
+    """Price column: local per-share price with as-of date (the staleness
+    marker). Peers without a fetched SharePrice show n/r plus the
+    market-cap as-of date, so the row's staleness is still visible."""
+    if bank in SG:
+        p = sg_price(bank)
+        return f"S${p[0]:.2f} ({p[1]})" if p else "n/r"
+    m = meta.get(bank, {})
+    if "px" in m:
+        return f"{m.get('px_unit', '')} {m['px']} ({m.get('px_asof', '?')})".strip()
+    return f"n/r (mcap {m['mcap_asof']})" if "mcap_asof" in m else "n/r"
+
 def ratios(f):
     dep, aum = f.get("CustomerDeposits"), f.get("WealthAUM")
     rev, prof = f.get("TotalRevenue"), f.get("NetProfit")
@@ -87,14 +130,16 @@ def build():
     e += ["## Monetization (Frame Q5)", ""]
     if have_peers:
         base = peers[INDEX_BANK]
-        e += [f"Indexed to {INDEX_BANK} = 100 (latest FY per bank; ratios are within-bank, so currencies cancel).", "",
-              "| Bank | Monetization_vDeposits (index) | Monetization_vCapitalBase (index) |", "|---|---:|---:|"]
+        meta = peer_meta()
+        e += [f"Indexed to {INDEX_BANK} = 100 (latest FY per bank; ratios are within-bank, so currencies cancel). "
+              "vDep = Monetization_vDeposits · vCap = Monetization_vCapitalBase (definitions below).", "",
+              "| Bank | vDep (idx) | vCap (idx) | Top Other-Revenue (% of total revenue) |", "|---|---:|---:|---|"]
         for b in SG + [p for p in peers if p not in SG]:
             r = banks.get(b) or peers.get(b)
             m1 = r["Monetization_vDeposits"]; m2 = r["Monetization_vCapitalBase"]
             i1 = "n/r" if None in (m1, base["Monetization_vDeposits"]) else f"{m1 / base['Monetization_vDeposits'] * 100:.0f}"
             i2 = "n/r" if None in (m2, base["Monetization_vCapitalBase"]) else f"{m2 / base['Monetization_vCapitalBase'] * 100:.0f}"
-            e.append(f"| {b} | {i1} | {i2} |")
+            e.append(f"| {b} | {i1} | {i2} | {meta.get(b, {}).get('top_or', 'n/d')} |")
     else:
         e += ["**Peer index pending** — `data/peers.csv` not yet fetched (module `ai/fetch-peers.md` is written; run is cost-gated). "
               "SG-only raw values meanwhile:", "",
@@ -107,9 +152,11 @@ def build():
     e += ["## Relative valuation (Frame Q6)", ""]
     if have_peers:
         base = peers[INDEX_BANK]
-        e += [f"Four indexes vs {INDEX_BANK} = 100; required outperformance = (premium ratio)^(1/5) − 1 per year (5-yr convergence).", "",
-              "| Bank | P/CapitalBase | req %/yr | P/Rev | req %/yr | P/E | req %/yr | P/B | req %/yr |",
-              "|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
+        meta = peer_meta()
+        e += [f"Four indexes vs {INDEX_BANK} = 100; req %/yr = required outperformance, (premium ratio)^(1/5) − 1 per year (5-yr convergence). "
+              "Px = local per-share price with its as-of date — the staleness marker (P/Cap = P/CapitalBase).", "",
+              "| Bank | Px (as-of) | P/Cap | req %/yr | P/Rev | req %/yr | P/E | req %/yr | P/B | req %/yr |",
+              "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
         for b in SG + [p for p in peers if p not in SG]:
             r = banks.get(b) or peers.get(b)
             cells = []
@@ -121,7 +168,7 @@ def build():
                     idx = v / bv * 100
                     req = ((idx / 100) ** 0.2 - 1) * 100
                     cells += [f"{idx:.0f}", f"{req:+.1f}%"]
-            e.append(f"| {b} | " + " | ".join(cells) + " |")
+            e.append(f"| {b} | {px_cell(b, meta)} | " + " | ".join(cells) + " |")
     else:
         e += ["**Pending** — needs `data/peers.csv` (module `ai/fetch-peers.md` is written; run is cost-gated). "
               "SG-only raw multiples meanwhile (market cap at the ledger's dated current price):", "",

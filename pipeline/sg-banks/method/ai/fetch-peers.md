@@ -24,6 +24,7 @@ The **7 approved peers** in `guides/frame.md` (HSBC — the index bank — UBS, 
 | `NetProfit` | net profit attributable to shareholders | |
 | `BookEquity` | total shareholders' equity attributable (ex-minorities) | |
 | `MarketCap` | current market capitalisation, with date | |
+| `SharePrice` | current local per-share price, with date (`period` = the as-of date) | Tier-2 market data; same venue/date as `MarketCap` where possible — feeds the Q6 table's staleness column |
 | `TopOtherRevenue` | top-3 non-NII revenue categories with % of total revenue (text) | e.g. "insurance 23%" |
 
 **Currency rule:** report each bank in its **reporting currency** and name it in `unit`. The downstream indices are ratios (market cap ÷ deposits, revenue ÷ deposits, …) computed **within one bank**, so currency cancels — never convert, never mix currencies within a row's numerator/denominator.
