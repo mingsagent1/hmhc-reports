@@ -4,7 +4,7 @@
 
 ## Completeness — how much of the frame is answered
 
-- Key questions: **3 of 6 fully answered**
+- Key questions: **5 of 6 fully answered**
 
 | Q | Topic | Status | Depends on |
 |---|---|---|---|
@@ -12,8 +12,8 @@
 | Q2 | Wealth-hub capital flows | pending | fetch-flows |
 | Q3 | NII & Other Revenue trend | answered | ledger |
 | Q4 | NIM volatility & cyclicality | answered | ledger + chart |
-| Q5 | Monetization score vs peers | partial (SG-only) | fetch-peers + build-benchmarks |
-| Q6 | Relative valuation vs peers | pending | fetch-peers + build-benchmarks |
+| Q5 | Monetization score vs peers | answered | fetch-peers + build-benchmarks |
+| Q6 | Relative valuation vs peers | answered | fetch-peers + build-benchmarks |
 
 - Ledger: **557 of 582 rows filled (95.7%)** · 17 not disclosed by the banks (`n/d`) · 8 not yet retrieved (`n/r`)
 
@@ -33,4 +33,4 @@
 
 - Ledger latest retrieval stamp: 20260720
 - Signals last run: 2026-07-20
-- Peer data fetched: no (fetch-peers pending) · Flows data fetched: no (fetch-flows pending)
+- Peer data fetched: yes · Flows data fetched: no (fetch-flows pending)
