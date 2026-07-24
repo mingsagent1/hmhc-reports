@@ -38,6 +38,7 @@ def sg_fundamentals(bank):
         "CustomerDeposits": lv(bank, "CustomerDeposits", "2025"),
         "WealthAUM": lv(bank, "WealthAUM", "2025"),
         "TotalRevenue": lv(bank, "TotalIncome", "2025"),
+        "NII": lv(bank, "NII", "2025"),
         "NetProfit": lv(bank, "NetProfit", "2025"),
         "BookEquity": (lv(bank, "BVPS", "2025") or 0) * (shares or 0) or None,
         "MarketCap": (lv(bank, "PriceCurrent", "2026-latest") or 0) * (shares or 0) or None,
@@ -70,7 +71,11 @@ def peer_meta():
         elif r["metric"] == "SharePrice":
             m["px"] = r["value"]
             m["px_asof"] = r["period"]
-            m["px_unit"] = r["unit"]
+            m["px_unit"] = r["unit"].replace("/share", "")
+        elif r["metric"] == "NII":
+            m["ccy"] = r["unit"].split()[0]
+        elif r["metric"] == "NIM":
+            m["nim"] = r["value"]
     return out
 
 def sg_price(bank):
@@ -95,24 +100,39 @@ def px_cell(bank, meta):
         return f"S${p[0]:.2f} ({p[1]})" if p else "n/r"
     m = meta.get(bank, {})
     if "px" in m:
-        return f"{m.get('px_unit', '')} {m['px']} ({m.get('px_asof', '?')})".strip()
+        unit = CCY.get(m.get("px_unit", ""), m.get("px_unit", ""))
+        return f"{unit} {m['px']} ({m.get('px_asof', '?')})".strip()
     return f"n/r (mcap {m['mcap_asof']})" if "mcap_asof" in m else "n/r"
 
 def ratios(f):
     dep, aum = f.get("CustomerDeposits"), f.get("WealthAUM")
     rev, prof = f.get("TotalRevenue"), f.get("NetProfit")
     book, mcap = f.get("BookEquity"), f.get("MarketCap")
+    nii = f.get("NII")
+    orv = rev - nii if None not in (rev, nii) else None   # Other Revenue = TotalRevenue − NII
     cap = dep + aum if dep is not None and aum is not None else None
     def d(a, b):
         return a / b if a is not None and b not in (None, 0) else None
     return {
+        "NII": nii, "OR": orv,
+        "NII_vDep": d(nii, dep),
+        "OR_vDep": d(orv, dep),
+        "OR_vCap": d(orv, cap),
+        "total_vCap": d(rev, cap),
         "Monetization_vDeposits": d(rev, dep),
-        "Monetization_vCapitalBase": d(rev, cap),
         "P/CapitalBase": d(mcap, cap),
         "P/Rev": d(mcap, rev),
         "P/E": d(mcap, prof),
         "P/B": d(mcap, book),
     }
+
+CCY = {"SGD": "S$", "USD": "US$", "CNY": "RMB", "CAD": "C$", "GBP": "£", "CHF": "CHF"}
+
+def lc_bn(val, ccy_code):
+    """Level in local-currency billions, e.g. 'S$14.5' (bn implied by header)."""
+    if val is None:
+        return "n/r"
+    return f"{CCY.get(ccy_code, ccy_code)}{val / 1000:.1f}"
 
 def pct(x, dp=2):
     return "n/r" if x is None else f"{x * 100:.{dp}f}%"
@@ -131,23 +151,28 @@ def build():
     if have_peers:
         base = peers[INDEX_BANK]
         meta = peer_meta()
-        e += [f"Indexed to {INDEX_BANK} = 100 (latest FY per bank; ratios are within-bank, so currencies cancel). "
-              "vDep = Monetization_vDeposits · vCap = Monetization_vCapitalBase (definitions below).", "",
-              "| Bank | vDep (idx) | vCap (idx) | Top Other-Revenue (% of total revenue) |", "|---|---:|---:|---|"]
-        for b in SG + [p for p in peers if p not in SG]:
+        order = SG + [p for p in peers if p not in SG]
+        e += [f"Levels in each bank's local reporting currency (bn, never FX-converted); the four ratio columns are within-bank, "
+              f"indexed to {INDEX_BANK} = 100, so currencies cancel. OR = Other Revenue = total revenue − NII.", "",
+              "| Bank | NII (lc bn) | OR (lc bn) | NII_vDep | OR_vDep | OR_vCap | total_vCap | Top Other-Revenue (% of total revenue) |",
+              "|---|---:|---:|---:|---:|---:|---:|---|"]
+        for b in order:
             r = banks.get(b) or peers.get(b)
-            m1 = r["Monetization_vDeposits"]; m2 = r["Monetization_vCapitalBase"]
-            i1 = "n/r" if None in (m1, base["Monetization_vDeposits"]) else f"{m1 / base['Monetization_vDeposits'] * 100:.0f}"
-            i2 = "n/r" if None in (m2, base["Monetization_vCapitalBase"]) else f"{m2 / base['Monetization_vCapitalBase'] * 100:.0f}"
-            e.append(f"| {b} | {i1} | {i2} | {meta.get(b, {}).get('top_or', 'n/d')} |")
+            ccy = "SGD" if b in SG else meta.get(b, {}).get("ccy", "")
+            idx = lambda k: ("n/r" if None in (r[k], base[k]) or base[k] == 0
+                             else f"{r[k] / base[k] * 100:.0f}")
+            e.append(f"| {b} | {lc_bn(r['NII'], ccy)} | {lc_bn(r['OR'], ccy)} | {idx('NII_vDep')} | {idx('OR_vDep')} | "
+                     f"{idx('OR_vCap')} | {idx('total_vCap')} | {meta.get(b, {}).get('top_or', 'n/d')} |")
+        nims = " · ".join(f"{b} {meta.get(b, {}).get('nim', 'n/d')}" for b in order)
+        e += ["", f"*As-stated NIM (context only — denominator conventions differ per bank, not comparable as an index): {nims}.*"]
     else:
         e += ["**Peer index pending** — `data/peers.csv` not yet fetched (module `ai/fetch-peers.md` is written; run is cost-gated). "
               "SG-only raw values meanwhile:", "",
-              "| Bank | Monetization_vDeposits | Monetization_vCapitalBase |", "|---|---:|---:|"]
+              "| Bank | NII_vDep | OR_vDep | total_vCap |", "|---|---:|---:|---:|"]
         for b in SG:
-            e.append(f"| {b} | {pct(banks[b]['Monetization_vDeposits'])} | {pct(banks[b]['Monetization_vCapitalBase'])} |")
-    e += ["", "*Monetization_vDeposits = total revenue ÷ customer deposits. Monetization_vCapitalBase = total revenue ÷ (customer deposits + wealth AUM) — "
-          "AUM definitions differ per bank; read the two indices together.*", ""]
+            e.append(f"| {b} | {pct(banks[b]['NII_vDep'])} | {pct(banks[b]['OR_vDep'])} | {pct(banks[b]['total_vCap'])} |")
+    e += ["", "*NII_vDep = NII ÷ customer deposits · OR_vDep = OR ÷ customer deposits · OR_vCap = OR ÷ (customer deposits + wealth AUM) · "
+          "total_vCap = total revenue ÷ (customer deposits + wealth AUM) — AUM definitions differ per bank; read the vDep and vCap lenses together.*", ""]
     # Q6 — valuation
     e += ["## Relative valuation (Frame Q6)", ""]
     if have_peers:
