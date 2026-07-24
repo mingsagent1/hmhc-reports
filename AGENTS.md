@@ -27,7 +27,7 @@ Name the model that **actually did the work** (never a generic "4.x"); if a run 
 
 ## Connecting Claude Code on the web to this repo
 Claude Code on the web (`claude.ai/code`, Pro/Max/Team/Enterprise) runs in an Anthropic-managed cloud sandbox — browser chat, no terminal — and writes to GitHub directly. One-time setup:
-1. Open **`claude.ai/code`** and authorize the **GitHub connection** (grant access to `mingsagent1/hmhc-reports`).
+1. Open **`claude.ai/code`** and authorize the **GitHub connection** (grant access to `hmhc-ai/hmhc-reports`).
 2. Start a session on this repo; Claude clones it fresh into the sandbox each time.
 3. Claude works on a **feature branch** and opens a **pull request** rather than committing to `main` — the PR is the review gate before anything reaches `reports.hmhc.ai`.
 4. Commits are pushed under **your GitHub identity** (attribution for the push); the **`Generated-by:` / `Co-Authored-By:` trailers above** are what record the agent.
@@ -41,8 +41,8 @@ Perplexity Computer executes **fetch jobs queued in [`PERPLEXITY.md`](PERPLEXITY
 5. A job queued in `PERPLEXITY.md` carries the author's cost-gate authorization for that one run.
 
 ## Repos & series
-- Repo: `mingsagent1/hmhc-reports` · Site: `reports.hmhc.ai`
-- Current series: `sg-banks` → controller at `pipeline/sg-banks/update.md`
+- Repo: `hmhc-ai/hmhc-reports` · Site: `reports.hmhc.ai`
+- Current series: `sg-banks` → controller at `pipeline/sg-banks/UPDATE.md`
 
 ## When the user says "update the report"
 Open `pipeline/<slug>/UPDATE.md` and follow it **in order**. It will assess module state, then **stop and ask you which modules to refresh** before doing any work. Do not skip the ask-gate, and do not run an expensive module without its explicit cost-gate confirmation.
