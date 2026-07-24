@@ -1,6 +1,6 @@
 # SG Banks — Pipeline Health (generated artifact)
 
-*Artifact: `pipeline/sg-banks/meta/health.md` (+ `health.json`, the machine-readable mirror) — sole output of `pipeline/sg-banks/method/code/build_health.py`. Report version 2026.07.24-r2, last updated 2026-07-24.*
+*Artifact: `pipeline/sg-banks/meta/health.md` (+ `health.json`, the machine-readable mirror) — sole output of `pipeline/sg-banks/method/code/build_health.py`. Report version 2026.07.24-r3, last updated 2026-07-24.*
 
 ## Completeness — how much of the frame is answered
 
