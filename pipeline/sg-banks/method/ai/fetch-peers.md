@@ -12,7 +12,7 @@ Fill the inputs for Frame **Q5** (monetization indices) and **Q6** (four valuati
 
 ## Banks
 
-The **7 approved peers** in `guides/frame.md` (HSBC — the index bank — UBS, JPMorgan Chase, Bank of America, Standard Chartered, China Merchants Bank, Commonwealth Bank) **and the 3 SG banks** (DBS, OCBC, UOB — fetched again here deliberately, as an external cross-check against the ledger; the reconcile step compares them).
+The **7 approved peers** in `guides/frame.md` (HSBC — the index bank — UBS, JPMorgan Chase, Bank of America, Standard Chartered, China Merchants Bank, RBC) **and the 3 SG banks** (DBS, OCBC, UOB — fetched again here deliberately, as an external cross-check against the ledger; the reconcile step compares them). *(Commonwealth Bank was replaced by RBC on 2026-07-24 — Australia's majors all divested wealth, see the frame's peer-table note; remove any CBA rows when updating `peers.csv`.)*
 
 ## Metrics per bank (latest full FY; state the FY used)
 
@@ -21,6 +21,8 @@ The **7 approved peers** in `guides/frame.md` (HSBC — the index bank — UBS, 
 | `CustomerDeposits` | total customer deposits (group, balance sheet) | not interbank |
 | `WealthAUM` | wealth-management / private-bank client assets (invested assets, client balances) | state each bank's label + definition in `comment` — definitions vary hugely; this is expected and flagged downstream |
 | `TotalRevenue` | total operating income / total revenue net of interest expense | state basis |
+| `NII` | net interest income (group, same FY and basis as `TotalRevenue`) | feeds the Q5 NII/OR split — OR is derived downstream as TotalRevenue − NII, never fetched |
+| `NIM` | net interest margin, as stated by the bank (group where available) | context only, not indexed — state the bank's own basis in `comment`; `n/d` honestly (e.g. UBS discloses no group NIM) |
 | `NetProfit` | net profit attributable to shareholders | |
 | `BookEquity` | total shareholders' equity attributable (ex-minorities) | |
 | `MarketCap` | current market capitalisation, with date | |
@@ -43,7 +45,7 @@ Tier 1 — the bank's own annual report / FY results release / regulatory filing
 2. Currency named per row; no conversions.
 3. WealthAUM definition captured verbatim per bank in `comment`.
 4. SG-bank rows present (cross-check set).
-5. Enough to compute, per bank: `Monetization_vDeposits`, `Monetization_vCapitalBase`, `P/CapitalBase`, `P/Rev`, `P/E`, `P/B` (computation happens downstream in `code/build_benchmarks.py`, not here).
+5. Enough to compute, per bank: the Q5 monetization set (`NII_vDep`, `OR_vDep`, `OR_vCap`, `total_vCap` — needs `NII` alongside `TotalRevenue`) and the Q6 valuation set (`P/CapitalBase`, `P/Rev`, `P/E`, `P/B`). Computation happens downstream in `code/build_benchmarks.py`, not here.
 
 ## Hand-off
 
