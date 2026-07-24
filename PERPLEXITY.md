@@ -1,6 +1,6 @@
 # PERPLEXITY.md — job card for Perplexity Computer
 
-> **How to use this file (for the human):** tell Perplexity — *"Read `PERPLEXITY.md` in `mingsagent1/hmhc-reports` and execute it."* Nothing else needed. Claude maintains this file: it queues one job at a time from the gap list (`pipeline/sg-banks/meta/gaps.md`) and rotates it when done.
+> **How to use this file (for the human):** tell Perplexity — *"Read `PERPLEXITY.md` in `hmhc-ai/hmhc-reports` and execute it."* Nothing else needed. Claude maintains this file: it queues one job at a time from the gap list (`pipeline/sg-banks/meta/gaps.md`) and rotates it when done.
 > **Authorization note:** a job being queued here **is** the author's cost-gate confirmation (UPDATE.md Step 2b) for that one run — the author queues jobs by asking Claude to update this card.
 
 ## Status: **JOB QUEUED — Job #1: fetch-peers**

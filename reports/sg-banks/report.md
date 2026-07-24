@@ -29,20 +29,20 @@
 
 ## How this report was made
 
-This report is produced by a documented, AI-run workflow, fully version-controlled in a public GitHub repository: [mingsagent1/hmhc-reports](https://github.com/mingsagent1/hmhc-reports). **Instruction files** (`.md`) instruct the AI how to perform each task (similar to a standard operating procedure); **data files** are plain CSV and markdown (for example recent signals or insights). The general structure of the workflow is as follows:
+This report is produced by a documented, AI-run workflow, fully version-controlled in a public GitHub repository: [hmhc-ai/hmhc-reports](https://github.com/hmhc-ai/hmhc-reports). **Instruction files** (`.md`) instruct the AI how to perform each task (similar to a standard operating procedure); **data files** are plain CSV and markdown (for example recent signals or insights). The general structure of the workflow is as follows:
 
 - `guides/` — HUMAN-OWNED — the questions & rules the AI must follow
-  - [`frame.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/guides/frame.md) — the key questions we are trying to answer from the analysis
+  - [`frame.md`](https://github.com/hmhc-ai/hmhc-reports/blob/main/pipeline/sg-banks/guides/frame.md) — the key questions we are trying to answer from the analysis
   - `style.md` — formatting & marking rules
 - `method/` — one instruction file per step; the verb is the category (`fetch-` web · `reconcile-` cross-check · `build-` assembly · `write-` insight)
-  - [`AGENTS.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/AGENTS.md) — the ground rules every AI agent reads before working in this repo
-  - [`UPDATE.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/UPDATE.md) — intelligent instruction routing of user prompts
+  - [`AGENTS.md`](https://github.com/hmhc-ai/hmhc-reports/blob/main/AGENTS.md) — the ground rules every AI agent reads before working in this repo
+  - [`UPDATE.md`](https://github.com/hmhc-ai/hmhc-reports/blob/main/pipeline/sg-banks/UPDATE.md) — intelligent instruction routing of user prompts
   - `method/ai/` — steps performed by AI models
-    - `fetch-ledger.md` → [`data/ledger.csv`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/ledger.csv) — multiple agents retrieve & compare data
-    - `fetch-signals.md` → [`data/signals.md`](https://github.com/mingsagent1/hmhc-reports/blob/main/pipeline/sg-banks/data/signals.md) — dated, sourced qualitative signals
+    - `fetch-ledger.md` → [`data/ledger.csv`](https://github.com/hmhc-ai/hmhc-reports/blob/main/pipeline/sg-banks/data/ledger.csv) — multiple agents retrieve & compare data
+    - `fetch-signals.md` → [`data/signals.md`](https://github.com/hmhc-ai/hmhc-reports/blob/main/pipeline/sg-banks/data/signals.md) — dated, sourced qualitative signals
     - `reconcile-ledger.md` → reconciled ledger columns — human + AI cross-check of the fetched data
     - `write-conclusions.md` → Conclusions — closed-book answers to the key questions + thesis score
-    - `build-report.md` → [**`report.md`**](https://github.com/mingsagent1/hmhc-reports/commits/main/reports/sg-banks/report.md) — assembling this publicized report
+    - `build-report.md` → [**`report.md`**](https://github.com/hmhc-ai/hmhc-reports/commits/main/reports/sg-banks/report.md) — assembling this publicized report
   - `method/code/` — steps performed by deterministic programs, no AI (same input → same output, verified by automated checks)
     - `build_tables.py` → `data/tables.md` — all table arithmetic, regenerated from the ledger
     - `build_charts.py` → `assets/` charts — all figures drawn from the ledger
