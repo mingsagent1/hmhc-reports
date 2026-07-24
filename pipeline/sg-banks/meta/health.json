@@ -3,7 +3,7 @@
   "last_updated": "2026-07-24",
   "completeness": {
     "questions_total": 6,
-    "questions_answered": 3,
+    "questions_answered": 5,
     "questions": [
       {
         "id": "Q1",
@@ -32,13 +32,13 @@
       {
         "id": "Q5",
         "topic": "Monetization score vs peers",
-        "status": "partial (SG-only)",
+        "status": "answered",
         "depends_on": "fetch-peers + build-benchmarks"
       },
       {
         "id": "Q6",
         "topic": "Relative valuation vs peers",
-        "status": "pending",
+        "status": "answered",
         "depends_on": "fetch-peers + build-benchmarks"
       }
     ],
@@ -78,7 +78,7 @@
   "freshness": {
     "ledger_latest_stamp": "20260720",
     "signals_last_run": "2026-07-20",
-    "peers_fetched": false,
+    "peers_fetched": true,
     "flows_fetched": false
   }
 }

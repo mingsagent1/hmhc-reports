@@ -3,28 +3,15 @@
 > **How to use this file (for the human):** tell Perplexity — *"Read `PERPLEXITY.md` in `hmhc-ai/hmhc-reports` and execute it."* Nothing else needed. Claude maintains this file: it queues one job at a time from the gap list (`pipeline/sg-banks/meta/gaps.md`) and rotates it when done.
 > **Authorization note:** a job being queued here **is** the author's cost-gate confirmation (UPDATE.md Step 2b) for that one run — the author queues jobs by asking Claude to update this card.
 
-## Status: **JOB QUEUED — Job #1: fetch-peers**
+## Status: **NO JOB QUEUED — do nothing**
+
+There is currently no authorized job. If you were sent here, stop and report back that the job card is empty.
 
 ---
 
-## Job #1 — fetch-peers (benchmark peer financials, Frame Q5/Q6)
+## Completed jobs
 
-**Objective.** Fill `pipeline/sg-banks/data/peers.csv` with Tier-1 fundamentals for the 7 benchmark banks + the 3 SG banks (external cross-check), so the monetization and valuation indices can be computed.
-
-**Instructions — read and follow, in order:**
-1. `AGENTS.md` § Perplexity working agreement (the rules you operate under).
-2. `pipeline/sg-banks/guides/frame.md` — the peer set, metric definitions, and index design (Q5/Q6).
-3. **`pipeline/sg-banks/method/ai/fetch-peers.md` — the SOP for this job.** Banks, metrics, source hierarchy, currency rule, CSV schema, self-checks. Follow it exactly.
-
-**Deliverable.** One file only: `pipeline/sg-banks/data/peers.csv` — schema `bank, metric, period, unit, value, source, comment, version`. Provenance stamp per row: `YYYYMMDD-NNN PxGPT5.6` (adjust the model token to what you actually run on).
-
-**Git workflow.**
-- Branch: `perplexity/fetch-peers` (branched from `main`).
-- Commit message trailers per `AGENTS.md` § Commit attribution.
-- Open a pull request titled **"Perplexity: fetch-peers — benchmark peer financials (Q5/Q6)"**. In the PR description: your per-bank FY used, any `n/r`/`n/d` cells and why, and any questions.
-- **Do not merge.** Claude reviews, reconciles against the ledger's SG rows, runs the build modules, and merges.
-
-**Do not touch anything else** — no edits to `method/`, `guides/`, `reports/`, `UPDATE.md`, the registry, workflows, or this file.
+- **Job #1 — fetch-peers** (benchmark peer financials, Frame Q5/Q6) — **done 2026-07-24**, delivered in PR #26 (`perplexity/fetch-peers`, 70 rows, 10 banks × 7 metrics, stamp `20260724-001 PxClOpus4.8`). Reviewed, cross-checked against the ledger's SG rows (10/12 exact matches; 2 small deltas flagged), and merged by Claude; `build_benchmarks.py` now computes the full Q5/Q6 indices.
 
 ---
 

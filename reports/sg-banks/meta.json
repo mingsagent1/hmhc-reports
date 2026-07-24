@@ -22,7 +22,7 @@
       "fetch_ledger":      { "method": "pipeline/sg-banks/method/ai/fetch-ledger.md", "output": "pipeline/sg-banks/data/ledger.csv", "cost": "expensive" },
       "fetch_signals":     { "method": "pipeline/sg-banks/method/ai/fetch-signals.md", "output": "pipeline/sg-banks/data/signals.md", "cost": "expensive" },
       "fetch_flows":       { "method": "pipeline/sg-banks/method/ai/fetch-flows.md", "output": "pipeline/sg-banks/data/flows.csv", "cost": "expensive", "status": "written, not yet run" },
-      "fetch_peers":       { "method": "pipeline/sg-banks/method/ai/fetch-peers.md", "output": "pipeline/sg-banks/data/peers.csv", "cost": "expensive", "status": "written, not yet run" },
+      "fetch_peers":       { "method": "pipeline/sg-banks/method/ai/fetch-peers.md", "output": "pipeline/sg-banks/data/peers.csv", "cost": "expensive", "status": "run 2026-07-24 (Perplexity harness, PxClOpus4.8; PR #26)" },
       "reconcile":         { "method": "pipeline/sg-banks/method/ai/reconcile-ledger.md", "output": "reconciled_* columns in pipeline/sg-banks/data/ledger.csv" },
       "build_tables":      { "method": "pipeline/sg-banks/method/code/build-tables.md", "executable": "pipeline/sg-banks/method/code/build_tables.py", "output": "pipeline/sg-banks/data/tables.md" },
       "build_charts":     { "method": "pipeline/sg-banks/method/code/build-charts.md", "executable": "pipeline/sg-banks/method/code/build_charts.py", "output": "reports/sg-banks/assets/nim-vs-sora.svg" },

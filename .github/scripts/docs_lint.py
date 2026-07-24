@@ -22,7 +22,6 @@ errors = []
 # (fetch runs are cost-gated). Remove entries here once the data lands.
 PENDING_OUTPUTS = {
     "pipeline/sg-banks/data/flows.csv",     # fetch-flows
-    "pipeline/sg-banks/data/peers.csv",     # fetch-peers
 }
 
 def check(path_str, where):
