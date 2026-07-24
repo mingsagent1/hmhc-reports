@@ -24,11 +24,14 @@ Over a **10–15 year** horizon, Singapore keeps attracting and growing the weal
    *(Format: **line chart** — group NIM per bank vs **3M SORA (FY avg)** and **effective Fed funds (FY avg)** (theoretical Fed → SORA → NIM transmission), FY2016–25 + latest, generated deterministically from the ledger (`method/code/build_charts.py` → `reports/sg-banks/assets/nim-vs-sora.svg`); plus one or two sentences on the swing — trough → peak → latest — and the group pattern.)*
 
 5. What is the monetization score of the SG banks versus benchmark peers?
-   *(Format: **one table**, SG banks + all peers, latest available FY, index bank = 100:
-   `Bank | Monetization_vDeposits (index) | Monetization_vCapitalBase (index) | Top Other-Revenue categories (% of total revenue)`
-   **`Monetization_vDeposits`** = total revenue ÷ customer deposits — monetization of the sticky on-balance-sheet base.
-   **`Monetization_vCapitalBase`** = total revenue ÷ (customer deposits + wealth AUM) — monetization of the full attracted-capital base.
-   The second deliberately sums deposits + AUM as a service-base denominator — a noted exception to the never-sum-for-attraction rule — and AUM definitions differ across banks and overlap deposits, so the two indices are always read together. The last column is compact per bank — the top-3 non-NII categories of any significance, e.g. "insurance 23% · fees 19%"; `n/d` where a bank does not disclose the split. Benchmarks: the peer set below.)*
+   *(Format: **one table**, SG banks + all peers, latest available FY:
+   `Bank | NII (lc bn) | OR (lc bn) | NII_vDep | OR_vDep | OR_vCap | total_vCap | Top Other-Revenue categories (% of total revenue)`
+   Levels first, in each bank's **local reporting currency** (`lc`; the SG rows are S$bn — never FX-converted, per the currency rule): NII = net interest income; OR = Other Revenue = total revenue − NII. Then four within-bank ratios, each **indexed to the index bank = 100** so currencies cancel:
+   **`NII_vDep`** = NII ÷ customer deposits — rate-driven monetization of the sticky on-balance-sheet base.
+   **`OR_vDep`** = OR ÷ customer deposits — non-NII monetization of the deposit base.
+   **`OR_vCap`** = OR ÷ (customer deposits + wealth AUM) — non-NII monetization of the full attracted-capital base.
+   **`total_vCap`** = total revenue ÷ (customer deposits + wealth AUM) — total monetization of the full base (formerly `Monetization_vCapitalBase`).
+   The capital-base denominator deliberately sums deposits + AUM as a service base — a noted exception to the never-sum-for-attraction rule — and AUM definitions differ across banks and overlap deposits, so the vDep and vCap lenses are always read together. As-stated NIM per bank is footnote context only, not an index (denominator conventions differ; `n/d` where not disclosed, e.g. UBS). The last column is compact per bank — the top-3 non-NII categories of any significance, e.g. "insurance 23% · fees 19%"; `n/d` where a bank does not disclose the split. Benchmarks: the peer set below.)*
 
 **C. Relative valuations**
 
@@ -54,7 +57,9 @@ Over a **10–15 year** horizon, Singapore keeps attracting and growing the weal
 | Bank of America | US | commercial + Merrill wealth |
 | Standard Chartered | UK / Asia hubs | Asia-footprint universal bank |
 | China Merchants Bank | China | China's retail/wealth leader |
-| Commonwealth Bank | Australia | deposit-rich; wealth arm small post-divestments — read `Monetization_vDeposits` primarily |
+| RBC (Royal Bank of Canada) | Canada | Toronto-hub universal bank + top-tier global wealth arm; FY ends 31 Oct |
+
+*Australia excluded (decided 2026-07-24, replacing Commonwealth Bank with RBC): all four Australian majors divested their wealth arms (CBA → Colonial First State, NAB → MLC, ANZ → IOOF/Zurich, Westpac → BT exit), so no Australian bank discloses a comparable wealth AUM — itself a finding: Australia's banks exited the wealth flywheel the SG banks are building.*
 
 ## Decision rule
 The decisive signal is capital-attraction momentum: if deposit and wealth-AUM growth stalls or reverses — capital no longer moving into Singapore — the narrative and the premium die with it, and the asset is not allocated regardless of the other answers.
