@@ -117,10 +117,10 @@ def ratios(f):
         "NII": nii, "OR": orv,
         "NII_vDep": d(nii, dep),
         "OR_vDep": d(orv, dep),
-        "OR_vCap": d(orv, cap),
-        "total_vCap": d(rev, cap),
+        "OR_vCA": d(orv, cap),
+        "total_vCA": d(rev, cap),
         "Monetization_vDeposits": d(rev, dep),
-        "P/CapitalBase": d(mcap, cap),
+        "P/CA": d(mcap, cap),
         "P/Rev": d(mcap, rev),
         "P/E": d(mcap, prof),
         "P/B": d(mcap, book),
@@ -154,7 +154,7 @@ def build():
         order = SG + [p for p in peers if p not in SG]
         e += [f"Levels in each bank's local reporting currency (bn, never FX-converted); the four ratio columns are within-bank, "
               f"indexed to {INDEX_BANK} = 100, so currencies cancel. OR = Other Revenue = total revenue − NII.", "",
-              "| Bank | NII (lc bn) | OR (lc bn) | NII_vDep | OR_vDep | OR_vCap | total_vCap | Top Other-Revenue (% of total revenue) |",
+              "| Bank | NII (lc bn) | OR (lc bn) | NII_vDep | OR_vDep | OR_vCA | total_vCA | Top Other-Revenue (% of total revenue) |",
               "|---|---:|---:|---:|---:|---:|---:|---|"]
         for b in order:
             r = banks.get(b) or peers.get(b)
@@ -162,30 +162,43 @@ def build():
             idx = lambda k: ("n/r" if None in (r[k], base[k]) or base[k] == 0
                              else f"{r[k] / base[k] * 100:.0f}")
             e.append(f"| {b} | {lc_bn(r['NII'], ccy)} | {lc_bn(r['OR'], ccy)} | {idx('NII_vDep')} | {idx('OR_vDep')} | "
-                     f"{idx('OR_vCap')} | {idx('total_vCap')} | {meta.get(b, {}).get('top_or', 'n/d')} |")
+                     f"{idx('OR_vCA')} | {idx('total_vCA')} | {meta.get(b, {}).get('top_or', 'n/d')} |")
         nims = " · ".join(f"{b} {meta.get(b, {}).get('nim', 'n/d')}" for b in order)
         e += ["", f"*As-stated NIM (context only — denominator conventions differ per bank, not comparable as an index): {nims}.*"]
+        up = []
+        b0 = base["OR_vDep"]
+        for b in SG:
+            r = banks[b]
+            if None in (r["OR_vDep"], b0) or r["OR_vDep"] >= b0:
+                continue
+            dep = sg_fundamentals(b)["CustomerDeposits"]
+            rev = sg_fundamentals(b)["TotalRevenue"]
+            add = (b0 - r["OR_vDep"]) * dep
+            up.append(f"{b} +S${add / 1000:.1f}bn (+{add / rev * 100:.0f}% of revenue)")
+        if up:
+            e += ["", "*Implied SG Other-Revenue uplift at index-bank parity (OR_vDep gap × deposits — under the thesis, "
+                  "under-monetization of an already-attracted base is optionality): " + " · ".join(up) + ".*"]
     else:
         e += ["**Peer index pending** — `data/peers.csv` not yet fetched (module `ai/fetch-peers.md` is written; run is cost-gated). "
               "SG-only raw values meanwhile:", "",
-              "| Bank | NII_vDep | OR_vDep | total_vCap |", "|---|---:|---:|---:|"]
+              "| Bank | NII_vDep | OR_vDep | total_vCA |", "|---|---:|---:|---:|"]
         for b in SG:
-            e.append(f"| {b} | {pct(banks[b]['NII_vDep'])} | {pct(banks[b]['OR_vDep'])} | {pct(banks[b]['total_vCap'])} |")
-    e += ["", "*NII_vDep = NII ÷ customer deposits · OR_vDep = OR ÷ customer deposits · OR_vCap = OR ÷ (customer deposits + wealth AUM) · "
-          "total_vCap = total revenue ÷ (customer deposits + wealth AUM) — AUM definitions differ per bank; read the vDep and vCap lenses together.*", ""]
+            e.append(f"| {b} | {pct(banks[b]['NII_vDep'])} | {pct(banks[b]['OR_vDep'])} | {pct(banks[b]['total_vCA'])} |")
+    e += ["", "*NII_vDep = NII ÷ customer deposits · OR_vDep = OR ÷ customer deposits · OR_vCA = OR ÷ client assets · "
+          "total_vCA = total revenue ÷ client assets (CA = customer deposits + wealth AUM) — AUM definitions differ per bank; read the vDep and vCA lenses together.*", ""]
     # Q6 — valuation
     e += ["## Relative valuation (Frame Q6)", ""]
     if have_peers:
         base = peers[INDEX_BANK]
         meta = peer_meta()
         e += [f"Four indexes vs {INDEX_BANK} = 100; req %/yr = required outperformance, (premium ratio)^(1/5) − 1 per year (5-yr convergence). "
-              "Px = local per-share price with its as-of date — the staleness marker (P/Cap = P/CapitalBase).", "",
-              "| Bank | Px (as-of) | P/Cap | req %/yr | P/Rev | req %/yr | P/E | req %/yr | P/B | req %/yr |",
+              "Px = local per-share price with its as-of date — the staleness marker. P/CA = price ÷ client assets.", "",
+              "| Bank | Px (as-of) | P/CA | req %/yr | P/Rev | req %/yr | P/E | req %/yr | P/B | req %/yr |",
               "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
         for b in SG + [p for p in peers if p not in SG]:
             r = banks.get(b) or peers.get(b)
             cells = []
-            for k in ("P/CapitalBase", "P/Rev", "P/E", "P/B"):
+            for k in ("P/CA", "P/Rev", "P/E", "P/B"):
                 v, bv = r[k], base[k]
                 if None in (v, bv) or bv == 0:
                     cells += ["n/r", ""]
@@ -202,7 +215,7 @@ def build():
             r = banks[b]
             e.append(f"| {b} | " + " | ".join(
                 "n/r" if r[k] is None else f"{r[k]:.2f}" for k in ("P/CapitalBase", "P/Rev", "P/E", "P/B")) + " |")
-    e += ["", "*P/CapitalBase = market cap ÷ (deposits + AUM) · P/Rev = market cap ÷ total revenue · P/E = market cap ÷ net profit · "
+    e += ["", "*P/CA = market cap ÷ client assets (customer deposits + wealth AUM) · P/Rev = market cap ÷ total revenue · P/E = market cap ÷ net profit · "
           "P/B = market cap ÷ book equity. SG market cap = current dated price × FY25 shares outstanding, from the ledger.*", ""]
     # Q2 — flows
     e += ["## Wealth-hub capital flows (Frame Q2)", ""]

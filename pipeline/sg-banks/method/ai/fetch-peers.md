@@ -45,7 +45,7 @@ Tier 1 — the bank's own annual report / FY results release / regulatory filing
 2. Currency named per row; no conversions.
 3. WealthAUM definition captured verbatim per bank in `comment`.
 4. SG-bank rows present (cross-check set).
-5. Enough to compute, per bank: the Q5 monetization set (`NII_vDep`, `OR_vDep`, `OR_vCap`, `total_vCap` — needs `NII` alongside `TotalRevenue`) and the Q6 valuation set (`P/CapitalBase`, `P/Rev`, `P/E`, `P/B`). Computation happens downstream in `code/build_benchmarks.py`, not here.
+5. Enough to compute, per bank: the Q5 monetization set (`NII_vDep`, `OR_vDep`, `OR_vCA`, `total_vCA` — needs `NII` alongside `TotalRevenue`) and the Q6 valuation set (`P/CA`, `P/Rev`, `P/E`, `P/B`). Computation happens downstream in `code/build_benchmarks.py`, not here.
 
 ## Hand-off
 

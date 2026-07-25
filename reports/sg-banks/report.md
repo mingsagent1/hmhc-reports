@@ -21,7 +21,7 @@
 
 6. What is the relative valuation premium of the SG banks versus benchmark peers, and what annual growth outperformance over the next 5 years would justify it?
 
-**Scope.** DBS (SGX: D05) · OCBC (O39) · UOB (U11) · FY2016–FY2025 (31-Dec year-ends) + 1Q2026 interim (quarters ended 31 Mar 2026) + current (2026-07-20 intraday) valuation · **SGD only** · notation and formats in Appendix D.
+**Scope.** DBS (SGX: D05) · OCBC (O39) · UOB (U11) · FY2016–FY2025 (31-Dec year-ends) + 1Q2026 interim (quarters ended 31 Mar 2026) + current (2026-07-20 intraday) valuation · **every series in its reporting currency, never FX-converted — SG-bank series in SGD** · notation and formats in Appendix D.
 
 > **This is not financial advice.** It is a demonstration of the use of AI in business analysis.
 
@@ -60,15 +60,15 @@ The instruction files are themselves living documents: the AI reviews and refine
    |---|---:|---:|---:|---:|---:|---:|---:|
    | DBS_Deposits | 610 | 54.5 | 5.6% | +8.6 | +5.0 | +1.5 | +5.0 |
    | DBS_WealthAUM | 488 |  | 13.1% | +14.6 | +16.7 | +22.9 | +2.1 |
-   | DBS_CapitalBase | 1,098 |  | 8.5% | +11.2 | +9.7 | +9.2 | +3.9 |
+   | DBS_ClientAssets | 1,098 |  | 8.5% | +11.2 | +9.7 | +9.2 | +3.9 |
    | OCBC_Deposits | 428 | 50.7 | 6.3% | +9.6 | +7.4 | +3.9 | +2.2 |
    | OCBC_WealthAUM | 343 |  | 7.3% | +14.7 | +13.7 | +1.9 | +0.0 |
-   | OCBC_CapitalBase | 771 |  | 6.8% | +11.8 | +10.0 | +3.1 | +1.3 |
+   | OCBC_ClientAssets | 771 |  | 6.8% | +11.8 | +10.0 | +3.1 | +1.3 |
    | UOB_Deposits | 426 | 58.4 | 5.6% | +5.4 | +4.9 | +4.5 | +4.5 |
    | UOB_WealthAUM | 201 |  | 8.4% | +5.8 | +8.0 | +14.3 | +10.8 |
-   | UOB_CapitalBase | 627 |  | 6.4% | +5.6 | +5.9 | +7.4 | +6.3 |
+   | UOB_ClientAssets | 627 |  | 6.4% | +5.6 | +5.9 | +7.4 | +6.3 |
 
-   *Levels and CASA % as of FY25. 5y-CAGR = FY2020→FY2025; each FYxx % = that FY's YoY growth. **Capital Base = customer deposits + wealth AUM** — included to test how consistent the AUM/deposit/capital-base definitions are: AUM definitions differ per bank (DBS "Wealth Management AUM"; OCBC group wealth incl. Bank of Singapore + Great Eastern; UOB narrower, reclassified 1-Jan-2023), so capital-base *levels* are not cross-comparable — read within-bank trends. Secondary (1Q26): DBS deposits reached S$630bn with a record S$492bn AUM (+17% YoY cc, +S$10bn net new money); UOB added +S$1bn net new money. Sources: Tables 1–2; 1Q2026 attraction table; Signals — DBS 2026-04-30, UOB 2026-05-07.*
+   *Levels and CASA % as of FY25. 5y-CAGR = FY2020→FY2025; each FYxx % = that FY's YoY growth. **Client Assets = customer deposits + wealth AUM** (renamed from "Capital Base" to avoid collision with regulatory total capital) — included to test how consistent the AUM/deposit/client-asset definitions are: AUM definitions differ per bank (DBS "Wealth Management AUM"; OCBC group wealth incl. Bank of Singapore + Great Eastern; UOB narrower, reclassified 1-Jan-2023), so client-asset *levels* are not cross-comparable — read within-bank trends. Secondary (1Q26): DBS deposits reached S$630bn with a record S$492bn AUM (+17% YoY cc, +S$10bn net new money); UOB added +S$1bn net new money. Sources: Tables 1–2; 1Q2026 attraction table; Signals — DBS 2026-04-30, UOB 2026-05-07.*
 
 2. **Wealth-hub capital flows, last 5 years** — Pending new research module — not answerable from current data.
 
@@ -93,9 +93,9 @@ The instruction files are themselves living documents: the AI reviews and refine
 
    *Chart generated deterministically from `data/ledger.csv` by `method/code/build_charts.py` (CI-verified). Intra-cycle swing ≈ 53–74bps trough-to-peak — large enough that NII alone cannot anchor income, which is why the fee/wealth offset (Q3) matters. NIM's amplitude is far smaller than the policy rates' (~5pp Fed swing → ~0.7pp NIM swing): deposit franchises damp the cycle. Sources: Table 5; 1Q2026 income table.*
 
-5. **[±] Monetization score vs benchmark peers** — The NII/OR split settles the rate question: the SG banks earn **more NII per deposit dollar than HSBC** (NII_vDep 110–122) — SGD rates are not the drag — but they **lag badly on non-NII monetization** (OR_vDep 56–73), and that is the actual gap. The US franchises lead on both engines, and RBC — the closest wealth-flywheel comparable — out-monetizes the SG trio on Other Revenue (122) with a near 50/50 NII/OR mix.
+5. **[±] Monetization score vs benchmark peers** — The NII/OR split settles the rate question: the SG banks earn **more NII per deposit dollar than HSBC** (NII_vDep 110–122) — SGD rates are not the drag — but they **lag badly on non-NII monetization** (OR_vDep 56–73), and that is the actual gap. The US franchises lead on both engines, and RBC — the closest wealth-flywheel comparable — out-monetizes the SG trio on Other Revenue (122) with a near 50/50 NII/OR mix. Under the thesis this gap is also the upside: merely closing OR_vDep to index-bank parity implies **+S$3.0bn revenue for DBS (+13%), +S$2.6bn OCBC (+18%), +S$3.5bn UOB (+26%)** — with no additional capital attraction required.
 
-   | Bank | NII | OR | NII_vDep | OR_vDep | OR_vCap | tot_vCap | Top Other-Rev |
+   | Bank | NII | OR | NII_vDep | OR_vDep | OR_vCA | tot_vCA | Top Other-Rev |
    |---|---:|---:|---:|---:|---:|---:|---|
    | DBS | S$14.5 | S$8.4 | 122 | 73 | 75 | 100 | fees 21% · trading 15% |
    | OCBC | S$9.2 | S$5.5 | 110 | 68 | 70 | 91 | fees 17% · trading 12% · insurance 7% |
@@ -108,11 +108,11 @@ The instruction files are themselves living documents: the AI reviews and refine
    | CMB | RMB215.6 | RMB121.9 | 113 | 66 | 44 | 60 | fees 22% · other non-II 14% |
    | RBC | C$33.0 | C$33.6 | 115 | 122 | 108 | 105 | IM & custody 16% · funds 8% · trading 5% |
 
-   *NII/OR levels in each bank's local reporting currency (bn, never FX-converted); OR = total revenue − NII. Ratio columns indexed to HSBC = 100, within-bank so currencies cancel: NII_vDep = NII ÷ deposits · OR_vDep = OR ÷ deposits · OR_vCap = OR ÷ (deposits + AUM) · tot_vCap = total revenue ÷ (deposits + AUM); AUM definitions differ per bank — read the vDep and vCap lenses together (StanChart's reported OR is inflated by its Apr-2025 re-presentation). As-stated NIM, context only: DBS 2.01 · OCBC 1.91 · UOB 1.89 · HSBC 1.59 · JPM 2.50 · BofA 2.01 · StanChart 2.03 · CMB 1.87 · RBC 1.62 · UBS n/d. Category labels compressed here — full wording in Table 6. Peer data fetched 2026-07-24 (independent retriever, `PxClOpus4.8`); computed deterministically by `code/build_benchmarks.py`. Sources: Table 6; Tables 1; Appendix B.*
+   *NII/OR levels in each bank's local reporting currency (bn, never FX-converted); OR = total revenue − NII. Ratio columns indexed to HSBC = 100, within-bank so currencies cancel: NII_vDep = NII ÷ deposits · OR_vDep = OR ÷ deposits · OR_vCA = OR ÷ client assets · tot_vCA = total revenue ÷ client assets (CA = deposits + wealth AUM); AUM definitions differ per bank — read the vDep and vCA lenses together (StanChart's reported OR is inflated by its Apr-2025 re-presentation). As-stated NIM, context only: DBS 2.01 · OCBC 1.91 · UOB 1.89 · HSBC 1.59 · JPM 2.50 · BofA 2.01 · StanChart 2.03 · CMB 1.87 · RBC 1.62 · UBS n/d. Category labels compressed here — full wording in Table 6. Peer data fetched 2026-07-24 (independent retriever, `PxClOpus4.8`); computed deterministically by `code/build_benchmarks.py`. Sources: Table 6; Tables 1; Appendix B.*
 
-6. **[–] Relative valuation premium vs benchmark peers, and the 5-year growth outperformance required** — The premium is real and, for DBS and OCBC, demanding: on the primary-driver lens P/CapitalBase they'd need **+11.9%** and **+9.4% per year** of outperformance for five years to justify their multiples, with P/Rev saying the same and only the earnings lens kinder. UOB is priced near parity on every index. Among peers, RBC — the other wealth-flywheel franchise — is also priced at a premium on all four lenses (120–167): the market pays up for this model wherever it works, while the rest of the set trades at deep discounts to HSBC. The SG premium also stacks on top of the banks' own history (2.96 / 2.14 / 1.45 P/B, 96% / 84% / 24% above their 10-yr averages).
+6. **[–] Relative valuation premium vs benchmark peers, and the 5-year growth outperformance required** — The premium is real and, for DBS and OCBC, demanding: on the primary-driver lens P/CA (price ÷ client assets) they'd need **+11.9%** and **+9.4% per year** of outperformance for five years to justify their multiples, with P/Rev saying the same and only the earnings lens kinder. UOB is priced near parity on every index. Among peers, RBC — the other wealth-flywheel franchise — is also priced at a premium on all four lenses (120–167): the market pays up for this model wherever it works, while the rest of the set trades at deep discounts to HSBC. The SG premium also stacks on top of the banks' own history (2.96 / 2.14 / 1.45 P/B, 96% / 84% / 24% above their 10-yr averages).
 
-   | Bank | Px (as-of) | P/Cap | req | P/Rev | req | P/E | req | P/B | req |
+   | Bank | Px (as-of) | P/CA | req | P/Rev | req | P/E | req | P/B | req |
    |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
    | DBS | S$71.96 · 20 Jul | 175 | +11.9% | 175 | +11.8% | 112 | +2.3% | 169 | +11.0% |
    | OCBC | S$28.60 · 20 Jul | 157 | +9.4% | 172 | +11.5% | 105 | +0.9% | 122 | +4.0% |
@@ -125,11 +125,11 @@ The instruction files are themselves living documents: the AI reviews and refine
    | CMB | RMB 37.73 · 6 Jul | 33 | −19.7% | 55 | −11.2% | 38 | −17.4% | 43 | −15.7% |
    | RBC | C$293.67 · 23 Jul | 126 | +4.8% | 120 | +3.7% | 121 | +4.0% | 167 | +10.8% |
 
-   *Four indexes vs HSBC = 100; req = required outperformance, (premium)^(1/5) − 1 per year over a 5-year convergence horizon. Px = local per-share price, all dates 2026 — the staleness marker (HSBC/StanChart quoted in GBX pence on their London listings while both report in USD). Caveats per Table 6: AUM-definition differences drive much of the P/Cap spread; CMB is A-share-basis. Sources: Table 6; Table 4; 1Q2026 valuation table.*
+   *Four indexes vs HSBC = 100; req = required outperformance, (premium)^(1/5) − 1 per year over a 5-year convergence horizon. Px = local per-share price, all dates 2026 — the staleness marker (HSBC/StanChart quoted in GBX pence on their London listings while both report in USD). Caveats per Table 6: AUM-definition differences drive much of the P/CA spread; CMB is A-share-basis. Sources: Table 6; Table 4; 1Q2026 valuation table.*
 
-**Thesis score: 65/100.** The primary driver is intact and verified: deposits, wealth AUM and the combined capital base compound mid-single-digit-plus at every bank with FY24–25 growth above the 5-year trend at DBS and OCBC (Q1), and the fee engine currently offsets heavy NIM cyclicality at two of three banks (Q3, Q4). But the peer benchmarks cut both ways, and the NII/OR split sharpens where the tension sits: the SG banks already out-earn HSBC on NII per deposit (110–122) — the gap is non-NII monetization (OR_vDep 56–73), the very flywheel the thesis needs to see spin up (Q5) — while DBS and OCBC carry premia that demand roughly +9–12% annual outperformance on the capital-base and revenue lenses for five years (Q6), a high bar the earnings lens (P/E 112/105) only partly relieves. UOB is priced near parity; RBC shows the market pays the same premium wherever the wealth-flywheel model works. The score stays at 65: an expensive entry priced for a non-NII acceleration that the data does not yet show; the cross-hub flows test (Q2) remains the open pillar. Decision rule: capital-attraction momentum is **positive** — no stall or reversal — so the kill signal is not triggered.
+**Thesis score: 65/100.** The primary driver is intact and verified: deposits, wealth AUM and the combined client-asset base compound mid-single-digit-plus at every bank with FY24–25 growth above the 5-year trend at DBS and OCBC (Q1), and the fee engine currently offsets heavy NIM cyclicality at two of three banks (Q3, Q4). But the peer benchmarks cut both ways, and the NII/OR split sharpens where the tension sits: the SG banks already out-earn HSBC on NII per deposit (110–122) — the gap is non-NII monetization (OR_vDep 56–73), the very flywheel the thesis needs to see spin up — worth +13–26% of revenue at mere index-bank parity, so it is also the quantified upside (Q5) — while DBS and OCBC carry premia that demand roughly +9–12% annual outperformance on the client-assets and revenue lenses for five years (Q6), a high bar the earnings lens (P/E 112/105) only partly relieves. UOB is priced near parity; RBC shows the market pays the same premium wherever the wealth-flywheel model works. The score stays at 65: an expensive entry priced for a non-NII acceleration that the data does not yet show; the cross-hub flows test (Q2) remains the open pillar. Decision rule: capital-attraction momentum is **positive** — no stall or reversal — so the kill signal is not triggered.
 
-*Scope: questions from `guides/frame.md` (6 questions, formats per its internal notes, 2026-07-24); grounded in report.md (incl. Table 6) + data/signals.md (v2026.07.24-r4). Closed-book run by Claude (CwClFable5) — the SOP-recommended non-Claude rerun remains advisable. Not investment advice.*
+*Scope: questions from `guides/frame.md` (6 questions, formats per its internal notes, 2026-07-24); grounded in report.md (incl. Table 6) + data/signals.md (v2026.07.25). Closed-book run by Claude (CwClFable5) — the SOP-recommended non-Claude rerun remains advisable. Not investment advice.*
 <!-- conclusions:end -->
 
 ---
@@ -340,7 +340,7 @@ The instruction files are themselves living documents: the AI reviews and refine
 
 Levels in each bank's local reporting currency (bn, never FX-converted); the four ratio columns are within-bank, indexed to HSBC = 100, so currencies cancel. OR = Other Revenue = total revenue − NII.
 
-| Bank | NII (lc bn) | OR (lc bn) | NII_vDep | OR_vDep | OR_vCap | total_vCap | Top Other-Revenue (% of total revenue) |
+| Bank | NII (lc bn) | OR (lc bn) | NII_vDep | OR_vDep | OR_vCA | total_vCA | Top Other-Revenue (% of total revenue) |
 |---|---:|---:|---:|---:|---:|---:|---|
 | DBS | S$14.5 | S$8.4 | 122 | 73 | 75 | 100 | net fee & commission 21.4% · net trading income 14.7% · net income from investment securities 0.4% |
 | OCBC | S$9.2 | S$5.5 | 110 | 68 | 70 | 91 | fees & commissions 16.5% · trading income 11.5% · life & general insurance income 7.3% |
@@ -355,9 +355,11 @@ Levels in each bank's local reporting currency (bn, never FX-converted); the fou
 
 *As-stated NIM (context only — denominator conventions differ per bank, not comparable as an index): DBS 2.01 · OCBC 1.91 · UOB 1.89 · HSBC 1.59 · UBS n/d · JPMorgan Chase 2.50 · Bank of America 2.01 · Standard Chartered 2.03 · China Merchants Bank 1.87 · RBC 1.62.*
 
-Four indexes vs HSBC = 100; req %/yr = required outperformance, (premium ratio)^(1/5) − 1 per year (5-yr convergence). Px = local per-share price with its as-of date — the staleness marker (P/Cap = P/CapitalBase).
+*Implied SG Other-Revenue uplift at index-bank parity (OR_vDep gap × deposits — under the thesis, under-monetization of an already-attracted base is optionality): DBS +S$3.0bn (+13% of revenue) · OCBC +S$2.6bn (+18% of revenue) · UOB +S$3.5bn (+26% of revenue).*
 
-| Bank | Px (as-of) | P/Cap | req %/yr | P/Rev | req %/yr | P/E | req %/yr | P/B | req %/yr |
+Four indexes vs HSBC = 100; req %/yr = required outperformance, (premium ratio)^(1/5) − 1 per year (5-yr convergence). Px = local per-share price with its as-of date — the staleness marker. P/CA = price ÷ client assets.
+
+| Bank | Px (as-of) | P/CA | req %/yr | P/Rev | req %/yr | P/E | req %/yr | P/B | req %/yr |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
 | DBS | S$71.96 (2026-07-20) | 175 | +11.9% | 175 | +11.8% | 112 | +2.3% | 169 | +11.0% |
 | OCBC | S$28.60 (2026-07-20) | 157 | +9.4% | 172 | +11.5% | 105 | +0.9% | 122 | +4.0% |
@@ -370,7 +372,7 @@ Four indexes vs HSBC = 100; req %/yr = required outperformance, (premium ratio)^
 | China Merchants Bank | RMB 37.73 (2026-07-06) | 33 | -19.7% | 55 | -11.2% | 38 | -17.4% | 43 | -15.7% |
 | RBC | C$ 293.67 (2026-07-23) | 126 | +4.8% | 120 | +3.7% | 121 | +4.0% | 167 | +10.8% |
 
-*Definitions: OR = Other Revenue = total revenue − NII · NII_vDep = NII ÷ customer deposits · OR_vDep = OR ÷ deposits · OR_vCap = OR ÷ (deposits + AUM) · total_vCap = total revenue ÷ (deposits + AUM) · P/CapitalBase = market cap ÷ (deposits + AUM) · P/Rev = market cap ÷ total revenue · P/E = market cap ÷ net profit · P/B = market cap ÷ book equity. Levels (lc bn) are each bank's local reporting currency, never FX-converted; ratio columns are within-bank, so currencies cancel. SG-bank fundamentals from the reconciled ledger (market cap = the Px column's dated price × FY25 shares); peer fundamentals from Tier-1 filings — latest full FY per bank (RBC's FY ends 31 Oct 2025; CBA was replaced by RBC 2026-07-24: all four Australian majors divested their wealth arms, so no Australian bank discloses comparable wealth AUM — see `guides/frame.md`) — with dated market prices, fetched 2026-07-24 by an independent retriever (Perplexity harness, stamps `PxClOpus4.8`) — `pipeline/sg-banks/data/peers.csv`. Caveats: AUM definitions differ per bank (largest driver of the vCap and P/Cap spread — e.g. UBS invested assets US$4.75tn dwarf its deposits); China Merchants Bank market cap is A-share-basis; Standard Chartered market cap converted GBP→USD to match its USD reporting; HSBC/StanChart prices quoted in GBX (pence) on their London listings while both report in USD. Tables generated deterministically by `method/code/build_benchmarks.py` from `ledger.csv` + `peers.csv` (CI-verified).*
+*Definitions: client assets (CA) = customer deposits + wealth AUM (renamed from "Capital Base" 2026-07-25; broader than the wealth-industry usage, which can exclude ordinary deposits) · OR = Other Revenue = total revenue − NII · NII_vDep = NII ÷ customer deposits · OR_vDep = OR ÷ deposits · OR_vCA = OR ÷ CA · total_vCA = total revenue ÷ CA · P/CA = market cap ÷ CA · P/Rev = market cap ÷ total revenue · P/E = market cap ÷ net profit · P/B = market cap ÷ book equity. Levels (lc bn) are each bank's local reporting currency, never FX-converted; ratio columns are within-bank, so currencies cancel. SG-bank fundamentals from the reconciled ledger (market cap = the Px column's dated price × FY25 shares); peer fundamentals from Tier-1 filings — latest full FY per bank (RBC's FY ends 31 Oct 2025; CBA was replaced by RBC 2026-07-24: all four Australian majors divested their wealth arms, so no Australian bank discloses comparable wealth AUM — see `guides/frame.md`) — with dated market prices, fetched 2026-07-24 by an independent retriever (Perplexity harness, stamps `PxClOpus4.8`) — `pipeline/sg-banks/data/peers.csv`. Caveats: AUM definitions differ per bank (largest driver of the vCA and P/CA spread — e.g. UBS invested assets US$4.75tn dwarf its deposits); China Merchants Bank market cap is A-share-basis; Standard Chartered market cap converted GBP→USD to match its USD reporting; HSBC/StanChart prices quoted in GBX (pence) on their London listings while both report in USD. Tables generated deterministically by `method/code/build_benchmarks.py` from `ledger.csv` + `peers.csv` (CI-verified).*
 
 ---
 
