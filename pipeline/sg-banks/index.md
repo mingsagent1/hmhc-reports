@@ -27,7 +27,7 @@
 
 ## Open questions (carry forward)
 
-- **Pending fetch run** — **`ai/fetch-flows.md`** → `data/flows.csv` (Q2) remains written-not-run (cost-gated, not yet queued). (fetch-peers delta landed 2026-07-24 — Job #2; report update to the new Q5/Q6 shapes is the follow-up PR.)
+- **Fetch run queued** — **Job #3 (fetch-flows → `data/flows.csv`, Q2) queued in `PERPLEXITY.md` 2026-07-25** (author cost-gate authorization given); on landing, `build_benchmarks.py` fills the Q2 flows table and Write-Conclusions answers the last pending question. Next after that: peers-history delta (required-vs-delivered outperformance) and the council architecture (frame session with the author first).
 - **Peer-fetch model was Claude-family** — Job #1 ran on Perplexity's harness but with a Claude Opus model (`PxClOpus4.8`), so harness/search independence holds but model independence is weakened; prefer a non-Claude model in Perplexity's settings for future fetch/verify jobs.
 - **1Q2026 block is single-retriever** — all 49 Q1-2026 ledger rows are `single-cl` (one Claude pass from the evidence set, stamp `20260720-001 CwClOpus4.8`); not yet dual-checked. **UOB 1Q26 income-statement detail is Tier-2 host** (CFO/CEO slides via MarketScreener); re-pull UOB's own PDFs and run a non-Claude confirmation before high-stakes use.
 - **UOB 1Q26 non-II components don't reconcile** — slide split (637+405+462=1,504) ≠ TI−NII (1,098); derived 1,098 used, split flagged. Resolve when UOB's own release is retrievable.
