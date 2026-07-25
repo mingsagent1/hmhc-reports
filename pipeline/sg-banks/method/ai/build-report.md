@@ -14,7 +14,7 @@
 | **Recommended model** | Any capable writing/synthesis model. No search grounding — Assemble may only use its four inputs; it must not fetch outside facts. |
 | **Position** | `… → Build-Tables → Build-Report → Write-Conclusions → Publish`. Build-Report consumes `tables.md`, `signals.md`, `frame.md`, `style.md`; the Write-Conclusions and Publish modules run after. |
 
-**Banks:** DBS (D05), OCBC (O39), UOB (U11). Period FY2016–FY2025 + latest 2026 interim. **SGD only.**
+**Banks:** DBS (D05), OCBC (O39), UOB (U11). Period FY2016–FY2025 + latest 2026 interim. **Currency principle: every series in its reporting currency, never FX-converted; SG-bank series SGD.**
 
 ---
 

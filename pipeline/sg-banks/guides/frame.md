@@ -10,10 +10,10 @@ Over a **10–15 year** horizon, Singapore keeps attracting and growing the weal
 **A. Capital attraction — the primary driver**
 
 1. What is the trend for Deposits and Wealth AUM?
-   *(Format: `Bank_Metric: S$bn, CASA %, 5y-CAGR %, FY25 %, FY24 %, FY23 %, FY22 %` — metrics per bank: **Deposits**, **Wealth AUM**, and **Capital Base** = customer deposits + wealth AUM (internal note: included to see how consistent the various AUM/deposit/capital-base definitions are). Each `FYxx %` = that FY's YoY growth; CASA % applies to the Deposits rows as the deposit-quality marker; "5y" = latest FY vs FY five years prior; latest-quarter YoY as a dated secondary where available.)*
+   *(Format: `Bank_Metric: S$bn, CASA %, 5y-CAGR %, FY25 %, FY24 %, FY23 %, FY22 %` — metrics per bank: **Deposits**, **Wealth AUM**, and **Client Assets** = customer deposits + wealth AUM (internal note: included to see how consistent the various AUM/deposit/client-asset definitions are; "client assets" here is broader than the wealth-industry usage, which can exclude ordinary deposits — renamed from "Capital Base" 2026-07-25 to avoid collision with regulatory total capital). Each `FYxx %` = that FY's YoY growth; CASA % applies to the Deposits rows as the deposit-quality marker; "5y" = latest FY vs FY five years prior; latest-quarter YoY as a dated secondary where available.)*
 
 2. What is the trend in wealth-hub capital flows over the last 5 years?
-   *(Format: `WealthHub: US$tn, 5y-CAGR %, FY25 %, FY24 %, FY23 %, FY22 %` — Singapore versus Hong Kong, Switzerland, and other relevant hubs. Cross-hub macro is reported in USD as sourced — a deliberate exception to the SGD-only rule, which applies to bank financials.)*
+   *(Format: `WealthHub: US$tn, 5y-CAGR %, FY25 %, FY24 %, FY23 %, FY22 %` — Singapore versus Hong Kong, Switzerland, and other relevant hubs. Cross-hub macro is reported in USD as sourced — per the currency principle: every series in its reporting currency, never FX-converted; the SG-bank series are SGD.)*
 
 **B. Monetization — secondary (expected to follow attraction)**
 
@@ -25,24 +25,24 @@ Over a **10–15 year** horizon, Singapore keeps attracting and growing the weal
 
 5. What is the monetization score of the SG banks versus benchmark peers?
    *(Format: **one table**, SG banks + all peers, latest available FY:
-   `Bank | NII (lc bn) | OR (lc bn) | NII_vDep | OR_vDep | OR_vCap | total_vCap | Top Other-Revenue categories (% of total revenue)`
+   `Bank | NII (lc bn) | OR (lc bn) | NII_vDep | OR_vDep | OR_vCA | total_vCA | Top Other-Revenue categories (% of total revenue)`
    Levels first, in each bank's **local reporting currency** (`lc`; the SG rows are S$bn — never FX-converted, per the currency rule): NII = net interest income; OR = Other Revenue = total revenue − NII. Then four within-bank ratios, each **indexed to the index bank = 100** so currencies cancel:
    **`NII_vDep`** = NII ÷ customer deposits — rate-driven monetization of the sticky on-balance-sheet base.
    **`OR_vDep`** = OR ÷ customer deposits — non-NII monetization of the deposit base.
-   **`OR_vCap`** = OR ÷ (customer deposits + wealth AUM) — non-NII monetization of the full attracted-capital base.
-   **`total_vCap`** = total revenue ÷ (customer deposits + wealth AUM) — total monetization of the full base (formerly `Monetization_vCapitalBase`).
-   The capital-base denominator deliberately sums deposits + AUM as a service base — a noted exception to the never-sum-for-attraction rule — and AUM definitions differ across banks and overlap deposits, so the vDep and vCap lenses are always read together. As-stated NIM per bank is footnote context only, not an index (denominator conventions differ; `n/d` where not disclosed, e.g. UBS). The last column is compact per bank — the top-3 non-NII categories of any significance, e.g. "insurance 23% · fees 19%"; `n/d` where a bank does not disclose the split. Benchmarks: the peer set below.)*
+   **`OR_vCA`** = OR ÷ client assets — non-NII monetization of the full attracted base (client assets = customer deposits + wealth AUM).
+   **`total_vCA`** = total revenue ÷ client assets — total monetization of the full base (formerly `Monetization_vCapitalBase`).
+   The client-assets denominator deliberately sums deposits + AUM as a service base — a noted exception to the never-sum-for-attraction rule — and AUM definitions differ across banks and overlap deposits, so the vDep and vCA lenses are always read together. **State the implied SG Other-Revenue uplift at index-bank parity** (OR_vDep gap × deposits, and as % of revenue) — under the thesis, under-monetization of an already-attracted base is optionality, not only a deficiency. As-stated NIM per bank is footnote context only, not an index (denominator conventions differ; `n/d` where not disclosed, e.g. UBS). The last column is compact per bank — the top-3 non-NII categories of any significance, e.g. "insurance 23% · fees 19%"; `n/d` where a bank does not disclose the split. Benchmarks: the peer set below.)*
 
 **C. Relative valuations**
 
 6. What is the relative valuation premium of the SG banks versus benchmark peers, and what annual growth outperformance over the next 5 years would justify it?
    *(Format: same peers and index bank as Q5; **four valuation indexes**, each indexed to the index bank = 100, using market cap and latest-FY denominators:
-   **`P/CapitalBase`** = market cap ÷ (customer deposits + wealth AUM) — valuation per unit of attracted capital, the primary-driver lens.
+   **`P/CA`** = market cap ÷ client assets (customer deposits + wealth AUM) — valuation per unit of attracted capital, the primary-driver lens.
    **`P/Rev`** = market cap ÷ total revenue — valuation of monetization ability.
    **`P/E`** = market cap ÷ net profit — the standard earnings lens.
    **`P/B`** = market cap ÷ book equity — included as the banking convention, relevance viewed with skepticism.
-   Required outperformance per index = (premium ratio)^(1/5) − 1 per year — the extra annual growth in that index's denominator (capital base / revenue / earnings / book) needed for multiples to converge to the index bank's within 5 years. Present as **one table**, SG banks + all peers:
-   `Bank | Price (local ccy/share, as-of date) | P/CapitalBase | req %/yr | P/Rev | req %/yr | P/E | req %/yr | P/B | req %/yr`
+   Required outperformance per index = (premium ratio)^(1/5) − 1 per year — the extra annual growth in that index's denominator (client assets / revenue / earnings / book) needed for multiples to converge to the index bank's within 5 years. Present as **one table**, SG banks + all peers:
+   `Bank | Price (local ccy/share, as-of date) | P/CA | req %/yr | P/Rev | req %/yr | P/E | req %/yr | P/B | req %/yr`
    The Price column is the staleness/relevance marker: each bank's local per-share price with the date it was taken (the same dated market data behind its market cap). Comment on whether the spread between DBS, OCBC and UOB is justified by fundamentals.)*
 
 ## Benchmark peer set (used by Q5 & Q6)
